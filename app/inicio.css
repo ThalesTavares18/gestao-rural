@@ -1,0 +1,22 @@
+body{
+  background-color: #E8FBD9;
+}
+
+.logo{
+  margin: 50px;
+}
+
+.espacamento{
+  display: flex;
+  margin-left: 650px;
+}
+
+.botoes{
+  border: 2px solid black;
+  margin: 30px;
+  width: 200px;
+  height: 80px;
+  text-align: center;
+  padding-top: 30px;
+  background-color: whitesmoke;
+}
