@@ -1,0 +1,34 @@
+.produtos{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+
+.sacosQuantidade{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.SQ{
+    display: flex;
+    gap: 7px;
+}
+
+.quantidades{
+    display: flex;
+    justify-content: space-around;
+}
+
+.total{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.botoes{
+    display: flex;
+    justify-content: space-around;
+}
