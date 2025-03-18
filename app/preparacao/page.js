@@ -47,7 +47,7 @@ const Preparacao = () => {
 
       <div className='quantidades'>
         <div>
-          <label htmlFor="fname">30kg</label>
+          <label htmlFor="fname">30kg </label>
           <input
             type="number"
             id="fname"
@@ -56,7 +56,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade30kg(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">25kg</label>
+          <label htmlFor="fname">25kg </label>
           <input
             type="number"
             id="fname"
@@ -65,7 +65,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade25kg(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">20kg</label>
+          <label htmlFor="fname">20kg </label>
           <input
             type="number"
             id="fname"
@@ -74,7 +74,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade20kg(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">10kg</label>
+          <label htmlFor="fname">10kg </label>
           <input
             type="number"
             id="fname"
@@ -86,7 +86,7 @@ const Preparacao = () => {
         </div>
 
         <div>
-          <label htmlFor="fname">30kg</label>
+          <label htmlFor="fname">30kg </label>
           <input
             type="number"
             id="fname"
@@ -95,7 +95,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade30kg2(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">25kg</label>
+          <label htmlFor="fname">25kg </label>
           <input
             type="number"
             id="fname"
@@ -104,7 +104,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade25kg2(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">20kg</label>
+          <label htmlFor="fname">20kg </label>
           <input
             type="number"
             id="fname"
@@ -113,7 +113,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade20kg2(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">10kg</label>
+          <label htmlFor="fname">10kg </label>
           <input
             type="number"
             id="fname"
@@ -125,7 +125,7 @@ const Preparacao = () => {
         </div>
 
         <div>
-          <label htmlFor="fname">30kg</label>
+          <label htmlFor="fname">30kg </label>
           <input
             type="number"
             id="fname"
@@ -134,7 +134,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade30kg3(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">25kg</label>
+          <label htmlFor="fname">25kg </label>
           <input
             type="number"
             id="fname"
@@ -143,7 +143,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade25kg3(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">20kg</label>
+          <label htmlFor="fname">20kg </label>
           <input
             type="number"
             id="fname"
@@ -152,7 +152,7 @@ const Preparacao = () => {
             onChange={(e) => setQuantidade20kg3(e.target.value)}
           />
           <br /><br />
-          <label htmlFor="fname">10kg</label>
+          <label htmlFor="fname">10kg </label>
           <input
             type="number"
             id="fname"
@@ -204,7 +204,7 @@ const Preparacao = () => {
         <div>
           <button type="button">Voltar</button>
         </div>
-        <div>
+        <div className="enviar">
           <button type="button">Enviar</button>
         </div>
       </div>

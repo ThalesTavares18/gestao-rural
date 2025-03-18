@@ -1,3 +1,7 @@
+body{
+    background-color: #E8FBD9;
+}
+
 .produtos{
     display: flex;
     justify-content: space-around;
@@ -15,11 +19,20 @@
 .SQ{
     display: flex;
     gap: 7px;
+    background-color: #73C82C;
 }
 
 .quantidades{
     display: flex;
     justify-content: space-around;
+    background-color: #73C82C;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    gap: 30px;
+    color: white;
 }
 
 .total{
@@ -31,4 +44,28 @@
 .botoes{
     display: flex;
     justify-content: space-around;
+}
+
+.quantidades input{
+    height: 25px;
+    width: 200px;
+    border-radius: 20px;
+    
+}
+
+
+.total input{
+    height: 25px;
+    width: 200px;
+    border-radius: 20px;
+}
+
+
+.enviar button{
+    background-color: #FFE100;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
 }
