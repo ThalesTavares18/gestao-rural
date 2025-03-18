@@ -1,0 +1,170 @@
+/* Importação da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    background: #e8fbd9;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+/* Menu Superior */
+.menuSuperior {
+    background: #529d13;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Imagem do menu superior */
+.menuSuperiorImg {
+    background: transparent;
+    border: none;
+    width: 60px;
+    height: 60px;
+    font-size: 25px;
+}
+
+/* Painel e Conteúdo */
+.paineis {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.painelEsquerdo {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Conteudo {
+    text-align: center;
+    margin: 20px;
+    box-shadow: 2px 2px 2px #8a94a0;
+    border-radius: 10px;
+    padding: 20px;
+    color: #444;
+    background: #73C82C;
+    width: 100%;
+}
+
+.Conteudo input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Card Geral */
+.CardGeral {
+    width: 100%;
+}
+
+/* Botão Atualizar */
+.atualizar {
+    font-size: 25px;
+    padding: 15px;
+}
+
+.atualizar svg {
+    font-size: 25px;
+    padding-right: 25px;
+}
+
+/* Tabela de Produtos */
+.table {
+    width: 100%;
+    margin-top: 10px; /* Reduzido o espaço entre o título e a tabela */
+    box-shadow: 2px 2px 2px #8a94a0;
+}
+
+.table-striped {
+    background-color: #f9f9f9;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+}
+
+/* Voltar */
+.Voltar {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.voltar {
+    box-shadow: 2px 2px 2px #8a94a0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    background: #ffe100;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-color: transparent;
+}
+
+.voltar:hover{
+    background: #b8b819; ;
+}
+
+.voltar p {
+    margin: 0;
+}
+
+/* Estilos para o botão */
+.button {
+    box-shadow: 2px 2px 2px #8a94a0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    background: #ffe100;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.button:hover{
+    background: #b8b819;
+}
+
+.button p {
+    margin: 0;
+}
+
+/* Novo estilo para o título e a tabela de produtos */
+.produtosCadastradosContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.produtosCadastradosTitulo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.produtosCadastradosTitulo i {
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.produtosCadastradosTitulo p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+}
