@@ -2,15 +2,15 @@ import { useState } from "react";
 
 function MeusClientes() {
 
-    const [ usuario, alteraUsuario]= useState(true)
-    const [ telefone, alteraTelefone]= useState(true)
-    const [ email, alteraEmail]= useState(true)
+    const [ usuario, alteraUsuario]= useState("")
+    const [ telefone, alteraTelefone]= useState("")
+    const [ email, alteraEmail]= useState("")
 
     function Cadastro (){
 
         if( usuario == true ){
 
-            
+
         }
     }
     return ( 
