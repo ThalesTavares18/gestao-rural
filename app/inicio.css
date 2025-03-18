@@ -4,11 +4,14 @@ body{
 
 .logo{
   margin: 50px;
+  margin-left: 200px;
+  margin-top: 200px;
+  display: flex;
 }
 
 .espacamento{
   display: flex;
-  margin-left: 650px;
+  margin-left: 100px;
 }
 
 .botoes{
@@ -19,4 +22,12 @@ body{
   text-align: center;
   padding-top: 30px;
   background-color: whitesmoke;
+}
+
+.espacamento_cima{
+  margin-top: 200px;
+}
+
+.espacamento_esquerda{
+  margin-left: 220px;
 }
