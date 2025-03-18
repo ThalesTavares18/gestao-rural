@@ -1,6 +1,8 @@
 'use client'
 import { useState } from "react";
 import "./financeiro.css"
+
+
 function Financeiro() {
 
 
@@ -14,27 +16,28 @@ function Financeiro() {
         if( mostraGasto == true){
 
            alteraMostragasto(false)
+           alteraMostraLucro(true)
            
         }else{
 
-            alteraMostraLucro(true)
+            alteraMostraLucro(false)
+            alteraMostragasto(true)
             
         }
 
     }
 
 
-
-
     return ( 
 
         
-
         <div>
+            <a href=" http://localhost:3000/"> 
+                <button> Voltar </button>
             
+            </a>
             
     
-                <button> Voltar </button>
             <br/>
             <br/>
                 <img src=" https://placehold.co/100x100"/>
@@ -55,13 +58,13 @@ function Financeiro() {
 
                     <div className="buttonInferior">
                     
-                        <button onClick={ ()=> alteraMostragasto (true)}> Gastos </button>
+                        <button onClick={ ()=> Mostrar ()}> Gastos </button>
 
                     </div>
 
                     <div className="buttonInferior">
 
-                        <button onClick={ ()=> alteraMostraLucro (true)}> Lucro </button>
+                        <button onClick={ ()=> Mostrar ()}> Lucro </button>
 
                     </div>                            
                     
@@ -75,7 +78,7 @@ function Financeiro() {
 
 
                         <div className=" caixaP">
-                            <p>Caixa de texto </p>
+                            <p>Caixa de texto Gastos </p>
                             <br/><br/><br/>
                             <br/><br/><br/>
                             <br/><br/><br/>
@@ -93,7 +96,7 @@ function Financeiro() {
 
 
                     <div className="caixaP">
-                        <p>Caixa de texto</p>
+                        <p>Caixa de texto Lucros</p>
                         <br/><br/><br/>
                         <br/><br/><br/>
                         <br/><br/><br/>
