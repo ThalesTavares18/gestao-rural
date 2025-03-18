@@ -202,7 +202,7 @@ const Preparacao = () => {
         <div></div>
       <div className='botoes'>
         <div>
-        <   a href=" http://localhost:3000/"> 
+        <a href=" http://localhost:3000/"> 
                 <button> Voltar </button>
             
             </a>
