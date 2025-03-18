@@ -1,0 +1,124 @@
+'use client'
+import { useState } from "react";
+import "./financeiro.css"
+function Financeiro() {
+
+
+
+    const[mostraGasto , alteraMostragasto]= useState(false)
+    const[mostraLucro, alteraMostraLucro]= useState(false)
+
+
+    function Mostrar (){
+
+        if( mostraGasto == true){
+
+           alteraMostragasto(false)
+           
+        }else{
+
+            alteraMostraLucro(true)
+            
+        }
+
+    }
+
+
+
+
+    return ( 
+
+        
+
+        <div>
+            
+            
+    
+                <button> Voltar </button>
+            <br/>
+            <br/>
+                <img src=" https://placehold.co/100x100"/>
+
+            <hr/>
+
+
+            <div className="MenuFinanceiro">
+
+                <h1>Financeiro</h1>
+
+            </div> 
+                
+
+            <hr/>
+
+            <div className="MenuInferior">
+
+                    <div className="buttonInferior">
+                    
+                        <button onClick={ ()=> alteraMostragasto (true)}> Gastos </button>
+
+                    </div>
+
+                    <div className="buttonInferior">
+
+                        <button onClick={ ()=> alteraMostraLucro (true)}> Lucro </button>
+
+                    </div>                            
+                    
+            </div>
+
+
+            <div className="CaixaTexto">
+
+                {
+                    mostraGasto == true &&
+
+
+                        <div className=" caixaP">
+                            <p>Caixa de texto </p>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                        
+
+                        </div>
+
+                }
+
+                {
+
+                    mostraLucro == true &&
+
+
+                    <div className="caixaP">
+                        <p>Caixa de texto</p>
+                        <br/><br/><br/>
+                        <br/><br/><br/>
+                        <br/><br/><br/>
+                        <br/><br/><br/>
+                        <br/><br/><br/>
+                    
+                    </div>
+                }
+
+
+
+            </div>
+
+        </div>
+                
+      
+
+      
+        
+     );
+}
+
+export default Financeiro;
+
+
+
+
+
