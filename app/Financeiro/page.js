@@ -31,10 +31,12 @@ function Financeiro() {
         
 
         <div>
+            <a href=" http://localhost:3000/"> 
+                <button> Voltar </button>
             
+            </a>
             
     
-                <button> Voltar </button>
             <br/>
             <br/>
                 <img src=" https://placehold.co/100x100"/>
