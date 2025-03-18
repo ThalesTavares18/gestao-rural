@@ -95,6 +95,10 @@ const Estoque = () => {
           <p>Voltar</p>
           
         </button> </a>
+       {
+
+      } 
+      /* */
         
       </div>
     </div>
