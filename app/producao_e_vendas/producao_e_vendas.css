@@ -4,6 +4,7 @@ body{
 
 .logo{
     margin: 50px;
+    margin-bottom: 0px;
   }
 
   .voltar{
@@ -18,10 +19,24 @@ body{
   .caixa_de_texto{
     background-color: white;
     padding: 50px;
+    border: 2px solid black;
+    width: 250px;
+    height: 400px;
+    margin-top: 20px;
   }
 
   .espacamento{
     display: flex;
-    text-align: center;
-    margin-left: 100px;
+    justify-content: space-around;
+
   }
+
+  .pv{
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    border: 2px solid black;
+    padding: 15px;
+    text-align: center;
+  }
+  
