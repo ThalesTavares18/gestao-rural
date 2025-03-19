@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import "./meusclientes.css"
 
 function MeusClientes() {
 
@@ -27,11 +28,31 @@ function MeusClientes() {
     return ( 
 
         <div>
-            <h1> Meus Clientes</h1>
 
-            <p> Cadastrar Clientes </p>
+            <a href=" http://localhost:3000/"> 
+
+                <button className="buttonVoltar"> Voltar </button>
+            
+            </a>
             <br/>
-    
+            <br/>
+
+
+            <img src=" https://placehold.co/100x100"/>
+
+            <div className="MenuClientes">
+
+                <h1> Meus Clientes</h1>
+
+            </div>
+
+
+            <p> <strong> Cadastrar Clientes </strong> </p>
+
+            <br/>
+
+
+
             <label> 
 
                 Digite o nome:
@@ -40,6 +61,7 @@ function MeusClientes() {
 
 
             </label>
+    
             <br/>
             
 
