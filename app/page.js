@@ -22,14 +22,14 @@ function Inicio () {
                     <div>
 
                         <a href="http://localhost:3000/preparacao"> <p className="botoes"> Preparação </p> </a>
-                        <a href="http://localhost:3000/financeiro"> <p className="botoes"> Financeiro </p> </a>
+                        <a href="http://localhost:3000/Financeiro"> <p className="botoes"> Financeiro </p> </a>
 
                     </div>
 
 
                  </div>
 
-                <a href="http://localhost:3000/meus_clientes"> <p style={{marginLeft:810, marginTop:0}} className="botoes"> Meus Clientes </p> </a>
+                <a href="http://localhost:3000/MeusClientes"> <p style={{marginLeft:810, marginTop:0}} className="botoes"> Meus Clientes </p> </a>
 
         </div>
      );

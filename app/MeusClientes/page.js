@@ -47,32 +47,44 @@ function MeusClientes() {
             </div>
 
 
-            <p> <strong> Cadastrar Clientes </strong> </p>
+            <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
+
+               
 
             <br/>
 
 
+            <div className="sumario">
 
-            <label> 
+                <label> 
 
-                Digite o nome:
-                
-                <input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+                    Digite o nome:
+                    
+                    <input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
 
 
-            </label>
+                </label>
+
+            </div>
     
             <br/>
+                        
             
+            <div className="sumario">
 
-            <label>
+                <label>
 
-                    Digite o telefone:
+                        Digite o telefone:
 
-                    <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
+                        <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
 
-            </label>
+                </label>
+
+            </div>
+
             <br/>
+
+            <div className="sumario">
 
             <label>
 
@@ -81,18 +93,26 @@ function MeusClientes() {
                     <input onChange={ (e)=> alteraEmail(e.target.value)}/>
 
             </label>
+
+            </div>
+
             <br/>
            
+            <div >
 
-            <button onClick={ ()=> Cadastro()}> Salvar </button>
+                <button className="buttonSalvar"onClick={ ()=> Cadastro()}> Salvar </button>
+
+            </div>
+            <br/>
 
 
             {
                 mostraUsuario == true &&
 
-                    <div>
-                        <p> Usuário cadastrado com sucesso! </p>
-                    </div>
+                    
+                    <p className="mostraUsuario"> Usuário cadastrado com sucesso! </p>
+
+                    
             }
 
 
