@@ -27,20 +27,24 @@ function Financeiro() {
 
     }
 
+    
+
 
     return ( 
 
         
         <div>
             <a href=" http://localhost:3000/"> 
-                <button> Voltar </button>
+                <button className="buttonVoltar"> Voltar </button>
             
             </a>
             
     
             <br/>
             <br/>
-                <img src=" https://placehold.co/100x100"/>
+
+            <img className="logo"src="logo.png" width={100} height={100}/>
+
 
            
             <div className="MenuFinanceiro">
@@ -48,29 +52,25 @@ function Financeiro() {
                 <h1>Financeiro</h1>
 
             </div> 
+            <br/>
                 
 
             <div className="MenuInferior">
 
-                    <div className="buttonInferior">
+                                        
+                <button onClick={ ()=> Mostrar ()}> Gastos </button>
+
                     
-                        <button onClick={ ()=> Mostrar ()}> Gastos </button>
-
-                    </div>
-
-                    <div className="buttonInferior">
-
-                        <button onClick={ ()=> Mostrar ()}> Lucro </button>
-
-                    </div>                            
-                    
+                <button onClick={ ()=> Mostrar ()}> Lucro </button>
+                
+                                                                
             </div>
 
 
             <div className="CaixaTexto">
 
                 {
-                    mostraGasto == true &&
+                    mostraGasto == true ?
 
 
                         <div className=" caixaP">
@@ -82,24 +82,30 @@ function Financeiro() {
                             <br/><br/><br/>
                         
 
+                     
                         </div>
+                    :
+                    <div></div>
 
                 }
 
                 {
 
-                    mostraLucro == true &&
+                    mostraLucro == true ?
 
 
-                    <div className="caixaP">
-                        <p>Caixa de texto Lucros</p>
-                        <br/><br/><br/>
-                        <br/><br/><br/>
-                        <br/><br/><br/>
-                        <br/><br/><br/>
-                        <br/><br/><br/>
+                        <div className="caixaP">
+                            <p>Caixa de texto Lucros</p>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                            <br/><br/><br/>
+                        
                     
-                    </div>
+                        </div>
+                    :
+                    <div></div>
                 }
 
 

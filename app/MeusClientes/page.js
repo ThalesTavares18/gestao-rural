@@ -38,7 +38,8 @@ function MeusClientes() {
             <br/>
 
 
-            <img src=" https://placehold.co/100x100"/>
+            <img className="logo"src="logo.png" width={100} height={100}/>
+
 
             <div className="MenuClientes">
 
