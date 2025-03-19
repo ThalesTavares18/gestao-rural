@@ -31,3 +31,8 @@ body{
 .espacamento_esquerda{
   margin-left: 220px;
 }
+
+.barrinhaverde{
+  background-color: #529D13;
+  padding: 40px;
+}

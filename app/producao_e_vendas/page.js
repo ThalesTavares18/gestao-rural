@@ -7,13 +7,15 @@ function Producao_e_vendas() {
     return ( 
 
         <div>
+           
+                <div className="barrinhaverde">
 
-            <a href="http://localhost:3000"> <p className="voltar"> Voltar </p> </a>
-              
-            <img className="logo"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdUWneiX531Urqgpl0xNVZ4cfvussVpm_mN__aZHy-g13FsiI0whWruLphUHNtPBE_OVM&usqp=CAU"/>
+                    <img className="logo"src="logo.png" width={100} height={100}/>
 
+                    <a href="http://localhost:3000"> <p className="voltar"> Voltar </p> </a>
+
+                </div>
             
-
              <div  className="espacamento">
 
                  <p style={{marginRight:140}} className="pv">PRODUZIDOS</p>

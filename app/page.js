@@ -8,10 +8,11 @@ function Inicio () {
     return ( 
         
         <div>
-            
+            <div className="barrinhaverde"></div>
+
                  <div className="espacamento">
 
-                    <img className="logo"src="https://placehold.co/300"/>
+                    <img className="logo"src="logo.png" width={500} height={500}/>
 
                     <div className="espacamento_cima">
 
