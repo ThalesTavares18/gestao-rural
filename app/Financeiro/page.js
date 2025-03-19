@@ -27,21 +27,6 @@ function Financeiro() {
 
     }
 
-    function NaoMostrar(){
-
-        if(mostraGasto == false){
-
-            alteraMostragasto(false)
-           alteraMostraLucro(true)
-           
-        }else{
-
-            alteraMostraLucro(false)
-            alteraMostragasto(true)
-            
-
-        }
-    }
     
 
 
