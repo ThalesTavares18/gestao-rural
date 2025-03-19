@@ -14,7 +14,7 @@ body{
     border: 0;
     height: 30px;
     width: 50px;;
-    border-radius: 30px;
+    border-radius: 10px;
     background: #ffe100;
     color: black;
 
@@ -64,13 +64,17 @@ body{
     display: flex;
     color: white;
     justify-content: space-around;
-    gap: 400px;
+    gap: 600px;
+    align-items: center;
     
 }
 
 .Logo{
 
     display: flex;
+    gap:50px;
+    font-size: 20px;
+    align-items: center;
 }
 
 
