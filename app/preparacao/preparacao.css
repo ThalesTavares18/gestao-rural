@@ -1,5 +1,6 @@
 body{
     background-color: #E8FBD9;
+    font-size: 25px;
 }
 
 .produtos{
@@ -71,4 +72,5 @@ body{
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 10px;
+    font-size: 20px;
 }
