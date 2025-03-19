@@ -21,9 +21,6 @@ function MeusClientes() {
 
         }
 
-
-
-
     }
     return ( 
 

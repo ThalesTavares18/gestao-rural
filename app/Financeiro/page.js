@@ -11,57 +11,77 @@ function Financeiro() {
     const[mostraLucro, alteraMostraLucro]= useState(false)
 
 
-    function Mostrar (){
+    function MostrarGasto (){
 
         if( mostraGasto == true){
 
            alteraMostragasto(false)
-           alteraMostraLucro(true)
+          
            
         }else{
 
-            alteraMostraLucro(false)
+           
             alteraMostragasto(true)
             
         }
 
     }
 
-    
+    function MostrarLucro (){
+
+        if( mostraLucro == true){
+
+           alteraMostraLucro(false)
+          
+           
+        }else{
+
+           
+            alteraMostraLucro(true)
+            
+        }
+
+    }
 
 
     return ( 
 
         
         <div>
-            <a href=" http://localhost:3000/"> 
-                <button className="buttonVoltar"> Voltar </button>
-            
-            </a>
-            
     
-            <br/>
-            <br/>
-
-            <img className="logo"src="logo.png" width={100} height={100}/>
-
-
            
-            <div className="MenuFinanceiro">
+            <div className="barrinhaverde">
 
-                <h1>Financeiro</h1>
+                <div className="Logo">
 
-            </div> 
-            <br/>
+                        <img className="logo"src="logo.png" width={100} height={100}/>
+
+                        <h1>Financeiro</h1>
+
+                </div>
+
+                        
+                    
+
+                <div className="BotaoVoltar">
+
+                        <a href=" http://localhost:3000/"> 
+                            <button className="buttonVoltar"> Voltar </button>
+                        
+                        </a>
+
+                </div>
+                    
+            </div>
                 
 
             <div className="MenuInferior">
 
                                         
-                <button onClick={ ()=> Mostrar ()}> Gastos </button>
+                <button onClick={ ()=> MostrarGasto ()}> Gasto </button>
 
                     
-                <button onClick={ ()=> Mostrar ()}> Lucro </button>
+                <button onClick={ ()=> MostrarLucro ()}> Lucro </button>
                 
                                                                 
             </div>
