@@ -34,7 +34,6 @@ function Inicio () {
 
                         <a href="http://localhost:3000/MeusClientes"> <p style={{marginLeft:30}} className="botoes"> Meus Clientes </p> </a>
                         
-
                     </div>
 
 

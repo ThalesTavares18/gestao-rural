@@ -12,7 +12,10 @@ function Producao_e_vendas() {
 
                     <img className="logo"src="logo.png" width={100} height={100}/>
 
+
                     <a href="http://localhost:3000"> <p className="voltar"> Voltar </p> </a>
+
+                    <h1 style={{marginTop:50}}>Produção e Vendas</h1>
 
                 </div>
             
