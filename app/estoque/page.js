@@ -3,16 +3,20 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
+import { handleClientScriptLoad } from 'next/script';
 
 
 
 const Estoque = () => {
 
-  const[A1, alteraA1]=useState("")
+  const[A1, alteraA1]=useState(false)
 
-  const[selecionado, alteraSelecionado]=useState(["","",])
+  const[selecionado, alteraSelecionado]=useState(false)
 
-  
+  const handleClick = ()=>{
+    alteraA1(!A1)
+  }
+
   return (
     <div>
       <div className="menuSuperior">
@@ -27,13 +31,16 @@ const Estoque = () => {
         <div className="painelEsquerdo">
           <div className="CardGeral">
             <div className="atualizar">
-              <button className="button">
+              <button className="button" onClick={handleClick}>
                 <i className="fa-solid fa-download"></i>
-                <p>Atualizar cadastro</p>
+                <p>Cadastrar novo produto</p>
               </button>
             </div>
           </div>
 
+
+{ A1 && (
+  <>
           <div className="Conteudo">
             <div className="CardGeral">
               <input placeholder="Nome do produto" />
@@ -51,6 +58,8 @@ const Estoque = () => {
               <button className="button"> Salvar </button>
             </div>
           </div>
+          </>
+          )}
         </div>
 
         {/* Container para a tabela e o título */}
