@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import "./meusclientes.css"
 
 function MeusClientes() {
 
@@ -27,30 +28,63 @@ function MeusClientes() {
     return ( 
 
         <div>
-            <h1> Meus Clientes</h1>
 
-            <p> Cadastrar Clientes </p>
-            <br/>
-    
-            <label> 
+            <a href=" http://localhost:3000/"> 
 
-                Digite o nome:
-                
-                <input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
-
-
-            </label>
-            <br/>
+                <button className="buttonVoltar"> Voltar </button>
             
-
-            <label>
-
-                    Digite o telefone:
-
-                    <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
-
-            </label>
+            </a>
             <br/>
+            <br/>
+
+
+            <img src=" https://placehold.co/100x100"/>
+
+            <div className="MenuClientes">
+
+                <h1> Meus Clientes</h1>
+
+            </div>
+
+
+            <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
+
+               
+
+            <br/>
+
+
+            <div className="sumario">
+
+                <label> 
+
+                    Digite o nome:
+                    
+                    <input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+
+
+                </label>
+
+            </div>
+    
+            <br/>
+                        
+            
+            <div className="sumario">
+
+                <label>
+
+                        Digite o telefone:
+
+                        <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
+
+                </label>
+
+            </div>
+
+            <br/>
+
+            <div className="sumario">
 
             <label>
 
@@ -59,18 +93,26 @@ function MeusClientes() {
                     <input onChange={ (e)=> alteraEmail(e.target.value)}/>
 
             </label>
+
+            </div>
+
             <br/>
            
+            <div >
 
-            <button onClick={ ()=> Cadastro()}> Salvar </button>
+                <button className="buttonSalvar"onClick={ ()=> Cadastro()}> Salvar </button>
+
+            </div>
+            <br/>
 
 
             {
                 mostraUsuario == true &&
 
-                    <div>
-                        <p> Usuário cadastrado com sucesso! </p>
-                    </div>
+                    
+                    <p className="mostraUsuario"> Usuário cadastrado com sucesso! </p>
+
+                    
             }
 
 

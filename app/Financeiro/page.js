@@ -42,17 +42,13 @@ function Financeiro() {
             <br/>
                 <img src=" https://placehold.co/100x100"/>
 
-            <hr/>
-
-
+           
             <div className="MenuFinanceiro">
 
                 <h1>Financeiro</h1>
 
             </div> 
                 
-
-            <hr/>
 
             <div className="MenuInferior">
 

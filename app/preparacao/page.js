@@ -24,6 +24,14 @@ const Preparacao = () => {
 
   return (
     <div>
+       
+      <div className="menuSuperior">
+        <button className="menuSuperiorImg">
+        <i className="fa-solid fa-seedling"></i>
+
+        </button>
+      </div>
+
       <div className='produtos'>
         <div><h1>Produtos</h1></div>
         <div><h1>Produtos</h1></div>

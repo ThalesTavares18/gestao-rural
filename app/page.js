@@ -32,7 +32,8 @@ function Inicio () {
 
                     <div className="espacamento_esquerda">
 
-                        <a href="http://localhost:3000/meus_clientes"> <p className="botoes"> Meus Clientes </p> </a>
+                        <a href="http://localhost:3000/MeusClientes"> <p style={{marginLeft:30}} className="botoes"> Meus Clientes </p> </a>
+                        
 
                     </div>
 
@@ -40,8 +41,6 @@ function Inicio () {
                     </div>
 
                 </div>
-
-
 
         </div>
      );
