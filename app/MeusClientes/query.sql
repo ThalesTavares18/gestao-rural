@@ -8,7 +8,7 @@ VALUE
 
 
 -- Ao entrar na página Meus clientes, listar todos contatos numa tabela
-SElECT * FROM contatos;
+SElECT * FROM contatos ORDER BY nome;
 
 -- Remover um contato
 
@@ -26,6 +26,4 @@ UPDATE contatos SET nome = 'Thales' WHERE nome = 'Thalinhos';
 UPDATE contatos SET contato = '9999999999' WHERE contato = '16993605250';
 UPDATE contatos SET contato = '16993605250' WHERE contato = '9999999999';
 
--- Contatos em ordem Crescente
-SELECT nome FROM contatos ORDER BY nome;
 

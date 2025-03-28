@@ -40,9 +40,17 @@ function MeusClientes() {
 
             <div className="MenuClientes">
 
+                
+
+
                 <h1> Meus Clientes</h1>
 
             </div>
+
+                <div className="pesquisa">
+
+                    🔎<input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+                </div>
 
 
             <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
