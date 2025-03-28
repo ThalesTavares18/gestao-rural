@@ -8,7 +8,9 @@ function Inicio () {
     return ( 
         
         <div>
-            <div className="barrinhaverde"></div>
+            <div className="barrinhaverde">
+                <p>Página Inicial</p>
+            </div>
 
                  <div className="espacamento">
 
