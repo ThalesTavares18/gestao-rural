@@ -15,6 +15,7 @@ body{
     background: #529d13;
     border-radius: 20px;
     color: white;
+    
 
 }
 
@@ -73,3 +74,9 @@ input{
     color: white;
 }
 
+.pesquisa{
+
+    text-align: end;
+    padding: 20px;
+    
+}

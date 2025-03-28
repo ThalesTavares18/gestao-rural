@@ -21,9 +21,6 @@ function MeusClientes() {
 
         }
 
-
-
-
     }
     return ( 
 
@@ -43,9 +40,17 @@ function MeusClientes() {
 
             <div className="MenuClientes">
 
+                
+
+
                 <h1> Meus Clientes</h1>
 
             </div>
+
+                <div className="pesquisa">
+
+                    🔎<input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+                </div>
 
 
             <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
@@ -75,7 +80,7 @@ function MeusClientes() {
 
                 <label>
 
-                        Digite o telefone:
+                        Digite o email ou telefone:
 
                         <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
 
@@ -85,18 +90,7 @@ function MeusClientes() {
 
             <br/>
 
-            <div className="sumario">
-
-            <label>
-
-                    Digite o e-mail:
-
-                    <input onChange={ (e)=> alteraEmail(e.target.value)}/>
-
-            </label>
-
-            </div>
-
+            
             <br/>
            
             <div >

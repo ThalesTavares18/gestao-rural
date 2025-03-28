@@ -7,23 +7,14 @@ body{
     margin: 10px;
 }
 
-.MenuFinanceiro{
-    padding: 20px;
-    text-align: center;
-    font-size: 20px;
-    background: #529d13;
-    border-radius: 20px;
-    color: white;
-    
-    
-}
+   
 
 .buttonVoltar{
 
     border: 0;
     height: 30px;
     width: 50px;;
-    border-radius: 30px;
+    border-radius: 10px;
     background: #ffe100;
     color: black;
 
@@ -37,7 +28,9 @@ body{
     padding-left: 20px;
     border: none;
     background-color: #ffe100;
-    margin: 30px;
+    margin-top: 30px;
+    margin-right: 500px;
+    border-radius: 20px;
 
 
   
@@ -65,6 +58,26 @@ body{
     
     
 }
+
+.barrinhaverde{
+    background-color: #529D13;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    gap: 600px;
+    align-items: center;
+    
+}
+
+.Logo{
+
+    display: flex;
+    gap:50px;
+    font-size: 20px;
+    align-items: center;
+}
+
+
 
 
 
