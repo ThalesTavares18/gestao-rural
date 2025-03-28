@@ -15,13 +15,18 @@ body{
 }
 
 .botoes{
-  border: 2px solid black;
+  border: 2px solid #1fae1f;
   margin: 30px;
   width: 200px;
   height: 80px;
   text-align: center;
   padding-top: 30px;
   background-color: whitesmoke;
+}
+
+.botoes:hover{
+  background-color: #529D13;
+  color: white;
 }
 
 .espacamento_cima{
@@ -35,4 +40,10 @@ body{
 .barrinhaverde{
   background-color: #529D13;
   padding: 40px;
+}
+
+.barrinhaverde p{
+  text-align: center;
+  font-size: 25px;
+  color: white;
 }
