@@ -14,5 +14,18 @@ SElECT * FROM contatos;
 
 DELETE FROM contatos WHERE id = 1;
 
-SElECT 
+-- Contatos que começam com DDD (16)
+
+SELECT * FROM contatos WHERE contato lIKE '16%'; 
+
+-- Comando para atualizar um dado.
+
+UPDATE contatos SET nome = 'Thalinhos' WHERE nome = 'Thales';
+UPDATE contatos SET nome = 'Thales' WHERE nome = 'Thalinhos';
+
+UPDATE contatos SET contato = '9999999999' WHERE contato = '16993605250';
+UPDATE contatos SET contato = '16993605250' WHERE contato = '9999999999';
+
+-- Contatos em ordem Crescente
+SELECT nome FROM contatos ORDER BY nome;
 
