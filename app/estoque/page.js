@@ -20,10 +20,7 @@ const Estoque = () => {
   return (
     <div>
       <div className="menuSuperior">
-       
        <img className=' logo' src= "logo.png" />
-
-        
       </div>
 
     
