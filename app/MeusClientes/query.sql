@@ -14,9 +14,9 @@ SElECT * FROM contatos;
 
 DELETE FROM contatos WHERE id = 1;
 
--- Contatos que começam com DDD (16)
+-- Contatos que começam com DDD ()
 
-SELECT * FROM contatos WHERE contato lIKE '16%'; 
+SELECT * FROM contatos WHERE contato lIKE '%?%'; 
 
 -- Comando para atualizar um dado.
 

@@ -72,7 +72,7 @@ function MeusClientes() {
 
                 <label>
 
-                        Digite o telefone:
+                        Digite o email ou telefone:
 
                         <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
 
@@ -82,18 +82,7 @@ function MeusClientes() {
 
             <br/>
 
-            <div className="sumario">
-
-            <label>
-
-                    Digite o e-mail:
-
-                    <input onChange={ (e)=> alteraEmail(e.target.value)}/>
-
-            </label>
-
-            </div>
-
+            
             <br/>
            
             <div >
