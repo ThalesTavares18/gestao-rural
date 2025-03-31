@@ -19,6 +19,11 @@ body {
 
 /* Imagem do menu superior */
 
+/* Rolagem da tabela */
+.tabela-scroll {
+    max-height: 400px; /* Tamanho máximo da tabela */
+    overflow-y: auto;  /* Permite rolar verticalmente */
+  }
 
 .logo{
     width: 50px;
