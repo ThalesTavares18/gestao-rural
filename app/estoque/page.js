@@ -5,7 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
 import { handleClientScriptLoad } from 'next/script';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';   // Importando o ícone de edição
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
 
 const Estoque = () => {
