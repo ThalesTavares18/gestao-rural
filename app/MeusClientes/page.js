@@ -6,9 +6,9 @@ function MeusClientes() {
 
     const [ usuario, alteraUsuario]= useState("")
     const [ telefone, alteraTelefone]= useState("")
-    const [ email, alteraEmail]= useState("")
-
+    
     const [ mostraUsuario, alteraMostraUsuario ]= useState(false)
+    const [ mostraPesquisa, alteraMostraPesquisa ]= useState(false)
     
 
     function Cadastro (){
@@ -16,7 +16,9 @@ function MeusClientes() {
         if( usuario && (telefone || email)){
             
             alteraMostraUsuario(true)
+            alteraMostraUsuario = alteraMostraPesquisa
         }else{
+
 
 
         }
@@ -40,24 +42,40 @@ function MeusClientes() {
 
             <div className="MenuClientes">
 
-                
-
-
                 <h1> Meus Clientes</h1>
 
             </div>
 
                 <div className="pesquisa">
 
-                    🔎<input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+
                 </div>
 
+            <div> 
+                    <input required onChange={ (e)=> mostraPesquisa (e.target.value)}/>
 
-            <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
+                    <button className="buttonSalvar"onClick={ ()=> mostraPesquisa()}> Pesquisar </button>
+                                                        
+            </div>
+
+            {
+                mostraPesquisa == true ?
+                <div>
+                    <p> <strong>Contatos</strong></p>
+
+                    <br/><br/><br/>
+                    <br/><br/><br/>
+                    <br/><br/><br/>
+                </div>
+                :
+                <div/>
+            }
+
+               <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
 
                
 
-            <br/>
+                <br/>
 
 
             <div className="sumario">
