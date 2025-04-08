@@ -1,6 +1,14 @@
+'use client'
 import "./producao_e_vendas.css"
 
 function Producao_e_vendas() {
+
+    async function buscaTodos() {
+        const response = await axios.get("http://localhost:3000/api/pro")
+        setprodutos(response.data)
+    }
+
+
 
 
 
