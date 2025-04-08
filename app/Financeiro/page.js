@@ -7,9 +7,12 @@ import "./financeiro.css"
 
 function Financeiro() {
 
+    const [ id_produto, alteraidproduto ] = useState([])
+    const [ quantidade, alteraquantidade] = useState([])
+
+
 
     const [ vendas, alteravendas ] = useState([])
-
     const[mostraGasto , alteraMostragasto]= useState(false)
     const[mostraLucro, alteraMostraLucro]= useState(false)
 
@@ -17,6 +20,20 @@ function Financeiro() {
     async function buscaTodos(){
         const response = await axios.get("http://localhost:3000/api/financeiro")
         alteravendas( response.data )
+    }
+
+    async function inserevendas(){
+
+        const obj = {
+            id_produto: id_produto,
+            quantidade: quantidade
+        }
+
+        const response = await axios.post("http://localhost:3000/api/produtos", obj)
+        console.log(response)
+
+        buscaTodos()
+
     }
 
 
@@ -164,7 +181,19 @@ function Financeiro() {
                 :
                     <p>Carregando...</p>
             }
+        
 
+
+
+
+            <form onSubmit={ (e)=> enviaFormulario(e) } >
+                    <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraidproduto(e.target.value) } value={id_produto} /> </label>
+                    <br/>
+                    <label> Digite o preço: <br/> <input onChange={(e)=> alteraquantidade(e.target.value) } value={quantidade} /> </label>
+                    <br/>
+                    <button>Salvar</button>
+
+            </form>
         </div>
                 
       
