@@ -1,14 +1,24 @@
 'use client'
-import { useState } from "react";
+import axios from "axios";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 import "./financeiro.css"
 
 
 function Financeiro() {
 
 
+    const [ vendas, alteravendas ] = useState([])
 
     const[mostraGasto , alteraMostragasto]= useState(false)
     const[mostraLucro, alteraMostraLucro]= useState(false)
+
+
+    async function buscaTodos(){
+        const response = await axios.get("http://localhost:3000/api/financeiro")
+        alteravendas( response.data )
+    }
+
 
 
     function MostrarGasto (){
@@ -42,6 +52,10 @@ function Financeiro() {
         }
 
     }
+
+    useEffect( ()=> {
+        buscaTodos()
+    }, [] )
 
 
     return ( 
@@ -131,6 +145,25 @@ function Financeiro() {
 
 
             </div>
+
+
+            {
+                vendas.length > 0 ?
+                    <table>
+                        {
+                            vendas.map( i =>
+                                <tr  >
+                                    <td>{i.id_produto}</td>
+                                    <td>{i.quantidade}</td>
+                        
+
+                                </tr>
+                            )
+                        }
+                    </table>
+                :
+                    <p>Carregando...</p>
+            }
 
         </div>
                 

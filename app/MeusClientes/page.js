@@ -1,15 +1,50 @@
 'use client'
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 import "./meusclientes.css"
 
-function MeusClientes() {
+export default function MeusClientes() {
 
-    const [ usuario, alteraUsuario]= useState("")
-    const [ telefone, alteraTelefone]= useState("")
+    const [ usuario, alteraUsuario]= useState([])
+    const [ telefone, alteraTelefone]= useState([])
     
     const [ mostraUsuario, alteraMostraUsuario ]= useState(false)
     const [ mostraPesquisa, alteraMostraPesquisa ]= useState(false)
     
+
+
+
+    async function buscaTodos(){
+        const response= await axios.get("http://localhost:3000/api/meus_clientes")
+        alteraUsuario(response.data)
+        console.log(response.data)
+    
+    }
+
+    async function insereUsuario(){
+
+        e.preventDefault()
+
+        const obj = {
+            nome: usuario,
+            contato: telefone
+        }
+
+        const response= await axios.post("http://localhost:3000/api/meus_clientes", obj)
+        console.log(response)
+
+        buscaTodos()
+    }
+
+    function enviaFormulario(e){
+        e.preventDefault()
+
+        if( editando == 0){
+            insereProdutos()
+        
+        }
+    }
 
     function Cadastro (){
 
@@ -24,6 +59,23 @@ function MeusClientes() {
         }
 
     }
+
+    useEffect( ()=> {
+        buscaTodos()
+       
+    }, [])
+
+
+    
+    
+
+   
+    
+    
+    
+    
+    
+    
     return ( 
 
         <div>
@@ -46,93 +98,109 @@ function MeusClientes() {
 
             </div>
 
-                <div className="pesquisa">
-
-
-                </div>
-
             <div> 
-                    <input required onChange={ (e)=> mostraPesquisa (e.target.value)}/>
 
-                    <button className="buttonSalvar"onClick={ ()=> mostraPesquisa()}> Pesquisar </button>
-                                                        
+                <input onChange={ (e)=> mostraPesquisa (e.target.value)}/>
+
+                <button className="buttonSalvar"onClick={ ()=> mostraPesquisa()}> Pesquisar </button>
+
+                <hr/>
+
+
+
+
             </div>
 
-            {
-                mostraPesquisa == true ?
-                <div>
-                    <p> <strong>Contatos</strong></p>
+            <div>
+                <style>
+                        {`
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin: 20px 0;
+                            font-family: 'Arial', sans-serif;
+                        }
+                        th, td {
+                            border: 1px solid #ddd;
+                            padding: 12px;
+                            text-align: left;
+                            font-size: 16px;
+                        }
+                        th {
+                            background-color: #4CAF50;
+                            color: white;
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f2f2f2;
+                        }
+                        tr:hover {
+                            background-color: #ddd;
+                        }
+                        `}
+                </style>
+                
+                <h2> Lista Contatos </h2>
 
-                    <br/><br/><br/>
-                    <br/><br/><br/>
-                    <br/><br/><br/>
-                </div>
-                :
-                <div/>
-            }
+                {
+                    usuario.length > 0 ?
+                        <table>
 
-               <p> <u> <strong> Cadastrar Clientes </strong></u> </p>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Contato</th>
+                                </tr>
+                                
+                            </thead>
+                            <tbody>
 
-               
+                                {
+                                    usuario.map ((i, index) =>
+                                        <tr key={index}>
+                                            <td>{i.id}</td>
+                                            <td>{i.nome}</td>
+                                            <td>{i.contato}</td>
+                                        </tr>
+                                    )
+                                }
 
+                            </tbody>
+
+
+                        </table>
+
+                    :
+                    <p>Carregando...</p>
+
+                }
+            </div>
+
+
+          
+               <h1>  Cadastrar Clientes  </h1>
                 <br/>
 
-
             <div className="sumario">
 
-                <label> 
+                <form onSubmit={(e)=> enviaFormulario (e)}>
 
-                    Digite o nome:
+                    <label> Digite o nome: <br/> <input onChange={ (e)=> alteraUsuario (e.target.value) } /> </label>
+                    <br/>
+                    <label> Digite o contato: <br/> <input onChange={ (e)=> alteraTelefone (e.target.value) } /> </label>
+                    <br/>
+                    <br/>
                     
-                    <input required onChange={ (e)=> alteraUsuario (e.target.value)}/>
+                    <button className="buttonSalvar"onClick={ ()=> Cadastro()}> Salvar </button>
 
-
-                </label>
-
+                </form>
             </div>
-    
-            <br/>
-                        
             
-            <div className="sumario">
-
-                <label>
-
-                        Digite o email ou telefone:
-
-                        <input onChange={ (e)=> alteraTelefone(e.target.value)}/>
-
-                </label>
-
-            </div>
-
-            <br/>
-
             
-            <br/>
-           
-            <div >
-
-                <button className="buttonSalvar"onClick={ ()=> Cadastro()}> Salvar </button>
-
-            </div>
-            <br/>
-
-
-            {
-                mostraUsuario == true &&
-
-                    
-                    <p className="mostraUsuario"> Usuário cadastrado com sucesso! </p>
-
-                    
-            }
-
 
         </div>
 
 
      );
-}
+    }
 
-export default MeusClientes;
