@@ -1,18 +1,18 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
-import { handleClientScriptLoad } from 'next/script';
+
 
 // npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';   // Importando o ícone de edição
-import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
+import { faPencilAlt, faTrashAlt, faMagnifyingGlass, } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
 
 const Estoque = () => {
   const [A1, alteraA1] = useState(false);
-  const [nomeProduto, alteraNomeProduto] = useState('');
+  const [IDProduto, alteraIDProduto] = useState('');
   const [precoProduto, alteraPrecoProduto] = useState('');
   const [quantidadeProduto, alteraQuantidadeProduto] = useState('');
   const [produtos, setProdutos] = useState([
@@ -21,23 +21,43 @@ const Estoque = () => {
     { nome: 'Maracuja', preco: 'R$2,89', quantidade: '50 KG' },
   ]);
 
+  const buscaTodos = async () => {
+    const response = await fetch('/api/produtos');
+    const data = await response.json();
+    setProdutos(data); // Atualiza o estado com os produtos
+  };
+
+  useEffect(()=> {
+    buscaTodos()
+}, [])
+
   const handleClick = () => {
     alteraA1(!A1);
   };
 
-  const handleSalvar = () => {
+  const handleSalvar = async () => {
     const novoProduto = {
-      nome: nomeProduto,
-      preco: precoProduto,
+      IDProduto: IDProduto,
       quantidade: quantidadeProduto,
     };
-    setProdutos([...produtos, novoProduto]);
 
-    // Limpar os campos após salvar
+    const response = await fetch('/api/estoque', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(novoProduto),
+    });
+
+    const data = await response.json();
+
+    setProdutos([...produtos, {novoProduto, id: data.id }]);
+
+    // volta os campos após clicar em salvar salvar
     alteraNomeProduto('');
     alteraPrecoProduto('');
     alteraQuantidadeProduto('');
-    alteraA1(false); // Fecha o formulário após salvar
+    alteraA1(false); // Fecha o formulário depois de salvar
   };
 
   return (
@@ -63,23 +83,14 @@ const Estoque = () => {
                 <div className="CardGeral">
                   <input
                     type="text"
-                    placeholder="Nome do produto"
-                    value={nomeProduto}
-                    onChange={(e) => alteraNomeProduto(e.target.value)}
+                    placeholder="id do produto"
+                    value={IDProduto}
+                    onChange={(e) => alteraIDProduto(e.target.value)}
                   />
                 </div>
               </div>
 
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Preço por KG"
-                    value={precoProduto}
-                    onChange={(e) => alteraPrecoProduto(e.target.value)}
-                  />
-                </div>
-              </div>
+              
 
               <div className="Conteudo">
                 <div className="CardGeral">
@@ -107,7 +118,10 @@ const Estoque = () => {
         <div className="produtosCadastradosContainer">
           <div className="produtosCadastradosTitulo">
             <i className="fa-solid fa-file"></i>
-            <p>Produtos Cadastrados:</p>
+            <p className="lupa" >Produtos Cadastrados:</p>
+            <p> <FontAwesomeIcon icon={faMagnifyingGlass} /></p>
+            <input /> 
+            <button className="pesquisa"> Pesquisar </button>
           </div>
 
           <div className="tabela-scroll">
@@ -125,7 +139,7 @@ const Estoque = () => {
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{produto.nome}</td>
-                    <td>{produto.preco}</td>
+                    <td>{produto.preco }</td>
                     <td>{produto.quantidade}</td>
                     <td>
                     <button className="button-edit">
