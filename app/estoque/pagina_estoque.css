@@ -174,3 +174,9 @@ body {
     font-weight: bold;
     color: #444;
 }
+
+.button-edit{
+    margin-left: 10px;
+    border-color: transparent;
+    background: transparent;
+}

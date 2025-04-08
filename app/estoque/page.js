@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
 import { handleClientScriptLoad } from 'next/script';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
+
 const Estoque = () => {
   const [A1, alteraA1] = useState(false);
   const [nomeProduto, alteraNomeProduto] = useState('');
@@ -109,10 +112,10 @@ const Estoque = () => {
             <table className="table table-striped">
               <thead>
                 <tr>
+                  <th scope="col"></th>
                   <th scope="col">Produtos</th>
-                  <th scope="col">Preço KG</th>
-                  <th scope="col">Quantidade Disponível</th>
-                  <th scope="col">Ações</th>
+                  <th scope="col">Preço </th>
+                  <th scope="col">Quantidade</th>
                 </tr>
               </thead>
               <tbody>
@@ -123,8 +126,11 @@ const Estoque = () => {
                     <td>{produto.preco}</td>
                     <td>{produto.quantidade}</td>
                     <td>
-                      <button className="button-editar">
-                        <i className="fa-solid fa-pencil"></i>
+                    <button className="button-edit">
+                        <FontAwesomeIcon icon={faPencilAlt} />
+                      </button>
+                      <button className="button-edit">
+                      <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </td>
                   </tr>
