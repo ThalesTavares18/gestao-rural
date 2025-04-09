@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./meusclientes.css";
+import { redirect } from "next/navigation";
 
 export default function MeusClientes() {
 
@@ -68,6 +69,12 @@ export default function MeusClientes() {
         alteraNome("")
         alteraContato("")
         
+
+}
+
+    async function removeUsuarios(id){
+        await axios.delete("http://localhost:3000/api/meus_clientes/"+id)
+        buscaTodos()
 
 }
 
@@ -152,9 +159,9 @@ export default function MeusClientes() {
 
 
                                     <td> 
-                                    
+                                        <button onClick={ ()=> redirect("/meus_clientes/"+i.id)} >Ver</button>
                                         <button onClick={ ()=> montaEdicao(i)} >Editar</button>
-                                  
+                                        <button onClick={ ()=> removeUsuarios(i.id)} >Remover</button>
                                     </td>
 
                                 </tr>

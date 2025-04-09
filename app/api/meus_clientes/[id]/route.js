@@ -45,3 +45,20 @@ export async function PUT( request, {params} ){
     )
 
 }
+
+export async function DELETE ( request, {params} ){
+    
+    const id = (await params).id
+
+    const query = `DELETE FROM contatos WHERE id = ?;`
+    const [results] = await conexao.execute(query, [id])
+
+    return new Response(
+        JSON.stringify (results),
+        {   
+            status: 200,
+            headers: {"content-type": "application/json"}
+        }
+    )
+
+}
