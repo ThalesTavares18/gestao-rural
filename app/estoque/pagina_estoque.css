@@ -131,15 +131,16 @@ body {
 /* Estilos para o botão */
 .button {
     box-shadow: 2px 2px 2px #8a94a0;
-    border-radius: 10px;
-    padding: 15px 20px;
+    border-radius: 5px;
+    padding: 10px 20px;
     background: #ffe100;
     color: black;
     font-size: 20px;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    border-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover{
@@ -162,6 +163,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    justify-content: space-between;
 }
 
 .produtosCadastradosTitulo i {
@@ -180,3 +182,56 @@ body {
     border-color: transparent;
     background: transparent;
 }
+
+.pesquisa{
+    margin-left: 20px;
+    box-shadow: 2px 2px 2px #8a94a0;
+    border-radius: 10px;
+    padding: 5px 2px;
+    background: #ffe100;
+    color: black;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.lupa{
+   padding-right: 20px;
+}
+
+
+
+.tabelas-lado-a-lado {
+    display: flex;
+    align-items:last baseline;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .tabela-scroll {
+    width: 48%; 
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: fixed;
+    
+  }
+
+
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
