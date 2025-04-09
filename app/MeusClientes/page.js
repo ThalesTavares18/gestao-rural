@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import "./meusclientes.css";
 
 export default function MeusClientes() {
-    const [usuario, alteraUsuario] = useState([]);
-    const [nome, alteraNome] = useState([]);
-    const [telefone, alteraTelefone] = useState([]);
 
-    const [mostraPesquisa, alteraMostraPesquisa] = useState(false);
-    const [cadastroContato, alteraCadastroContato] = useState(0);
+    const [usuario, alteraUsuario] = useState([]);
+
+    const [nome, alteraNome] = useState("");
+    const [contato, alteraContato] = useState("");
+    
+    const [pesquisa, alteraPesquisa] = useState("");
+    const [editando, alteraEditando] = useState(0)
+ 
 
     async function buscaTodos() {
         const response = await axios.get("http://localhost:3000/api/meus_clientes");
@@ -17,12 +20,19 @@ export default function MeusClientes() {
         console.log(response.data);
     }
 
-    async function insereUsuario(e) {
-        e.preventDefault(); // Garante que o formulário não será enviado de forma tradicional
+    async function buscaPorID( id ){
+        const response= await axios.get("http://localhost:3000/api/meus_clientes/"+id)
+        alteraUsuario(response.data)
+        console.log(response.data)
+    }
+
+
+
+    async function insereUsuario() {
 
         const obj = {
             nome: nome,
-            contato: telefone,
+            contato: contato,
         }
 
         const response = await axios.post("http://localhost:3000/api/meus_clientes", obj);
@@ -32,14 +42,41 @@ export default function MeusClientes() {
     }
 
     function enviaFormulario(e) {
-        e.preventDefault();
-        if (cadastroContato == 0) {
-            insereUsuario(e);
+        e.preventDefault()
+
+        if (editando == 0) {
+            insereUsuario();
         }
     else{
-        atualizaProduto()
+        atualizaUsuario()
     }
+} 
+
+    async function atualizaUsuario(){
+        const obj = {
+            nome: nome,
+            contato: contato,
+           
+        }
+
+        console.log(obj);
+        const response= await axios.put("http://localhost:3000/api/meus_clientes/"+editando, obj)
+        console.log(response)
+        buscaTodos()
+
+        alteraEditando(0)
+        alteraNome("")
+        alteraContato("")
+        
+
 }
+
+    function montaEdicao( i ){
+        alteraEditando(i.id)
+        alteraNome(i.nome)
+        alteraContato(i.contato)
+       
+    }
 
     useEffect(() => {
         buscaTodos();
@@ -59,11 +96,11 @@ export default function MeusClientes() {
                 <h1> Meus Clientes</h1>
             </div>
 
-            <div>
-                <input onChange={(e) => alteraMostraPesquisa(e.target.value)} />
-                <button className="buttonSalvar" onClick={() => alteraMostraPesquisa()}> Pesquisar </button>
+           
+                <input onChange={(e) => alteraPesquisa(e.target.value)} />
+                <button className="buttonSalvar" onClick={() => buscaPorID(pesquisa)} > Pesquisar </button>
                 <hr />
-            </div>
+           
 
             <div>
                 <style>
@@ -95,7 +132,9 @@ export default function MeusClientes() {
 
                 <h2> Lista Contatos </h2>
 
-                {usuario.length > 0 ? (
+            {   
+            
+                usuario.length > 0 ? 
                     <table>
                         <thead>
                             <tr>
@@ -110,13 +149,28 @@ export default function MeusClientes() {
                                     <td>{i.id}</td>
                                     <td>{i.nome}</td>
                                     <td>{i.contato}</td>
+
+
+                                    <td> 
+                                    
+                                        <button onClick={ ()=> montaEdicao(i)} >Editar</button>
+                                  
+                                    </td>
+
                                 </tr>
-                            ))}
+
+                                
+                            )
+                            )   
+                            }
                         </tbody>
                     </table>
-                ) : (
-                    <p>Carregando...</p>
-                )}
+                
+                
+                : 
+                <p>Carregando...</p>
+            }
+            
             </div>
 
             <h1> Cadastrar Clientes </h1>
@@ -124,9 +178,10 @@ export default function MeusClientes() {
 
             <div className="sumario">
                 <form onSubmit={(e)=> enviaFormulario (e)}>
-                    <label> Digite o nome: <br /> <input onChange={(e) => alteraNome(e.target.value)} /> </label>
+                   
+                    <label> Digite o nome: <br /> <input onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
                     <br />
-                    <label> Digite o contato: <br /> <input onChange={(e) => alteraTelefone(e.target.value)} /> </label>
+                    <label> Digite o contato: <br /> <input onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
                     <br />
                     <br />
 
@@ -136,3 +191,4 @@ export default function MeusClientes() {
         </div>
     );
 }
+

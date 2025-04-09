@@ -21,7 +21,7 @@ export async function POST( request ){
     const body = await request.json()
 
     const query = `
-        INSERT INTO produtos (nome, contato) VALUES (?,?);
+        INSERT INTO contatos (nome, contato) VALUES (?,?);
     `
 
     const [results] = await conexao.execute(
@@ -32,3 +32,4 @@ export async function POST( request ){
     return new Response(JSON.stringify(results.insertId))
 
 }
+
