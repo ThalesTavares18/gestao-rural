@@ -7,172 +7,95 @@ import "./financeiro.css"
 
 function Financeiro() {
 
-    const [ id_produto, alteraidproduto ] = useState([])
-    const [ quantidade, alteraquantidade] = useState([])
+    const [data, alteradata] = useState([])
 
 
 
-    const [ vendas, alteravendas ] = useState([])
-    const[mostraGasto , alteraMostragasto]= useState(false)
-    const[mostraLucro, alteraMostraLucro]= useState(false)
+    {/*const [vendas, alteravendas] = useState([]) */}
 
 
-    async function buscaTodos(){
+
+    {/* async function buscaTodos() {
         const response = await axios.get("http://localhost:3000/api/financeiro")
-        alteravendas( response.data )
+        alteravendas(response.data)
+    } */}
+
+
+    // async function pesquisadata() {
+
+    //     const response = await axios.get("http://localhost:3000/api/financeiro/2025-01-03")
+    //     console.log(response)
+    //     console.log(oii)
+
+
+    // }
+
+    async function pesquisadata( data ){
+        const response = await axios.get("http://localhost:3000/api/financeiro/"+ data)
+        alteradata( response.data )
+        console.log(response.data )
     }
 
-    async function inserevendas(){
-
-        const obj = {
-            id_produto: id_produto,
-            quantidade: quantidade
-        }
-
-        const response = await axios.post("http://localhost:3000/api/produtos", obj)
-        console.log(response)
-
-        buscaTodos()
-
-    }
 
 
-
-    function MostrarGasto (){
-
-        if( mostraGasto == true){
-
-           alteraMostragasto(false)
-          
-           
-        }else{
-
-           
-            alteraMostragasto(true)
-            
-        }
-
-    }
-
-    function MostrarLucro (){
-
-        if( mostraLucro == true){
-
-           alteraMostraLucro(false)
-          
-           
-        }else{
-
-           
-            alteraMostraLucro(true)
-            
-        }
-
-    }
-
-    useEffect( ()=> {
-        buscaTodos()
-    }, [] )
-
-
-    return ( 
-
+    useEffect(() => {
         
+    }, [])
+
+
+    return (
+
+
         <div>
-    
-           
+
+
             <div className="barrinhaverde">
 
                 <div className="Logo">
 
-                        <img className="logo"src="logo.png" width={100} height={100}/>
+                    <img className="logo" src="logo.png" width={100} height={100} />
 
-                        <h1>Financeiro</h1>
+                    <h1>Financeiro</h1>
 
                 </div>
 
-                        
-                    
+
+
 
                 <div className="BotaoVoltar">
 
-                        <a href=" http://localhost:3000/"> 
-                            <button className="buttonVoltar"> Voltar </button>
-                        
-                        </a>
+                    <a href=" http://localhost:3000/">
+                        <button className="buttonVoltar"> Voltar </button>
+
+                    </a>
 
                 </div>
-                    
-            </div>
-                
-
-            <div className="MenuInferior">
-
-                                        
-                <button onClick={ ()=> MostrarGasto ()}> Gasto </button>
-
-                    
-                <button onClick={ ()=> MostrarLucro ()}> Lucro </button>
-                
-                                                                
-            </div>
-
-
-            <div className="CaixaTexto">
-
-                {
-                    mostraGasto == true ?
-
-
-                        <div className=" caixaP">
-                            <p>Caixa de texto Gastos </p>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                        
-
-                     
-                        </div>
-                    :
-                    <div></div>
-
-                }
-
-                {
-
-                    mostraLucro == true ?
-
-
-                        <div className="caixaP">
-                            <p>Caixa de texto Lucros</p>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                            <br/><br/><br/>
-                        
-                    
-                        </div>
-                    :
-                    <div></div>
-                }
-
-
 
             </div>
+
+
+
+
+            <p>Digite uma data: </p>
+            <input onChange={ (e)=> alteradata(e.target.value) } />
+            <button onClick={ ()=> pesquisadata(data) } >Pesquisar</button>
 
 
             {
-                vendas.length > 0 ?
+                data.length > 0 ?
                     <table>
+                        <tr>
+                            <td>teste</td>
+                            <td>teste</td>
+                        </tr>
                         {
-                            vendas.map( i =>
+                            data.map( i =>
                                 <tr  >
-                                    <td>{i.id_produto}</td>
-                                    <td>{i.quantidade}</td>
-                        
+                                    <td>{i.id}</td>
+                                    <td>{i.nome}</td>
+            
+                                    
+                    
 
                                 </tr>
                             )
@@ -181,26 +104,21 @@ function Financeiro() {
                 :
                     <p>Carregando...</p>
             }
-        
+
+            <hr/>
 
 
 
 
-            <form onSubmit={ (e)=> enviaFormulario(e) } >
-                    <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraidproduto(e.target.value) } value={id_produto} /> </label>
-                    <br/>
-                    <label> Digite o preço: <br/> <input onChange={(e)=> alteraquantidade(e.target.value) } value={quantidade} /> </label>
-                    <br/>
-                    <button>Salvar</button>
 
-            </form>
+
         </div>
-                
-      
 
-      
-        
-     );
+
+
+
+
+    );
 }
 
 export default Financeiro;
