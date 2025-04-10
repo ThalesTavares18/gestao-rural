@@ -1,10 +1,11 @@
 import conexao from "@/app/lib/conexao";
 
-
 export async function GET() {
-    const query = `SELECT produtos.nome, estoque.quantidade
-    FROM produtos
-    JOIN estoque ON estoque.id_produto = produtos.id`
+    const query = `
+        SELECT p.nome, e.quantidade, e.data
+        FROM estoque e
+        JOIN produtos p ON e.id_produto = p.id;
+    `;
     const [results] = await conexao.execute(query);
 
     return new Response(
@@ -13,7 +14,5 @@ export async function GET() {
             status: 200,
             headers: { "Content-Type": "application/json" }
         }
-
-        
     );
 }
