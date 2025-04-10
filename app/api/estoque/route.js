@@ -13,6 +13,8 @@ export async function GET() {
             status: 200,
             headers: { "Content-Type": "application/json" }
         }
+
+        
     );
 }
 
@@ -22,13 +24,13 @@ export async function POST(request) {
 
     const query = `
 
-        INSERT INTO estoque (id_produto, quantidade)
+        INSERT INTO estoque (nome, quantidade)
         VALUES (?, ?)
 
     `;
     const [results] = await conexao.execute(
         query,
-        [body.IDProduto, body.quantidade]
+        [body.ID_produto.nome, body.quantidade]
     );
 
     return new Response(JSON.stringify({ id: results.insertId }));

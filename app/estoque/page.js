@@ -1,24 +1,23 @@
-'use client'
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
 
-
 // npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';   // Importando o ícone de edição
-import { faPencilAlt, faTrashAlt, faMagnifyingGlass, } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
+import { faPencilAlt, faTrashAlt, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
 
 const Estoque = () => {
   const [A1, alteraA1] = useState(false);
-  const [IDProduto, alteraIDProduto] = useState('');
+  const [nomeProduto, alteraNomeProduto] = useState('');
   const [precoProduto, alteraPrecoProduto] = useState('');
   const [quantidadeProduto, alteraQuantidadeProduto] = useState('');
   const [produtos, setProdutos] = useState([
-    { nome: 'Laranja', preco: 'R$21,00', quantidade: '100 KG' },
-    { nome: 'Mandioca', preco: 'R$0,65', quantidade: '200 KG' },
-    { nome: 'Maracuja', preco: 'R$2,89', quantidade: '50 KG' },
+    { nome: 'Laranja', preco: 'R$21,00', quantidade: '100 KG', dataCadastro: '2025-04-09T10:00:00' },
+    { nome: 'Mandioca', preco: 'R$0,65', quantidade: '200 KG', dataCadastro: '2025-04-09T10:05:00' },
+    { nome: 'Maracuja', preco: 'R$2,89', quantidade: '50 KG', dataCadastro: '2025-04-09T10:10:00' },
   ]);
 
   const buscaTodos = async () => {
@@ -27,9 +26,9 @@ const Estoque = () => {
     setProdutos(data); // Atualiza o estado com os produtos
   };
 
-  useEffect(()=> {
-    buscaTodos()
-}, [])
+  useEffect(() => {
+    buscaTodos();
+  }, []);
 
   const handleClick = () => {
     alteraA1(!A1);
@@ -37,7 +36,7 @@ const Estoque = () => {
 
   const handleSalvar = async () => {
     const novoProduto = {
-      IDProduto: IDProduto,
+      nome: nomeProduto,
       quantidade: quantidadeProduto,
     };
 
@@ -49,15 +48,40 @@ const Estoque = () => {
       body: JSON.stringify(novoProduto),
     });
 
+
+    const response2 = await fetch('/api/registro', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(novoProduto),
+    });
+
+
     const data = await response.json();
+    const id_produto = await response2.json();
 
-    setProdutos([...produtos, {novoProduto, id: data.id }]);
+    setProdutos([...produtos, { novoProduto, id: data.id, id_produto }]);
 
-    // volta os campos após clicar em salvar salvar
+    // volta os campos após clicar em salvar
     alteraNomeProduto('');
-    alteraPrecoProduto('');
     alteraQuantidadeProduto('');
     alteraA1(false); // Fecha o formulário depois de salvar
+  };
+
+  const formataData = (valor) => {
+    let data = valor.split("T")[0];
+    let hora = valor.split("T")[1];
+
+    data = data.split("-");
+    data = data.reverse();
+    data = data.join("/");
+
+    hora = hora.split(".")[0];
+    hora = hora.split(":");
+    hora = hora[0] + ":" + hora[1];
+
+    return data + " às " + hora;
   };
 
   return (
@@ -72,7 +96,7 @@ const Estoque = () => {
             <div className="atualizar">
               <button className="button" onClick={handleClick}>
                 <i className="fa-solid fa-download"></i>
-                <p>Cadastrar novo produto</p>
+                <p>Atualizar Cadastrados</p>
               </button>
             </div>
           </div>
@@ -83,22 +107,31 @@ const Estoque = () => {
                 <div className="CardGeral">
                   <input
                     type="text"
-                    placeholder="id do produto"
-                    value={IDProduto}
-                    onChange={(e) => alteraIDProduto(e.target.value)}
+                    placeholder="Nome do produto"
+                    value={nomeProduto}
+                    onChange={(e) => alteraNomeProduto(e.target.value)}
                   />
                 </div>
               </div>
 
-              
+              <div className="Conteudo">
+                <div className="CardGeral">
+                  <input
+                    type="text"
+                    placeholder="Preço"
+                    value={quantidadeProduto}
+                    onChange={(e) => alteraQuantidadeProduto(e.target.value)}
+                  />
+                </div>
+              </div>
 
               <div className="Conteudo">
                 <div className="CardGeral">
                   <input
                     type="text"
                     placeholder="Quantidade"
-                    value={quantidadeProduto}
-                    onChange={(e) => alteraQuantidadeProduto(e.target.value)}
+                    value={precoProduto}
+                    onChange={(e) => alteraPrecoProduto(e.target.value)}
                   />
                 </div>
               </div>
@@ -114,45 +147,77 @@ const Estoque = () => {
           )}
         </div>
 
-        {/* Container para a tabela e o título */}
+        {/* Container para as tabelas */}
         <div className="produtosCadastradosContainer">
           <div className="produtosCadastradosTitulo">
             <i className="fa-solid fa-file"></i>
-            <p className="lupa" >Produtos Cadastrados:</p>
-            <p> <FontAwesomeIcon icon={faMagnifyingGlass} /></p>
-            <input /> 
+            <p className="lupa"> Cadastrados:</p>
+            <p><FontAwesomeIcon icon={faMagnifyingGlass} /></p>
+            <input />
             <button className="pesquisa"> Pesquisar </button>
           </div>
 
-          <div className="tabela-scroll">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Produtos</th>
-                  <th scope="col">Preço </th>
-                  <th scope="col">Quantidade</th>
-                </tr>
-              </thead>
-              <tbody>
-                {produtos.map((produto, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{produto.nome}</td>
-                    <td>{produto.preco }</td>
-                    <td>{produto.quantidade}</td>
-                    <td>
-                    <button className="button-edit">
-                        <FontAwesomeIcon icon={faPencilAlt} />
-                      </button>
-                      <button className="button-edit">
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                      </button>
-                    </td>
+          {/* Tabelas lado a lado */}
+          <div className="tabelas-lado-a-lado">
+            {/* Primeira tabela (com ícones) */}
+            <div className="tabela-scroll">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Quantidade</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {produtos.map((produto, index) => (
+                    <tr key={index}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{produto.nome}</td>
+                      <td>{produto.preco}</td>
+                      <td>{produto.quantidade}</td>
+                      <td>
+                        <button className="button-edit">
+                          <FontAwesomeIcon icon={faPencilAlt} />
+                        </button>
+                        <button className="button-edit">
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Segunda tabela (sem ícones) */}
+            <div className="tabela-scroll">
+              <div className="produtosCadastradosTitulo">
+                <p>Registro:</p>
+                <button className="button" style={{ float: 'right' }}>
+                  Novo Registro
+                </button>
+              </div>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Data</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {produtos.map((produto, index) => (
+                    <tr key={index}>
+                      <td>{produto.nome}</td>
+                      <td>{produto.quantidade}</td>
+                      <td>{formataData(produto.dataCadastro)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -169,10 +234,3 @@ const Estoque = () => {
 };
 
 export default Estoque;
-
-
-
-
-
-
-
