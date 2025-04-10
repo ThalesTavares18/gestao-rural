@@ -8,6 +8,9 @@ import "./financeiro.css"
 function Financeiro() {
 
     const [data, alteradata] = useState([])
+    const [pesquisa, alterapesquisa] = useState([])
+    const [semana, alterasemana] = useState([])
+
 
 
 
@@ -33,15 +36,37 @@ function Financeiro() {
     async function pesquisadata( data ){
         const response = await axios.get("http://localhost:3000/api/financeiro/"+ data)
         alteradata( response.data )
-        console.log(response.data )
+    
+    }
+    
+    async function pesquisasemana(){
+        const response = await axios.get("http://localhost:3000/api/financeiro/semana")
+        alterasemana( response.data)
+        
     }
 
 
 
-    useEffect(() => {
-        
-    }, [])
 
+    function formataData( valor ){
+        let data = valor.split("T")[0]
+        let hora = valor.split("T")[1]
+
+        data = data.split("-")
+        data = data.reverse()
+        data = data.join("/")
+
+        hora = hora.split(".")[0]
+        hora = hora.split(":")
+        hora = hora[0]+":"+hora[1]
+
+        return data
+
+    }
+
+
+
+    
 
     return (
 
@@ -73,38 +98,76 @@ function Financeiro() {
 
             </div>
 
-
+            
 
 
             <p>Digite uma data: </p>
-            <input onChange={ (e)=> alteradata(e.target.value) } />
-            <button onClick={ ()=> pesquisadata(data) } >Pesquisar</button>
-
+            <input type="date" onChange={ (e)=> alterapesquisa(e.target.value) } />
+            <button onClick={ ()=> pesquisadata(pesquisa) } >Pesquisar</button>
 
             {
-                data.length > 0 ?
+                data.length > 0 &&
                     <table>
+                        <tbody>
                         <tr>
-                            <td>teste</td>
-                            <td>teste</td>
+                            <td>Nome</td>
+                            <td>Quantidade</td>
+                            <td>Total Venda</td>
+                            <td>Data</td>
+                
                         </tr>
+                        
+                        </tbody>
                         {
                             data.map( i =>
                                 <tr  >
-                                    <td>{i.id}</td>
+                        
                                     <td>{i.nome}</td>
-            
+                                    <td>{i.quantidade}</td>
+                                    <td>{i.total_venda}</td>
+                                    <td>{formataData(i.data)}</td>
                                     
-                    
 
                                 </tr>
                             )
                         }
                     </table>
-                :
-                    <p>Carregando...</p>
-            }
+               
+            }    
 
+
+
+
+
+
+            {
+                semana.length > 0 &&
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Quantidade</td>
+                
+                        </tr>
+                        
+                        </tbody>
+                        {
+                            semana.map( i =>
+                                <tr  >
+                        
+                                    <td>{i.nome}</td>
+                                    <td>{i.quantidade}</td>
+                                    <td>{i.total_venda}</td>
+                                    <td>{formataData(i.data)}</td>
+                                    
+
+                                </tr>
+                            )
+                        }
+                    </table>
+               
+            }    
+           
             <hr/>
 
 
