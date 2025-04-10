@@ -193,12 +193,7 @@ const Estoque = () => {
 
             {/* Segunda tabela (sem ícones) */}
             <div className="tabela-scroll">
-              <div className="produtosCadastradosTitulo">
-                <p>Registro:</p>
-                <button className="button" style={{ float: 'right' }}>
-                  Novo Registro
-                </button>
-              </div>
+              
               <table className="table table-striped">
                 <thead>
                   <tr>
