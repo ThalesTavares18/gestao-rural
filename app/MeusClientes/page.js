@@ -2,7 +2,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./meusclientes.css";
-import { redirect } from "next/navigation";
+
+
 
 export default function MeusClientes() {
 
@@ -31,6 +32,8 @@ export default function MeusClientes() {
 
     async function insereUsuario() {
 
+        if (!nome || !contato) return;
+
         const obj = {
             nome: nome,
             contato: contato,
@@ -54,6 +57,9 @@ export default function MeusClientes() {
 } 
 
     async function atualizaUsuario(){
+
+        if (!nome || !contato) return;
+        
         const obj = {
             nome: nome,
             contato: contato,
@@ -85,6 +91,13 @@ export default function MeusClientes() {
        
     }
 
+    function cancelarEdicao() {
+       
+        alteraEditando(0);
+        alteraNome("");
+        alteraContato("");
+    }
+
     useEffect(() => {
         buscaTodos();
     }, []);
@@ -100,11 +113,14 @@ export default function MeusClientes() {
             <img className="logo" src="logo.png" width={100} height={100} />
 
             <div className="MenuClientes">
+
                 <h1> Meus Clientes</h1>
+            
             </div>
+            <br/>
 
            
-                <input onChange={(e) => alteraPesquisa(e.target.value)} />
+                <input placeholder="Pesquisa por ID..." onChange={(e) => alteraPesquisa(e.target.value)} />
                 <button className="buttonSalvar" onClick={() => buscaPorID(pesquisa)} > Pesquisar </button>
                 <hr />
            
@@ -137,7 +153,7 @@ export default function MeusClientes() {
                     `}
                 </style>
 
-                <h2> Lista Contatos </h2>
+                <h2> Lista de Contatos </h2>
 
             {   
             
@@ -159,9 +175,8 @@ export default function MeusClientes() {
 
 
                                     <td> 
-                                        <button onClick={ ()=> redirect("/meus_clientes/"+i.id)} >Ver</button>
-                                        <button onClick={ ()=> montaEdicao(i)} >Editar</button>
-                                        <button onClick={ ()=> removeUsuarios(i.id)} >Remover</button>
+                                        <button className="buttonVoltar" onClick={ ()=> montaEdicao(i)} >Editar</button>
+                                        <button className="buttonVoltar" onClick={ ()=> removeUsuarios(i.id)} >Remover</button>
                                     </td>
 
                                 </tr>
@@ -180,20 +195,28 @@ export default function MeusClientes() {
             
             </div>
 
-            <h1> Cadastrar Clientes </h1>
+            <h2> Cadastrar Clientes </h2>
             <br />
 
-            <div className="sumario">
+            <div>
                 <form onSubmit={(e)=> enviaFormulario (e)}>
                    
-                    <label> Digite o nome: <br /> <input onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
+                    <label className="formulario">  Digite o nome: <br /> <input placeholder="Seu nome..." onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
                     <br />
-                    <label> Digite o contato: <br /> <input onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
+                    <label className="formulario"> Digite o contato: <br /> <input placeholder="Email ou telefone..." onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
                     <br />
                     <br />
 
                     <button className="buttonSalvar" type="submit" >Salvar</button>
+                 
+                    <button className="buttonSalvar" type="submit" onClick={cancelarEdicao}>Cancelar</button>
+
                 </form>
+
+                 
+
+                    <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+
             </div>
         </div>
     );

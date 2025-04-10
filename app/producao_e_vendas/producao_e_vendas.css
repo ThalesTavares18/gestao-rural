@@ -46,4 +46,17 @@ body{
     padding: 6px;
     display: flex;
   }
+
+  .ml{
+    margin-left: 213px;
+    overflow-y: scroll;
+  }
+
+  .mr{
+    margin-right: 213px;
+    overflow-y: scroll;
+  }
   
+  .ta{
+    text-align: center;
+  }
