@@ -9,7 +9,9 @@ function Financeiro() {
 
     const [data, alteradata] = useState([])
     const [pesquisa, alterapesquisa] = useState([])
+    
     const [semana, alterasemana] = useState([])
+    const [mes, alterames] = useState([])
 
 
 
@@ -36,15 +38,30 @@ function Financeiro() {
     async function pesquisadata( data ){
         const response = await axios.get("http://localhost:3000/api/financeiro/"+ data)
         alteradata( response.data )
+        alterames([])
+        alterasemana([])
+
+
+
     
     }
     
     async function pesquisasemana(){
         const response = await axios.get("http://localhost:3000/api/financeiro/semana")
         alterasemana( response.data)
+        alterames([])
+        alteradata([])
+        
         
     }
-
+    
+    async function pesquisames(){
+        const response = await axios.get("http://localhost:3000/api/financeiro/mes")
+        alterames( response.data)
+        alterasemana([])
+        alteradata([])
+        
+    }
 
 
 
@@ -105,10 +122,17 @@ function Financeiro() {
             <input type="date" onChange={ (e)=> alterapesquisa(e.target.value) } />
             <button onClick={ ()=> pesquisadata(pesquisa) } >Pesquisar</button>
 
+            <button onClick={pesquisames}> Vendas da do mes</button>
+
+
+            <button onClick={pesquisasemana}> Vendas da Semana</button>
+
+
+
             {
                 data.length > 0 &&
-                    <table>
-                        <tbody>
+                <table>
+                        <thead>
                         <tr>
                             <td>Nome</td>
                             <td>Quantidade</td>
@@ -117,7 +141,9 @@ function Financeiro() {
                 
                         </tr>
                         
-                        </tbody>
+                        </thead>
+
+                        <tbody>
                         {
                             data.map( i =>
                                 <tr  >
@@ -131,21 +157,25 @@ function Financeiro() {
                                 </tr>
                             )
                         }
+
+                       
+
+                        </tbody>
                     </table>
                
             }    
 
 
 
-            <button onClick={pesquisasemana}>Semana</button>
 
 
 
             {
                 semana.length > 0 &&
                     <table>
-                        <tbody>
-                        <tr>
+                        <thead>
+                            <p>Vendas Semana</p>
+                        <tr  >
                             <td>Nome</td>
                             <td>Quantidade</td>
                             <td>Total Venda</td>
@@ -153,9 +183,48 @@ function Financeiro() {
                 
                         </tr>
                         
-                        </tbody>
+                        </thead>
+
+                        <tbody>
                         {
                             semana.map( i =>
+                                <tr>
+                        
+                                    <td>{i.nome}</td>
+                                    <td>{i.quantidade}</td>
+                                    <td>{i.total_venda}</td>
+                                    <td>{formataData(i.data)}</td>
+                                    
+
+                                </tr>
+                            )
+                        }
+                        
+                        </tbody>
+                    </table>
+               
+            }    
+           
+
+
+            {
+                mes.length > 0 &&
+                    <table>
+                        <thead>
+                            <p>Vendas mes</p>
+                            <tr  >
+                                <td>Nome</td>
+                                <td>Quantidade</td>
+                                <td>Total Venda</td>
+                                <td>Data</td>
+                    
+                            </tr>
+                        
+                        </thead>
+
+                        <tbody>
+                        {
+                            mes.map( i =>
                                 <tr  >
                         
                                     <td>{i.nome}</td>
@@ -167,13 +236,13 @@ function Financeiro() {
                                 </tr>
                             )
                         }
+
+                        </tbody>
                     </table>
                
             }    
+
            
-            <hr/>
-
-
 
 
 
