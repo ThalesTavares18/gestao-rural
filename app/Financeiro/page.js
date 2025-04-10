@@ -137,6 +137,7 @@ function Financeiro() {
 
 
 
+            <button onClick={pesquisasemana}>Semana</button>
 
 
 
@@ -147,6 +148,8 @@ function Financeiro() {
                         <tr>
                             <td>Nome</td>
                             <td>Quantidade</td>
+                            <td>Total Venda</td>
+                            <td>Data</td>
                 
                         </tr>
                         
