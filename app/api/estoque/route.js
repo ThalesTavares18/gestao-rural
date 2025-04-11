@@ -20,10 +20,11 @@ export async function GET() {
 export async function POST(request) {
     const body = await request.json();
     const query = `
-       INSERT INTO produtos ( nome, preco ) VALUES ('?',?)
+        INSERT INTO estoque (id_produto, quantidade)
+        VALUES ((SELECT id FROM produtos WHERE nome = ?), ?);
     `;
 
-    const [results] = await conexao.execute(query, [body.nome, body.quantidade]);
+    const [results] = await conexao.execute(query, [body.id_produto, body.quantidade]);
 
     return new Response(
         JSON.stringify({ id: results.insertId }),
@@ -37,10 +38,8 @@ export async function POST(request) {
 export async function UPDATE(request) {
     const body = await request.json();
     const query = `
-        UPDATE estoque
-        SET quantidade = ?
-        WHERE id_produto = ?;
-    `;
+        UPDATE estoque SET id_produto =1, quantidade =20 WHERE id_produto = 1`;
+
 
     const [results] = await conexao.execute(query, [body.quantidade, body.id_produto]);
 
