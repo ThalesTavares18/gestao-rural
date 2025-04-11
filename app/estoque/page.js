@@ -1,18 +1,18 @@
 'use client';
-
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './pagina_estoque.css';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
-import { faPencilAlt, faTrashAlt, faMagnifyingGlass, faRightLeft } from '@fortawesome/free-solid-svg-icons';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt, faMagnifyingGlass, faRightLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Estoque = () => {
   const [estoque, alteraEstoque] = useState(0);
   const [A1, alteraA1] = useState(false);
   const [nomeProduto, alteraNomeProduto] = useState('');
-  const [precoProduto, alteraPrecoProduto] = useState('');
-  const [quantidadeProduto, alteraQuantidadeProduto] = useState('');
+  const [precoProduto, alteraPrecoProduto] = useState([]);
+  const [quantidadeProduto, alteraQuantidadeProduto] = useState([]);
   const [produtos, setProdutos] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);  // Produto para editar
   const [novaQuantidade, setNovaQuantidade] = useState('');  // Nova quantidade no modal
@@ -22,11 +22,14 @@ const Estoque = () => {
 
   // Função para buscar todos os produtos
   const buscaTodos = async () => {
-    const response = await fetch('/api/produtos');
-    const data = await response.json();
-    setProdutos(data); // Atualiza o estado com os produtos
+    try {
+      const response = await axios.get('/api/estoque');
+      setProdutos(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+    }
   };
-
+  
   useEffect(() => {
     buscaTodos();
   }, []);
@@ -41,32 +44,19 @@ const Estoque = () => {
     if (nomeProduto && quantidadeProduto) {
       const novoProduto = {
         nome: nomeProduto,
-        quantidade: quantidadeProduto,
-        preco: precoProduto
+        preco: parseFloat (precoProduto),
+        quantidade: parseInt (quantidadeProduto)
       };
-
+  
       try {
-        // Enviar para o back-end e salvar o produto no estoque
-        const response = await fetch('/api/estoque', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(novoProduto),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-
-          // Atualizando a tabela com os novos dados
-          const produtoComId = { ...novoProduto, id: data.id };
-          setProdutos([...produtos, produtoComId]);
-
-          // Limpar campos e fechar formulário
-          alteraNomeProduto('');
-          alteraQuantidadeProduto('');
+        const response = await axios.post('/api/estoque', novoProduto);
+  
+        if (response.status === 200) {
+          // Produto salvo com sucesso
           alteraPrecoProduto('');
-          alteraA1(false);  // Fechar o modal/formulário
+          alteraA1(false);
+          console.log("Produto salvo com sucesso");
+          buscaTodos(); // Atualiza a lista
         } else {
           console.error('Erro ao salvar o produto');
         }
@@ -77,29 +67,27 @@ const Estoque = () => {
       console.log('Nome e quantidade do produto são obrigatórios.');
     }
   };
+  
 
   // Função para alterar a quantidade de um produto no estoque
   const handleAlterarEstoque = async (produtoId, novaQuantidade) => {
-    const response = await fetch('/api/estoque', {
-      method: 'UPDATE',  // ALTERAÇÃO (não é um POST, é um PUT ou PATCH para atualizar)
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    try {
+      const response = await axios.put('/api/estoque', {
         id_produto: produtoId,
         quantidade: novaQuantidade,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data.message);
-
-    // Atualiza o estado do estoque após a alteração
-    const novosProdutos = produtos.map(produto => 
-      produto.id === produtoId ? { ...produto, quantidade: novaQuantidade } : produto
-    );
-    setProdutos(novosProdutos);
+      });
+  
+      console.log(response.data.message);
+  
+      const novosProdutos = produtos.map(produto =>
+        produto.id === produtoId ? { ...produto, quantidade: novaQuantidade } : produto
+      );
+      setProdutos(novosProdutos);
+    } catch (error) {
+      console.error('Erro ao alterar estoque:', error);
+    }
   };
+  
 
   // Função chamada quando o modal de adicionar estoque é salvo
   const handleSalvarModal = async () => {
@@ -114,31 +102,26 @@ const Estoque = () => {
   const handleAlterarNome = async () => {
     if (produtoParaAlterarNome && nomeProduto) {
       const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
-
-      // Atualiza no banco de dados
-      const response = await fetch('/api/produtos', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedProduto),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        // Atualiza o estado com o novo nome
-        const produtosAtualizados = produtos.map(produto => 
-          produto.id === updatedProduto.id ? updatedProduto : produto
-        );
-        setProdutos(produtosAtualizados);
+  
+      try {
+        const response = await axios.put('/api/produtos', updatedProduto);
+  
+        if (response.data.success) {
+          const produtosAtualizados = produtos.map(produto =>
+            produto.id === updatedProduto.id ? updatedProduto : produto
+          );
+          setProdutos(produtosAtualizados);
+        }
+  
+        setModalNomeAberto(false);
+        setProdutoParaAlterarNome(null);
+        alteraNomeProduto('');
+      } catch (error) {
+        console.error('Erro ao alterar nome:', error);
       }
-
-      // Fecha o modal
-      setModalNomeAberto(false);
-      setProdutoParaAlterarNome(null);
-      alteraNomeProduto('');
     }
   };
+  
 
   // Função para formatar a data no formato "dd/mm/yyyy hh:mm"
   const formataData = (valor) => {
@@ -158,7 +141,7 @@ const Estoque = () => {
 
   // Função para pesquisar produtos
   const handlePesquisar = () => {
-    const produtosFiltrados = produtos.filter(produto => 
+    const produtosFiltrados = produtos.filter(produto =>
       produto.nome.toLowerCase().includes(pesquisa.toLowerCase())
     );
     setProdutos(produtosFiltrados);
@@ -255,7 +238,7 @@ const Estoque = () => {
             <i className="fa-solid fa-file"></i>
             <p className="lupa"> Cadastrados:</p>
             <p><FontAwesomeIcon icon={faMagnifyingGlass} /></p>
-            <input 
+            <input
               value={pesquisa}
               onChange={(e) => setPesquisa(e.target.value)}
             />
@@ -269,11 +252,10 @@ const Estoque = () => {
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Quantidade</th>
-                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -4,9 +4,7 @@ import conexao from "@/app/lib/conexao";
 
 export async function GET() {
     const query = `
-        SELECT p.nome, p.preco, e.quantidade, e.id_produto
-        FROM estoque e
-        JOIN produtos p ON e.id_produto = p.id;
+         SELECT p.nome, e.quantidade, e.data FROM estoque e JOIN produtos p ON e.id_produto = p.id;
     `;
     const [results] = await conexao.execute(query);
 
@@ -22,8 +20,7 @@ export async function GET() {
 export async function POST(request) {
     const body = await request.json();
     const query = `
-        INSERT INTO estoque (id_produto, quantidade)
-        VALUES ((SELECT id FROM produtos WHERE nome = ?), ?);
+       INSERT INTO produtos ( nome, preco ) VALUES ('?',?)
     `;
 
     const [results] = await conexao.execute(query, [body.nome, body.quantidade]);
@@ -56,16 +53,4 @@ export async function UPDATE(request) {
     );
 }
 
-// Express Route Example
-app.post('/api/estoque', async (req, res) => {
-    const { nome, preco, quantidade } = req.body;
-    try {
-      const produto = new Produto({ nome, preco, quantidade });
-      await produto.save();
-      res.status(201).json({ message: 'Produto salvo com sucesso!', id: produto._id });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Erro ao salvar produto no banco de dados.' });
-    }
-  });
-  
+
