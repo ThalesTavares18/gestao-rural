@@ -16,12 +16,12 @@ export default function Home() {
     const [ pesquisa, alteraPesquisa ] = useState("")
 
     async function buscaTodos(){
-        const response = await axios.get("http://localhost:3000/api/produtos")
+        const response = await axios.get("http://localhost:3000/api/estoque")
         alteraProdutos( response.data )
     }
 
     async function buscaPorID( id ){
-        const response = await axios.get("http://localhost:3000/api/produtos/"+id)
+        const response = await axios.get("http://localhost:3000/api/estoque/"+nome)
         alteraProdutos( response.data )
     }
 
