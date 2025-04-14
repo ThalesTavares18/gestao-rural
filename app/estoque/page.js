@@ -11,11 +11,15 @@ export default function Home() {
     const [ preco, alteraPreco ] = useState([])
     const [ quantidade, alteraQuantidade ] = useState([])
 
+<<<<<<< Updated upstream
     const [modalNomeAberto, setModalNomeAberto] = useState(false); // Controle do modal de nome
+=======
+>>>>>>> Stashed changes
     const [ editando, alteraEditando ] = useState(0)
     const [ pesquisa, alteraPesquisa ] = useState("")
 
     async function buscaTodos(){
+<<<<<<< Updated upstream
         const response = await axios.get("http://localhost:3000/api/estoque")
         alteraProdutos( response.data )
     }
@@ -24,8 +28,31 @@ export default function Home() {
         const response = await axios.get("http://localhost:3000/api/estoque/"+nome)
         alteraProdutos( response.data )
     }
+=======
+        const response = await axios.get("http://localhost:3000/api/produtos")
+        alteraProdutos( response.data )
+    }
 
+    async function buscaPorID( id ){
+        const response = await axios.get("http://localhost:3000/api/produtos/"+id)
+        alteraProdutos( response.data )
+    }
 
+    function buscaPorNome(){}
+
+    async function insereProduto(){
+
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
+        }
+>>>>>>> Stashed changes
+
+        const response = await axios.post("http://localhost:3000/api/produtos", obj)
+        console.log(response)
+
+<<<<<<< Updated upstream
     
     function buscaPorNome(){}
 
@@ -81,8 +108,13 @@ export default function Home() {
         hora = hora[0]+":"+hora[1]
 
         return data+" às "+hora
+=======
+        buscaTodos()
+>>>>>>> Stashed changes
 
+    }
 
+<<<<<<< Updated upstream
         
 
 
@@ -118,6 +150,70 @@ export default function Home() {
         buscaTodos()
     }, [] )
 
+=======
+    async function atualizaProduto(){
+
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
+        }
+
+        const response = await axios.put("http://localhost:3000/api/produtos/"+editando, obj)
+
+        buscaTodos()
+
+        alteraEditando(0)
+        alteraNome("")
+        alteraPreco("")
+        alteraQuantidade("")
+
+    }
+
+    async function removeProduto( id ){
+        await axios.delete("http://localhost:3000/api/produtos/"+id)
+        buscaTodos()
+    }
+
+    function formataData( valor ){
+        let data = valor.split("T")[0]
+        let hora = valor.split("T")[1]
+
+        data = data.split("-")
+        data = data.reverse()
+        data = data.join("/")
+
+        hora = hora.split(".")[0]
+        hora = hora.split(":")
+        hora = hora[0]+":"+hora[1]
+
+        return data+" às "+hora
+
+    }
+
+    function montaEdicao( produto ){
+        alteraEditando( produto.id )
+        alteraNome( produto.nome )
+        alteraPreco( produto.preco )
+        alteraQuantidade( produto.quantidade )
+    }
+
+    function enviaFormulario(e){
+        e.preventDefault()
+
+        if( editando == 0 ){
+            insereProduto()
+        }else{
+            atualizaProduto()
+        }
+
+    }
+
+    useEffect( ()=> {
+        buscaTodos()
+    }, [] )
+
+>>>>>>> Stashed changes
     return (
         <div>
             
@@ -156,6 +252,7 @@ export default function Home() {
 
             <p>Busca de produtos. Digite o ID:</p>
             <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
+<<<<<<< Updated upstream
             <button onClick={ ()=> buscaPorNome(pesquisa) } >Pesquisar</button>
 
             
@@ -164,6 +261,14 @@ export default function Home() {
 
             {
                 estoque.length > 0 ?
+=======
+            <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
+
+            <h2>Listagem</h2>
+
+            {
+                produtos.length > 0 ?
+>>>>>>> Stashed changes
                     <table>
                         <tr>
                             <td>ID</td>
@@ -173,7 +278,11 @@ export default function Home() {
                             <td>Registro</td>
                         </tr>
                         {
+<<<<<<< Updated upstream
                             estoque.map( i =>
+=======
+                            produtos.map( i =>
+>>>>>>> Stashed changes
                                 <tr  >
                                     <td>{i.id}</td>
                                     <td>{i.nome}</td>
@@ -182,6 +291,7 @@ export default function Home() {
                                     <td>{ formataData(i.registro) }</td>
                                     
                                     <td>
+<<<<<<< Updated upstream
                                         <button onClick={ ()=> redirect("/estoque/"+i.id) } >Ver</button>
                                         <button onClick={ ()=> montaEdicao(i) } >Editar</button>
                                         <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
@@ -215,6 +325,8 @@ export default function Home() {
                                     <td>{ formataData(i.registro) }</td>
                                     
                                     <td>
+=======
+>>>>>>> Stashed changes
                                         <button onClick={ ()=> redirect("/produto/"+i.id) } >Ver</button>
                                         <button onClick={ ()=> montaEdicao(i) } >Editar</button>
                                         <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
@@ -228,7 +340,10 @@ export default function Home() {
                     <p>Carregando...</p>
             }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             <hr/>
 
             <h2>Cadastro</h2>
@@ -247,8 +362,11 @@ export default function Home() {
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
         </div>
+<<<<<<< Updated upstream
 
 
 
+=======
+>>>>>>> Stashed changes
     );
 }
