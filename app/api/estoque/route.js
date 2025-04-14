@@ -39,7 +39,7 @@ export async function GET() {
     export async function PUT(request) {
         const body = await request.json();
         const query = `
-            UPDATE estoque SET id_produto =1, quantidade =20 WHERE id_produto = 1`;
+            UPDATE estoque SET id_produto =?, quantidade =? WHERE id_produto = ?`;
 
 
         const [results] = await conexao.execute(query, [body.quantidade, body.id_produto]);

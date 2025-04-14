@@ -23,7 +23,7 @@ const Estoque = () => {
   // Função para buscar todos os produtos
   const buscaTodos = async () => {
     try {
-      const response = await axios.get('/api/estoque');
+      const response = await axios.get('/app/api/estoque');
       setProdutos(response.data);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
