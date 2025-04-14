@@ -1,236 +1,200 @@
-'use client';
+'use client'
+import axios from "axios";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './pagina_estoque.css';
+export default function Home() {
 
-// npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+    const [ produtos, alteraProdutos ] = useState([])
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';   // Importando o ícone de edição
-import { faPencilAlt, faTrashAlt, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';  // Importando o ícone de edição
+    const [ nome, alteraNome ] = useState([])
+    const [ preco, alteraPreco ] = useState([])
+    const [ quantidade, alteraQuantidade ] = useState([])
 
-const Estoque = () => {
-  const [A1, alteraA1] = useState(false);
-  const [nomeProduto, alteraNomeProduto] = useState('');
-  const [precoProduto, alteraPrecoProduto] = useState('');
-  const [quantidadeProduto, alteraQuantidadeProduto] = useState('');
-  const [produtos, setProdutos] = useState([
-    { nome: 'Laranja', preco: 'R$21,00', quantidade: '100 KG', dataCadastro: '2025-04-09T10:00:00' },
-    { nome: 'Mandioca', preco: 'R$0,65', quantidade: '200 KG', dataCadastro: '2025-04-09T10:05:00' },
-    { nome: 'Maracuja', preco: 'R$2,89', quantidade: '50 KG', dataCadastro: '2025-04-09T10:10:00' },
-  ]);
+    const [ editando, alteraEditando ] = useState(0)
+    const [ pesquisa, alteraPesquisa ] = useState("")
 
-  const buscaTodos = async () => {
-    const response = await fetch('/api/produtos');
-    const data = await response.json();
-    setProdutos(data); // Atualiza o estado com os produtos
-  };
+    async function buscaTodos(){
+        const response = await axios.get("http://localhost:3000/api/produtos")
+        alteraProdutos( response.data )
+    }
 
-  useEffect(() => {
-    buscaTodos();
-  }, []);
+    async function buscaPorID( id ){
+        const response = await axios.get("http://localhost:3000/api/produtos/"+id)
+        alteraProdutos( response.data )
+    }
 
-  const handleClick = () => {
-    alteraA1(!A1);
-  };
+    function buscaPorNome(){}
 
-  const handleSalvar = async () => {
-    const novoProduto = {
-      nome: nomeProduto,
-      quantidade: quantidadeProduto,
-    };
+    async function insereProduto(){
 
-    const response = await fetch('/api/estoque', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(novoProduto),
-    });
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
+        }
 
+        const response = await axios.post("http://localhost:3000/api/produtos", obj)
+        console.log(response)
 
-    const response2 = await fetch('/api/registro', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(novoProduto),
-    });
+        buscaTodos()
 
+    }
 
-    const data = await response.json();
-    const id_produto = await response2.json();
+    async function atualizaProduto(){
 
-    setProdutos([...produtos, { novoProduto, id: data.id, id_produto }]);
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
+        }
 
-    // volta os campos após clicar em salvar
-    alteraNomeProduto('');
-    alteraQuantidadeProduto('');
-    alteraA1(false); // Fecha o formulário depois de salvar
-  };
+        const response = await axios.put("http://localhost:3000/api/produtos/"+editando, obj)
 
-  const formataData = (valor) => {
-    let data = valor.split("T")[0];
-    let hora = valor.split("T")[1];
+        buscaTodos()
 
-    data = data.split("-");
-    data = data.reverse();
-    data = data.join("/");
+        alteraEditando(0)
+        alteraNome("")
+        alteraPreco("")
+        alteraQuantidade("")
 
-    hora = hora.split(".")[0];
-    hora = hora.split(":");
-    hora = hora[0] + ":" + hora[1];
+    }
 
-    return data + " às " + hora;
-  };
+    async function removeProduto( id ){
+        await axios.delete("http://localhost:3000/api/produtos/"+id)
+        buscaTodos()
+    }
 
-  return (
-    <div>
-      <div className="menuSuperior">
-        <img className="logo" src="logo.png" />
-      </div>
+    function formataData( valor ){
+        let data = valor.split("T")[0]
+        let hora = valor.split("T")[1]
 
-      <div className="paineis">
-        <div className="painelEsquerdo">
-          <div className="CardGeral">
-            <div className="atualizar">
-              <button className="button" onClick={handleClick}>
-                <i className="fa-solid fa-download"></i>
-                <p>Atualizar Cadastrados</p>
-              </button>
-            </div>
-          </div>
+        data = data.split("-")
+        data = data.reverse()
+        data = data.join("/")
 
-          {A1 && (
-            <>
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Nome do produto"
-                    value={nomeProduto}
-                    onChange={(e) => alteraNomeProduto(e.target.value)}
-                  />
-                </div>
-              </div>
+        hora = hora.split(".")[0]
+        hora = hora.split(":")
+        hora = hora[0]+":"+hora[1]
 
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Preço"
-                    value={quantidadeProduto}
-                    onChange={(e) => alteraQuantidadeProduto(e.target.value)}
-                  />
-                </div>
-              </div>
+        return data+" às "+hora
 
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Quantidade"
-                    value={precoProduto}
-                    onChange={(e) => alteraPrecoProduto(e.target.value)}
-                  />
-                </div>
-              </div>
+    }
 
-              <div>
-                <div className="CardGeral">
-                  <button className="button" onClick={handleSalvar}>
-                    Salvar
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
+    function montaEdicao( produto ){
+        alteraEditando( produto.id )
+        alteraNome( produto.nome )
+        alteraPreco( produto.preco )
+        alteraQuantidade( produto.quantidade )
+    }
+
+    function enviaFormulario(e){
+        e.preventDefault()
+
+        if( editando == 0 ){
+            insereProduto()
+        }else{
+            atualizaProduto()
+        }
+
+    }
+
+    useEffect( ()=> {
+        buscaTodos()
+    }, [] )
+
+    return (
+        <div>
+            
+            <style>
+                {`
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-family: Arial, sans-serif;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    border: 1px solid #ddd;
+                }
+                th {
+                    background-color: #f4f4f4;
+                    color: #333;
+                }
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                tr:hover {
+                    background-color: #f1f1f1;
+                }
+                `}
+            </style>
+
+            <h1>Gerenciamento de produtos</h1>
+
+            <button>Listagem</button>
+            <button>Cadastro</button>
+
+            <hr/>
+
+            <p>Busca de produtos. Digite o ID:</p>
+            <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
+            <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
+
+            <h2>Listagem</h2>
+
+            {
+                produtos.length > 0 ?
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>Nome</td>
+                            <td>Preço</td>
+                            <td>Quantidade</td>
+                            <td>Registro</td>
+                        </tr>
+                        {
+                            produtos.map( i =>
+                                <tr  >
+                                    <td>{i.id}</td>
+                                    <td>{i.nome}</td>
+                                    <td>R$ {i.preco.toFixed(2)}</td>
+                                    <td>{i.quantidade}</td>
+                                    <td>{ formataData(i.registro) }</td>
+                                    
+                                    <td>
+                                        <button onClick={ ()=> redirect("/produto/"+i.id) } >Ver</button>
+                                        <button onClick={ ()=> montaEdicao(i) } >Editar</button>
+                                        <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
+                                    </td>
+
+                                </tr>
+                            )
+                        }
+                    </table>
+                :
+                    <p>Carregando...</p>
+            }
+
+            <hr/>
+
+            <h2>Cadastro</h2>
+
+            <form onSubmit={ (e)=> enviaFormulario(e) } >
+                <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraNome(e.target.value) } value={nome} /> </label>
+                <br/>
+                <label> Digite o preço: <br/> <input onChange={(e)=> alteraPreco(e.target.value) } value={preco} /> </label>
+                <br/>
+                <label> Digite a quantidade: <br/> <input onChange={(e)=> alteraQuantidade(e.target.value) } value={quantidade} /> </label>
+                <br/>
+                <button>Salvar</button>
+
+            </form>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
         </div>
-
-        {/* Container para as tabelas */}
-        <div className="produtosCadastradosContainer">
-          <div className="produtosCadastradosTitulo">
-            <i className="fa-solid fa-file"></i>
-            <p className="lupa"> Cadastrados:</p>
-            <p><FontAwesomeIcon icon={faMagnifyingGlass} /></p>
-            <input />
-            <button className="pesquisa"> Pesquisar </button>
-          </div>
-
-          {/* Tabelas lado a lado */}
-          <div className="tabelas-lado-a-lado">
-            {/* Primeira tabela (com ícones) */}
-            <div className="tabela-scroll">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Quantidade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {produtos.map((produto, index) => (
-                    <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{produto.nome}</td>
-                      <td>{produto.preco}</td>
-                      <td>{produto.quantidade}</td>
-                      <td>
-                        <button className="button-edit">
-                          <FontAwesomeIcon icon={faPencilAlt} />
-                        </button>
-                        <button className="button-edit">
-                          <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Segunda tabela (sem ícones) */}
-            <div className="tabela-scroll">
-              <div className="produtosCadastradosTitulo">
-                <p>Registro:</p>
-                <button className="button" style={{ float: 'right' }}>
-                  Novo Registro
-                </button>
-              </div>
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Data</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {produtos.map((produto, index) => (
-                    <tr key={index}>
-                      <td>{produto.nome}</td>
-                      <td>{produto.quantidade}</td>
-                      <td>{formataData(produto.dataCadastro)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="Voltar">
-        <a href="http://localhost:3000/">
-          <button className="voltar">
-            <p>Voltar</p>
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
-
-export default Estoque;
+    );
+}
