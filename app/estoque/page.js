@@ -20,11 +20,13 @@ export default function Home() {
         alteraProdutos( response.data )
     }
 
-    async function buscaPorID( id ){
+    async function buscaPorNome( nome ){
         const response = await axios.get("http://localhost:3000/api/estoque/"+nome)
         alteraProdutos( response.data )
     }
 
+
+    
     function buscaPorNome(){}
 
     async function insereProduto(){
@@ -35,7 +37,7 @@ export default function Home() {
             quantidade: quantidade
         }
 
-        const response = await axios.post("http://localhost:3000/api/produtos", obj)
+        const response = await axios.post("http://localhost:3000/api/estoque", obj)
         console.log(response)
 
         buscaTodos()
@@ -50,7 +52,7 @@ export default function Home() {
             quantidade: quantidade
         }
 
-        const response = await axios.put("http://localhost:3000/api/produtos/"+editando, obj)
+        const response = await axios.put("http://localhost:3000/api/estoque/"+editando, obj)
 
         buscaTodos()
 
@@ -62,7 +64,7 @@ export default function Home() {
     }
 
     async function removeProduto( id ){
-        await axios.delete("http://localhost:3000/api/produtos/"+id)
+        await axios.delete("http://localhost:3000/api/estoque/"+id)
         buscaTodos()
     }
 
@@ -80,7 +82,16 @@ export default function Home() {
 
         return data+" às "+hora
 
+
+        
+
+
     }
+
+    
+      
+    
+    
 
     function montaEdicao( produto ){
         alteraEditando( produto.id )
@@ -99,6 +110,9 @@ export default function Home() {
         }
 
     }
+
+
+    
 
     useEffect( ()=> {
         buscaTodos()
@@ -142,37 +156,14 @@ export default function Home() {
 
             <p>Busca de produtos. Digite o ID:</p>
             <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
-            <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
+            <button onClick={ ()=> buscaPorNome(pesquisa) } >Pesquisar</button>
 
-            return (
-    <div>
-      {/* Modal de Alterar Nome */}
-      {modalNomeAberto && produtoParaAlterarNome && (
-        <>
-          <div className='fundo-modal'></div>
-          <div className='modal'>
-            <h2>Alterar Nome do Produto</h2>
-            <input
-              type="text"
-              placeholder="Novo nome"
-              value={nomeProduto}
-              onChange={(e) => alteraNomeProduto(e.target.value)}
-            />
-            <br />
-            <button className='button-modal' onClick={handleAlterarNome}>
-              Salvar
-            </button>
-            <button className='button-modal' onClick={() => setModalNomeAberto(false)}>
-              Voltar
-            </button>
-          </div>
-        </>
-      )}
+            
 
-            <h2>Listagem</h2>
+            <h2>Estoque</h2>
 
             {
-                produtos.length > 0 ?
+                estoque.length > 0 ?
                     <table>
                         <tr>
                             <td>ID</td>
@@ -182,7 +173,7 @@ export default function Home() {
                             <td>Registro</td>
                         </tr>
                         {
-                            produtos.map( i =>
+                            estoque.map( i =>
                                 <tr  >
                                     <td>{i.id}</td>
                                     <td>{i.nome}</td>
@@ -191,7 +182,7 @@ export default function Home() {
                                     <td>{ formataData(i.registro) }</td>
                                     
                                     <td>
-                                        <button onClick={ ()=> redirect("/produto/"+i.id) } >Ver</button>
+                                        <button onClick={ ()=> redirect("/estoque/"+i.id) } >Ver</button>
                                         <button onClick={ ()=> montaEdicao(i) } >Editar</button>
                                         <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
                                     </td>
@@ -205,22 +196,21 @@ export default function Home() {
             }
 
 
+<h2> Registro </h2>
 {
                 produtos.length > 0 ?
                     <table>
                         <tr>
-                            <td>ID</td>
+                           
                             <td>Nome</td>
-                            <td>Preço</td>
                             <td>Quantidade</td>
                             <td>Registro</td>
                         </tr>
                         {
                             produtos.map( i =>
                                 <tr  >
-                                    <td>{i.id}</td>
+                                    
                                     <td>{i.nome}</td>
-                                    <td>R$ {i.preco.toFixed(2)}</td>
                                     <td>{i.quantidade}</td>
                                     <td>{ formataData(i.registro) }</td>
                                     
@@ -257,5 +247,8 @@ export default function Home() {
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
         </div>
+
+
+
     );
 }
