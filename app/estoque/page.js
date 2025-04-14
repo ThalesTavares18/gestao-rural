@@ -143,6 +143,31 @@ export default function Home() {
             <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
             <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
 
+            return (
+    <div>
+      {/* Modal de Alterar Nome */}
+      {modalNomeAberto && produtoParaAlterarNome && (
+        <>
+          <div className='fundo-modal'></div>
+          <div className='modal'>
+            <h2>Alterar Nome do Produto</h2>
+            <input
+              type="text"
+              placeholder="Novo nome"
+              value={nomeProduto}
+              onChange={(e) => alteraNomeProduto(e.target.value)}
+            />
+            <br />
+            <button className='button-modal' onClick={handleAlterarNome}>
+              Salvar
+            </button>
+            <button className='button-modal' onClick={() => setModalNomeAberto(false)}>
+              Voltar
+            </button>
+          </div>
+        </>
+      )}
+
             <h2>Listagem</h2>
 
             {
@@ -177,6 +202,41 @@ export default function Home() {
                 :
                     <p>Carregando...</p>
             }
+
+
+{
+                produtos.length > 0 ?
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>Nome</td>
+                            <td>Preço</td>
+                            <td>Quantidade</td>
+                            <td>Registro</td>
+                        </tr>
+                        {
+                            produtos.map( i =>
+                                <tr  >
+                                    <td>{i.id}</td>
+                                    <td>{i.nome}</td>
+                                    <td>R$ {i.preco.toFixed(2)}</td>
+                                    <td>{i.quantidade}</td>
+                                    <td>{ formataData(i.registro) }</td>
+                                    
+                                    <td>
+                                        <button onClick={ ()=> redirect("/produto/"+i.id) } >Ver</button>
+                                        <button onClick={ ()=> montaEdicao(i) } >Editar</button>
+                                        <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
+                                    </td>
+
+                                </tr>
+                            )
+                        }
+                    </table>
+                :
+                    <p>Carregando...</p>
+            }
+
 
             <hr/>
 
