@@ -11,6 +11,7 @@ export default function Home() {
     const [ preco, alteraPreco ] = useState([])
     const [ quantidade, alteraQuantidade ] = useState([])
 
+    const [modalNomeAberto, setModalNomeAberto] = useState(false); // Controle do modal de nome
     const [ editando, alteraEditando ] = useState(0)
     const [ pesquisa, alteraPesquisa ] = useState("")
 
