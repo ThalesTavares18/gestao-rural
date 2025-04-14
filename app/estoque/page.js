@@ -23,7 +23,7 @@ const Estoque = () => {
   // Função para buscar todos os produtos
   const buscaTodos = async () => {
     try {
-      const response = await axios.get('/app/api/estoque');
+      const response = await axios.get("http://localhost:3000/api/estoque");
       setProdutos(response.data);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
@@ -49,7 +49,7 @@ const Estoque = () => {
       };
   
       try {
-        const response = await axios.post('/api/estoque', novoProduto);
+        const response = await axios.post("http://localhost:3000/api/estoque", novoProduto);
   
         if (response.status === 200) {
           // Produto salvo com sucesso
@@ -72,7 +72,7 @@ const Estoque = () => {
   // Função para alterar a quantidade de um produto no estoque
   const handleAlterarEstoque = async (produtoId, novaQuantidade) => {
     try {
-      const response = await axios.put('/api/estoque', {
+      const response = await axios.put("http://localhost:3000/api/estoque", {
         id_produto: produtoId,
         quantidade: novaQuantidade,
       });
@@ -104,7 +104,7 @@ const Estoque = () => {
       const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
   
       try {
-        const response = await axios.put('/api/produtos', updatedProduto);
+        const response = await axios.put("http://localhost:3000/api/produtos", updatedProduto);
   
         if (response.data.success) {
           const produtosAtualizados = produtos.map(produto =>
