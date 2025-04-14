@@ -6,6 +6,7 @@ import './pagina_estoque.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrashAlt, faMagnifyingGlass, faRightLeft } from '@fortawesome/free-solid-svg-icons';
+import host from '../lib/host';
 
 const Estoque = () => {
   const [estoque, alteraEstoque] = useState(0);
@@ -23,7 +24,7 @@ const Estoque = () => {
   // Função para buscar todos os produtos
   const buscaTodos = async () => {
     try {
-      const response = await axios.get(hos"http://localhost:3000/api/estoque");
+      const response = await axios.get(host+"/estoque");
       setProdutos(response.data);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
