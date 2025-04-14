@@ -19,10 +19,30 @@ export async function GET() {
       );
     }
     
+
+    export async function POST( request ){
+
+        const body = await request.json()
+    
+        const query = `
+            INSERT INTO produtos
+            (nome, preco, quantidade)
+            VALUES
+            (?, ?, ?);
+        `
+        const [results] = await conexao.execute(
+            query,
+            [body.nome, body.preco, body.quantidade]
+        )
+    
+        return new Response( JSON.stringify(results.insertId) )
+    
+    }
+
     export async function POST(request) {
         const body = await request.json();
         const query = `
-           INSERT INTO estoque( id_produto, quantidade, data, entrada) VALUES (?, ?, '?',?);
+           INSERT INTO estoque( id_produto, quantidade, data, entrada) VALUES (?, ?, ?,?);
         `;
 
         const [results] = await conexao.execute(query, [body.id_produto, body.quantidade]);
