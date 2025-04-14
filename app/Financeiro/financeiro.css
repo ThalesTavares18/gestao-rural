@@ -82,3 +82,19 @@ body{
 
 
 
+h2{
+    color:black;
+    background: #e8fbd9;
+
+}
+
+
+button{
+    border: none;
+    border-radius: 30px;
+    background: #ffe100;
+    color: black;
+    cursor: pointer;
+
+
+}
