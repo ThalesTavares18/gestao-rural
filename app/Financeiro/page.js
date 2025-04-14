@@ -115,14 +115,39 @@ function Financeiro() {
 
             </div>
 
+            <style>
+                    {`
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                        font-family: 'Arial', sans-serif;
+                    }
+                    tbody, th, td {
+                        border: 1px solid #ddd;
+                        padding: 12px;
+                        text-align: left;
+                        font-size: 16px;
+                        
+                    }
+                    thead,th {
+                        background-color: #4CAF50;
+                        color: white;
+                    }
+                   
+                    tr:hover {
+                        background-color: #ddd;
+                    }
+                    `}
+            </style>
             
 
 
-            <p>Digite uma data: </p>
+            <h1>Digite uma data: </h1>
             <input type="date" onChange={ (e)=> alterapesquisa(e.target.value) } />
             <button onClick={ ()=> pesquisadata(pesquisa) } >Pesquisar</button>
 
-            <button onClick={pesquisames}> Vendas da do mes</button>
+            <button onClick={pesquisames}> Vendas do Mês</button>
 
 
             <button onClick={pesquisasemana}> Vendas da Semana</button>
@@ -136,7 +161,7 @@ function Financeiro() {
                         <tr>
                             <td>Nome</td>
                             <td>Quantidade</td>
-                            <td>Total Venda</td>
+                            <td>Total de Vendas</td>
                             <td>Data</td>
                 
                         </tr>
@@ -156,12 +181,15 @@ function Financeiro() {
 
                                 </tr>
                             )
+
+                        
                         }
 
                        
 
                         </tbody>
                     </table>
+                    
                
             }    
 
@@ -174,11 +202,11 @@ function Financeiro() {
                 semana.length > 0 &&
                     <table>
                         <thead>
-                            <p>Vendas Semana</p>
+                            <h2>Vendas da Semana: </h2>
                         <tr  >
                             <td>Nome</td>
                             <td>Quantidade</td>
-                            <td>Total Venda</td>
+                            <td>Total de Vendas</td>
                             <td>Data</td>
                 
                         </tr>
@@ -211,11 +239,11 @@ function Financeiro() {
                 mes.length > 0 &&
                     <table>
                         <thead>
-                            <p>Vendas mes</p>
+                            <h2>Vendas do Mês: </h2>
                             <tr  >
                                 <td>Nome</td>
                                 <td>Quantidade</td>
-                                <td>Total Venda</td>
+                                <td>Total de Vendas</td>
                                 <td>Data</td>
                     
                             </tr>

@@ -2,7 +2,6 @@
 import "./producao_e_vendas.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Chart from 'chart.js/auto';
 
 function Producao_e_vendas() {
 
@@ -37,7 +36,6 @@ function Producao_e_vendas() {
                 <div className="barrinhaverde">
 
                     <img className="logo"src="logo.png" width={100} height={100}/>
-
 
                     <a href="http://localhost:3000"> <p className="voltar"> Voltar </p> </a>
 
