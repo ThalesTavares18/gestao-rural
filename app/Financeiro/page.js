@@ -3,6 +3,7 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import "./financeiro.css"
+import host from "../lib/host";
 
 
 function Financeiro() {
@@ -36,7 +37,7 @@ function Financeiro() {
     // }
 
     async function pesquisadata( data ){
-        const response = await axios.get("http://localhost:3000/api/financeiro/"+ data)
+        const response = await axios.get(host+"/financeiro/"+ data)
         alteradata( response.data )
         alterames([])
         alterasemana([])
@@ -47,7 +48,7 @@ function Financeiro() {
     }
     
     async function pesquisasemana(){
-        const response = await axios.get("http://localhost:3000/api/financeiro/semana")
+        const response = await axios.get(host+"/financeiro/semana")
         alterasemana( response.data)
         alterames([])
         alteradata([])
@@ -56,7 +57,7 @@ function Financeiro() {
     }
     
     async function pesquisames(){
-        const response = await axios.get("http://localhost:3000/api/financeiro/mes")
+        const response = await axios.get(host+"/financeiro/mes")
         alterames( response.data)
         alterasemana([])
         alteradata([])
