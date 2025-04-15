@@ -24,14 +24,16 @@ export default function MeusClientes() {
         console.log(response.data);
     }
 
-    async function buscaPorID( id ){
-        const response= await axios.get(host+"/meus_clientes/"+id)
+    async function buscaPorNome( nome ){
+
+        nome = nome.trim(); // Remove espaços extras
+        if (!nome) return;  // Não faz a pesquisa se nome estiver vazio
+
+        const response= await axios.get(host+"/meus_clientes/"+nome)
         alteraUsuario(response.data)
         console.log(response.data)
     }
-
-
-
+      
     async function insereUsuario() {
 
         if (!nome || !contato) return;
@@ -122,8 +124,8 @@ export default function MeusClientes() {
             <br/>
 
            
-                <input placeholder="Pesquisa por ID..." onChange={(e) => alteraPesquisa(e.target.value)} />
-                <button className="buttonSalvar" onClick={() => buscaPorID(pesquisa)} > Pesquisar </button>
+                <input placeholder="Pesquisa por Nome..." onChange={(e) => alteraPesquisa(e.target.value)} />
+                <button className="buttonSalvar" onClick={() => buscaPorNome(pesquisa)} > Pesquisar </button>
                 <hr />
            
 

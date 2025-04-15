@@ -50,7 +50,7 @@ const Estoque = () => {
       };
   
       try {
-        const response = await axios.post("http://localhost:3000/api/estoque", novoProduto);
+        const response = await axios.post(host+"/estoque", novoProduto);
   
         if (response.status === 200) {
           // Produto salvo com sucesso
@@ -73,7 +73,7 @@ const Estoque = () => {
   // Função para alterar a quantidade de um produto no estoque
   const handleAlterarEstoque = async (produtoId, novaQuantidade) => {
     try {
-      const response = await axios.put("http://localhost:3000/api/estoque", {
+      const response = await axios.put("host+"/estoque, {
         id_produto: produtoId,
         quantidade: novaQuantidade,
       });
@@ -105,7 +105,7 @@ const Estoque = () => {
       const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
   
       try {
-        const response = await axios.put("http://localhost:3000/api/produtos", updatedProduto);
+        const response = await axios.put(host+"/estoque", updatedProduto);
   
         if (response.data.success) {
           const produtosAtualizados = produtos.map(produto =>
@@ -127,7 +127,7 @@ const Estoque = () => {
   // Função para formatar a data no formato "dd/mm/yyyy hh:mm"
   const formataData = (valor) => {
     let data = valor.split("T")[0];
-    let hora = valor.split("T")[1];
+    let hora = valor.split("T")[1] || "00:00";
 
     data = data.split("-");
     data = data.reverse();
@@ -298,7 +298,7 @@ const Estoque = () => {
                     <tr key={index}>
                       <td>{produto.nome}</td>
                       <td>{produto.quantidade}</td>
-                      <td>{formataData(produto.dataCadastro)}</td>
+                      <td>{formataData(produto.dataCadastro || '')}</td>
                     </tr>
                   ))}
                 </tbody>
