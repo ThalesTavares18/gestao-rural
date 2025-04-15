@@ -24,13 +24,13 @@ const Estoque = () => {
   // Função para buscar todos os produtos
   const buscaTodos = async () => {
     try {
-      const response = await axios.get(host+"/estoque");
+      const response = await axios.get(host + "/estoque");
       setProdutos(response.data);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
     }
   };
-  
+
   useEffect(() => {
     buscaTodos();
   }, []);
@@ -45,13 +45,13 @@ const Estoque = () => {
     if (nomeProduto && quantidadeProduto) {
       const novoProduto = {
         nome: nomeProduto,
-        preco: parseFloat (precoProduto),
-        quantidade: parseInt (quantidadeProduto)
+        preco: parseFloat(precoProduto),
+        quantidade: parseInt(quantidadeProduto)
       };
-  
+
       try {
-        const response = await axios.post(host+"/estoque", novoProduto);
-  
+        const response = await axios.post(host + "/estoque", novoProduto);
+
         if (response.status === 200) {
           // Produto salvo com sucesso
           alteraPrecoProduto('');
@@ -68,18 +68,18 @@ const Estoque = () => {
       console.log('Nome e quantidade do produto são obrigatórios.');
     }
   };
-  
+
 
   // Função para alterar a quantidade de um produto no estoque
   const handleAlterarEstoque = async (produtoId, novaQuantidade) => {
     try {
-      const response = await axios.put("host+"/estoque, {
+      const response = await axios.put("host+" / estoque, {
         id_produto: produtoId,
         quantidade: novaQuantidade,
       });
-  
+
       console.log(response.data.message);
-  
+
       const novosProdutos = produtos.map(produto =>
         produto.id === produtoId ? { ...produto, quantidade: novaQuantidade } : produto
       );
@@ -88,7 +88,7 @@ const Estoque = () => {
       console.error('Erro ao alterar estoque:', error);
     }
   };
-  
+
 
   // Função chamada quando o modal de adicionar estoque é salvo
   const handleSalvarModal = async () => {
@@ -103,17 +103,17 @@ const Estoque = () => {
   const handleAlterarNome = async () => {
     if (produtoParaAlterarNome && nomeProduto) {
       const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
-  
+
       try {
-        const response = await axios.put(host+"/estoque", updatedProduto);
-  
+        const response = await axios.put(host + "/estoque/", updatedProduto);
+
         if (response.data.success) {
           const produtosAtualizados = produtos.map(produto =>
             produto.id === updatedProduto.id ? updatedProduto : produto
           );
           setProdutos(produtosAtualizados);
         }
-  
+
         setModalNomeAberto(false);
         setProdutoParaAlterarNome(null);
         alteraNomeProduto('');
@@ -122,7 +122,7 @@ const Estoque = () => {
       }
     }
   };
-  
+
 
   // Função para formatar a data no formato "dd/mm/yyyy hh:mm"
   const formataData = (valor) => {
@@ -267,13 +267,14 @@ const Estoque = () => {
                       <td>{produto.preco.toFixed()}</td>
                       <td>{produto.quantidade}</td>
                       <td>
-                        <button onClick={()=> {
-
+                        <button onClick={() => {
+                          
+                          
+                          setModalNomeAberto(true); // Abre o modal
                         }} className="button-edit">
                           <FontAwesomeIcon icon={faRightLeft} />
-
-                          
                         </button>
+
                         <button onClick={() => {
                           setProdutoParaAlterarNome(produto);
                           alteraNomeProduto(produto.nome);  // Preenche o campo com o nome atual
@@ -281,6 +282,7 @@ const Estoque = () => {
                         }} className="button-edit">
                           <FontAwesomeIcon icon={faPencilAlt} />
                         </button>
+
                         <button className="button-edit">
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </button>
