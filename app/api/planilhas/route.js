@@ -1,5 +1,5 @@
 import conexao from "@/app/lib/conexao";
-import "/meusclientes.css";
+
 
 export async function POST(req) {
   try {
