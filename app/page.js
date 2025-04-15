@@ -26,7 +26,7 @@ function Inicio () {
 
                         <div className="espacamento">
 
-                            <a href="./preparacao"> <p className="botoes"> Preparação </p> </a>
+                            <a href="./planilhas"> <p className="botoes"> Planilhas </p> </a>
                             <a href="./Financeiro"> <p className="botoes"> Financeiro </p> </a>
 
                         </div>
