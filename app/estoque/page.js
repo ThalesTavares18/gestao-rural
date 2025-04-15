@@ -264,9 +264,16 @@ const Estoque = () => {
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
                       <td>{produto.nome}</td>
-                      <td>{produto.preco}</td>
+                      <td>{produto.preco.toFixed()}</td>
                       <td>{produto.quantidade}</td>
                       <td>
+                        <button onClick={()=> {
+
+                        }} className="button-edit">
+                          <FontAwesomeIcon icon={faRightLeft} />
+
+                          
+                        </button>
                         <button onClick={() => {
                           setProdutoParaAlterarNome(produto);
                           alteraNomeProduto(produto.nome);  // Preenche o campo com o nome atual
