@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./meusclientes.css";
+import host from "../lib/host";
+
 
 
 
@@ -17,13 +19,13 @@ export default function MeusClientes() {
  
 
     async function buscaTodos() {
-        const response = await axios.get("http://localhost:3000/api/meus_clientes");
+        const response = await axios.get(host+"/meus_clientes");
         alteraUsuario(response.data);
         console.log(response.data);
     }
 
     async function buscaPorID( id ){
-        const response= await axios.get("http://localhost:3000/api/meus_clientes/"+id)
+        const response= await axios.get(host+"/meus_clientes/"+id)
         alteraUsuario(response.data)
         console.log(response.data)
     }
@@ -39,7 +41,7 @@ export default function MeusClientes() {
             contato: contato,
         }
 
-        const response = await axios.post("http://localhost:3000/api/meus_clientes", obj);
+        const response = await axios.post(host+"/meus_clientes", obj);
         console.log(response);
 
         buscaTodos()
@@ -67,7 +69,7 @@ export default function MeusClientes() {
         }
 
         console.log(obj);
-        const response= await axios.put("http://localhost:3000/api/meus_clientes/"+editando, obj)
+        const response= await axios.put(host+"/meus_clientes/"+editando, obj)
         console.log(response)
         buscaTodos()
 
@@ -79,7 +81,7 @@ export default function MeusClientes() {
 }
 
     async function removeUsuarios(id){
-        await axios.delete("http://localhost:3000/api/meus_clientes/"+id)
+        await axios.delete(host+"/meus_clientes/"+id)
         buscaTodos()
 
 }

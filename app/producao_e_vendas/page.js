@@ -2,6 +2,7 @@
 import "./producao_e_vendas.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import host from "../lib/host";
 
 function Producao_e_vendas() {
 
@@ -11,17 +12,17 @@ function Producao_e_vendas() {
 
 
     async function buscaTodos() {
-        const response = await axios.get("http://localhost:3000/api/producao_e_vendas")
+        const response = await axios.get(host+"/producao_e_vendas")
         setprodutos(response.data)
     }
 
     async function buscaVendas(){
-        const response = await axios.get("http://localhost:3000/api/producao_e_vendas/vendas")
+        const response = await axios.get(host+"/producao_e_vendas/vendas")
         setvendas(response.data)
     }
 
     async function buscaPorNome( nome ){
-        const response = await axios.get("http://localhost:3000/api/producao_e_vendas/"+nome)
+        const response = await axios.get(host+"/producao_e_vendas/"+nome)
         setprodutos(response.data)
     }
 
