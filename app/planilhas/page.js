@@ -40,7 +40,7 @@ export default function Testes() {
     if (!file || !json) return
 
     try {
-      const res = await fetch('/api/teste', {
+      const res = await fetch('/api/planilhas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(json)
