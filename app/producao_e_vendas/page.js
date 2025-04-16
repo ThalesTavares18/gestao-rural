@@ -61,11 +61,50 @@ function Producao_e_vendas() {
             }
           },
     })
+  
+    async function buscaVendas(){
+      const response = await axios.get(host+"/producao_e_vendas/vendas")  
+      
+      //setvendas(response.data)
 
+
+      const data = response.data
+      const itens = []
+      
+      for (let i = 0; i < data.length; i++) {
+        const index = itens.findIndex(item => item.id === data[i].id);
+        
+        if (index == -1) {
+          itens.push(data[i]);
+        } else {
+          itens[index].quantidade += data[i].quantidade;
+        }
+      }
+      
+      setvendas(itens)
+    }
 
     async function buscaTodos() {
         const response = await axios.get(host+"/producao_e_vendas")
+
         setprodutos(response.data)
+
+        const response2 = await axios.get(host+"/producao_e_vendas")
+
+      const data = response2.data
+      const itens = []
+      
+      for (let i = 0; i < data.length; i++) {
+        const index = itens.findIndex(item => item.id === data[i].id);
+        
+        if (index == -1) {
+          itens.push(data[i]);
+        } else {
+          itens[index].quantidade += data[i].quantidade;
+        }
+      }      
+
+      //setvendas(itens)
 
         const opcoes = {
             chart: {
@@ -89,7 +128,7 @@ function Producao_e_vendas() {
               colors: ['transparent']
             },
             xaxis: {
-              categories: response.data.map(i => i.nome),
+              categories: itens.map(i => i.nome),
             },
             yaxis: {
               title: {
@@ -109,19 +148,18 @@ function Producao_e_vendas() {
           }
         setDadosNomeProduto(opcoes)
 
-        const dadosProdutoAtual = dadosproduto;
+        const dadosProdutoAtual = [];
         dadosProdutoAtual.push({
             name: 'Produzidos',
             data: response.data.map(i => i.quantidade)
         })
+        dadosProdutoAtual.push({
+          name: 'Vendidos',
+          data: itens.map(i => i.quantidade)
+      })
         setDadosProdutos(dadosProdutoAtual)
 
-    }
-
-    async function buscaVendas(){
-      const response = await axios.get(host+"/vendas")
-      console.log(response.data)
-      setvendas(response.data)
+        setprodutos(itens)
     }
 
     async function buscaPorNome( nome ){
