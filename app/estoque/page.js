@@ -105,7 +105,7 @@ const Estoque = () => {
       const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
 
       try {
-        const response = await axios.put(host + "/estoque/", updatedProduto);
+        const response = await axios.post(host +"/estoque/"+ updatedProduto.id , updatedProduto);
 
         if (response.data.success) {
           const produtosAtualizados = produtos.map(produto =>
@@ -172,6 +172,9 @@ const Estoque = () => {
           </div>
         </>
       )}
+
+
+      
 
       <div className="menuSuperior">
         <img className="logo" src="logo.png" />
@@ -269,7 +272,6 @@ const Estoque = () => {
                       <td>
                         <button onClick={() => {
                           
-                          
                           setModalNomeAberto(true); // Abre o modal
                         }} className="button-edit">
                           <FontAwesomeIcon icon={faRightLeft} />
@@ -294,6 +296,7 @@ const Estoque = () => {
             </div>
 
             <div className="tabela-scroll">
+            <p className='registro'> Registro: </p>
               <table className="table table-striped">
                 <thead>
                   <tr>
