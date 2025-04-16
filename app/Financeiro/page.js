@@ -107,7 +107,7 @@ function Financeiro() {
 
                 <div className="BotaoVoltar">
 
-                    <a href=" http://localhost:3000/">
+                    <a href="http://localhost:3000/">
                         <button className="buttonVoltar"> Voltar </button>
 
                     </a>
@@ -116,42 +116,75 @@ function Financeiro() {
 
             </div>
 
-            <style>
-                    {`
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin: 20px 0;
-                        font-family: 'Arial', sans-serif;
-                    }
-                    tbody, th, td {
-                        border: 1px solid #ddd;
-                        padding: 12px;
-                        text-align: left;
-                        font-size: 16px;
-                        
-                    }
-                    thead,th {
-                        background-color: #4CAF50;
-                        color: white;
-                    }
-                   
-                    tr:hover {
-                        background-color: #ddd;
-                    }
-                    `}
+            <style>{`
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-family: 'Arial', sans-serif;
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+
+                thead {
+                    background-color: #4CAF50;
+                }
+
+                th {
+                    background-color: ##4CAF50;
+                    color: white;
+                    padding: 12px;
+                    text-align: left;
+                    font-size: 16px;
+                    border: 1px solid #ddd;
+                }
+
+                td {
+                    padding: 12px;
+                    text-align: left;
+                    font-size: 16px;
+                    border: 1px solid #ddd;
+                }
+
+                tbody tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+
+                tbody tr:nth-child(odd) {
+                    background-color: #ffffff;
+                }
+
+                tbody tr:hover {
+                    background-color: #e0e0e0;
+                }
+`                   }
             </style>
+
+            <div className="botoes">
+
             
+            <div className="pesquisa">
+
+                <h1>Selecione uma data:   </h1>
+                <input type="date" onChange={ (e)=> alterapesquisa(e.target.value) } />
+                <button onClick={ ()=> pesquisadata(pesquisa) } >Pesquisar</button>
 
 
-            <h1>Digite uma data: </h1>
-            <input type="date" onChange={ (e)=> alterapesquisa(e.target.value) } />
-            <button onClick={ ()=> pesquisadata(pesquisa) } >Pesquisar</button>
-
-            <button onClick={pesquisames}> Vendas do Mês</button>
+            </div>
 
 
-            <button onClick={pesquisasemana}> Vendas da Semana</button>
+            <div className="SemanaMes">
+
+                <button onClick={pesquisames}> Vendas do Mês</button>
+
+
+                <button onClick={pesquisasemana}> Vendas da Semana</button>
+
+
+            </div>
+
+            </div>
 
 
 
@@ -160,10 +193,10 @@ function Financeiro() {
                 <table>
                         <thead>
                         <tr>
-                            <td>Nome</td>
-                            <td>Quantidade</td>
-                            <td>Total de Vendas</td>
-                            <td>Data</td>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Total de Vendas</th>
+                            <th>Data</th>
                 
                         </tr>
                         
@@ -205,10 +238,10 @@ function Financeiro() {
                         <thead>
                             <h2>Vendas da Semana: </h2>
                         <tr  >
-                            <td>Nome</td>
-                            <td>Quantidade</td>
-                            <td>Total de Vendas</td>
-                            <td>Data</td>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Total de Vendas</th>
+                            <th>Data</th>
                 
                         </tr>
                         
@@ -242,10 +275,10 @@ function Financeiro() {
                         <thead>
                             <h2>Vendas do Mês: </h2>
                             <tr  >
-                                <td>Nome</td>
-                                <td>Quantidade</td>
-                                <td>Total de Vendas</td>
-                                <td>Data</td>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Total de Vendas</th>
+                                <th>Data</th>
                     
                             </tr>
                         
