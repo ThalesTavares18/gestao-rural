@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+*{
+    background: #e8fbd9;
+    font-family: "Open Sans", serif;
+    color: #111111;
+   
+}
+
+.menuPrincipal{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    height: 120px;
+   
+}
+
+button{
+    border: none;
+    background-color: white;
+    font-weight: bold;
+
+}
+
+.logo{
+    background-color: white;
+}
+
+.menuCentral {
+    background-image: url('https://static.vecteezy.com/ti/fotos-gratis/p2/7426181-vista-aerea-de-uma-grande-fazenda-brasileira-com-plantacao-de-cafe-no-brasil-foto.jpg'); /* sem ponto antes da barra */
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+  }
+
+.menuCentral a{
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    background-color: transparent;
+    
+
+}
+
+.botaoMenu{
+
+    width: 90px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: green;
+    color: white;
+
+}
+
+
+
+.menuCentral p{
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    font-size: 50px;
+    padding-top: 20px;
+}
+
+
+.logoNome{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    background-color: transparent;
+    gap: 20px;
+
+
+}
+
+
+.logoNome h1{
+    background-color: white;
+}
+
+.itens h3{
+    text-align: center;
+    
+}
+
+
+.informacoesContato{
+    text-align: center;
+
+}
