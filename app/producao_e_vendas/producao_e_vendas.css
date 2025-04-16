@@ -28,7 +28,6 @@ body{
   .espacamento{
     display: flex;
     justify-content: space-around;
-
   }
 
   .pv{
@@ -59,4 +58,9 @@ body{
   
   .ta{
     text-align: center;
+  }
+
+  .grafico{
+    margin: 20px;
+    flex: 1;
   }

@@ -3,6 +3,7 @@ import "./producao_e_vendas.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import host from "../lib/host";
+import ReactApexChart from "react-apexcharts";
 
 function Producao_e_vendas() {
 
@@ -10,15 +11,117 @@ function Producao_e_vendas() {
     const [vendas, setvendas] = useState([])
     const [pesquisa, setpesquisa] = useState([])
 
+    const [dadosproduto, setDadosProdutos] = useState([])
+    const [dadosNomeProduto, setDadosNomeProduto] = useState({})
+
+    const [dados, setDados] =useState({
+        series: [{
+            name: 'Produzidos',
+            //data: []
+             data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+          }, ],
+          options: {
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: dadosNomeProduto,
+            },
+            yaxis: {
+              title: {
+                text: 'Quantidade vendida'
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return  + val + " unidades    "
+                }
+              }
+            }
+          },
+    })
+
 
     async function buscaTodos() {
         const response = await axios.get(host+"/producao_e_vendas")
         setprodutos(response.data)
+
+        const opcoes = {
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: response.data.map(i => i.nome),
+            },
+            yaxis: {
+              title: {
+                text: 'Quantidade vendida'
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return  + val + " unidades"
+                }
+              }
+            }
+          }
+        setDadosNomeProduto(opcoes)
+
+        const dadosProdutoAtual = dadosproduto;
+        dadosProdutoAtual.push({
+            name: 'Produzidos',
+            data: response.data.map(i => i.quantidade)
+        })
+        setDadosProdutos(dadosProdutoAtual)
+
     }
 
     async function buscaVendas(){
-        const response = await axios.get(host+"/producao_e_vendas/vendas")
-        setvendas(response.data)
+      const response = await axios.get(host+"/vendas")
+      console.log(response.data)
+      setvendas(response.data)
     }
 
     async function buscaPorNome( nome ){
@@ -85,7 +188,7 @@ function Producao_e_vendas() {
                         `}
                 </style>
                 
-                    <div className="ml">
+                    <div className="ml"> {/* Tabela Produção*/}
 
                             <input onChange={(e)=> setpesquisa(e.target.value)}/>
                             <button onClick={()=> buscaPorNome(pesquisa)}>Pesquisar</button>
@@ -122,7 +225,9 @@ function Producao_e_vendas() {
 
                 </div>
 
-                <img src="http://placehold.co/300"/>
+                <div className="grafico">
+                    <ReactApexChart options={dadosNomeProduto} series={dadosproduto} type="bar" height={350} />
+                </div>
 
                 <div>
 
@@ -153,7 +258,10 @@ function Producao_e_vendas() {
                         `}
                 </style>
                 
-                    <div className="mr">
+                    <div className="mr"> {/* Tabela Vendas*/}
+
+                    <input onChange={(e)=> setpesquisa(e.target.value)}/>
+                    <button onClick={()=> buscaPorNome(pesquisa)}>Pesquisar</button>
 
                         {
                             vendas.length > 0 ?
@@ -183,18 +291,6 @@ function Producao_e_vendas() {
                         }
 
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
             </div>
