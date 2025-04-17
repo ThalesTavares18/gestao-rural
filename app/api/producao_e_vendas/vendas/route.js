@@ -2,7 +2,7 @@ import conexao from "@/app/lib/conexao";
 
 export async function GET(){
 
-    const query = `SELECT produtos.id ,produtos.nome, estoque.quantidade, estoque.entrada FROM estoque JOIN produtos ON estoque.id_produto = produtos.id WHERE estoque.entrada = 1;`
+    const query = `SELECT produtos.id ,produtos.nome, estoque.quantidade, estoque.entrada FROM estoque JOIN produtos ON estoque.id_produto = produtos.id WHERE estoque.entrada = 0;`
     const [results] = await conexao.execute(query)
 
     return new Response(
