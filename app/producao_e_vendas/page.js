@@ -9,7 +9,6 @@ function Producao_e_vendas() {
 
     const [produtos, setprodutos] = useState([])
     const [vendas, setvendas] = useState([])
-    const [pesquisa, setpesquisa] = useState([])
 
     const [dadosproduto, setDadosProdutos] = useState([])
     const [dadosNomeProduto, setDadosNomeProduto] = useState({})
@@ -61,11 +60,65 @@ function Producao_e_vendas() {
             }
           },
     })
+  
+    async function buscaVendas(){
+      const response = await axios.get(host+"/producao_e_vendas/vendas")  
+      
+      //setvendas(response.data)
 
+
+      const data = response.data
+      const itens = []
+      
+      for (let i = 0; i < data.length; i++) {
+        const index = itens.findIndex(item => item.id === data[i].id);
+        
+        if (index == -1) {
+          itens.push(data[i]);
+        } else {
+          itens[index].quantidade += data[i].quantidade;
+        }
+      }
+      
+      setvendas(itens)
+    }
 
     async function buscaTodos() {
-        const response = await axios.get(host+"/producao_e_vendas")
-        setprodutos(response.data)
+        const response = await axios.get(host+"/producao_e_vendas/vendas")
+
+        const response2 = await axios.get(host+"/producao_e_vendas")
+
+      const data = response2.data
+      const itens = []
+      
+
+
+      for (let i = 0; i < data.length; i++) {
+        const index = itens.findIndex(item => item.id === data[i].id);
+        
+        if (index == -1) {
+          itens.push(data[i]);
+        } else {
+          itens[index].quantidade += data[i].quantidade;
+        }
+      }      
+        itens.sort((a, b) => a.nome.localeCompare(b.nome));
+
+      const data2 = response.data
+      const itens2 = []
+
+      for (let i = 0; i < data2.length; i++) {
+        const index = itens2.findIndex(item => item.id === data2[i].id);
+        
+        if (index == -1) {
+          itens2.push(data2[i]);
+        } else {
+          itens2[index].quantidade += data2[i].quantidade;
+        }
+      }  
+        itens2.sort((a, b) => a.nome.localeCompare(b.nome));
+
+      //setvendas(itens)
 
         const opcoes = {
             chart: {
@@ -89,7 +142,7 @@ function Producao_e_vendas() {
               colors: ['transparent']
             },
             xaxis: {
-              categories: response.data.map(i => i.nome),
+              categories: itens.map(i => i.nome),
             },
             yaxis: {
               title: {
@@ -109,24 +162,19 @@ function Producao_e_vendas() {
           }
         setDadosNomeProduto(opcoes)
 
-        const dadosProdutoAtual = dadosproduto;
+        const dadosProdutoAtual = [];
         dadosProdutoAtual.push({
-            name: 'Produzidos',
-            data: response.data.map(i => i.quantidade)
+          name: 'Produzidos',
+          data: itens.map(i => i.quantidade)
+        })
+        dadosProdutoAtual.push({
+            name: 'Vendidos',
+            data: itens2.map(i => i.quantidade)
         })
         setDadosProdutos(dadosProdutoAtual)
 
-    }
-
-    async function buscaVendas(){
-      const response = await axios.get(host+"/vendas")
-      console.log(response.data)
-      setvendas(response.data)
-    }
-
-    async function buscaPorNome( nome ){
-        const response = await axios.get(host+"/producao_e_vendas/"+nome)
-        setprodutos(response.data)
+        setprodutos(itens)
+        setvendas(itens2)
     }
 
     useEffect(() => {
@@ -188,10 +236,7 @@ function Producao_e_vendas() {
                         `}
                 </style>
                 
-                    <div className="ml"> {/* Tabela Produção*/}
-
-                            <input onChange={(e)=> setpesquisa(e.target.value)}/>
-                            <button onClick={()=> buscaPorNome(pesquisa)}>Pesquisar</button>
+                    <div className="ml"> {/* Tabela Produção*/}                           
 
                         {
                             produtos.length > 0 ?
@@ -259,9 +304,6 @@ function Producao_e_vendas() {
                 </style>
                 
                     <div className="mr"> {/* Tabela Vendas*/}
-
-                    <input onChange={(e)=> setpesquisa(e.target.value)}/>
-                    <button onClick={()=> buscaPorNome(pesquisa)}>Pesquisar</button>
 
                         {
                             vendas.length > 0 ?

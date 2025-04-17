@@ -1,5 +1,3 @@
-
-
 import conexao from "@/app/lib/conexao"
 
 export async function GET(){
@@ -17,7 +15,7 @@ export async function GET(){
 
 }
 
-export async function PUT( request ){
+export async function POST( request ){
 
     const body = await request.json()
 

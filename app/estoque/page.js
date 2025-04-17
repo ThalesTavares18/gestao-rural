@@ -1,334 +1,200 @@
-'use client';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './pagina_estoque.css';
+'use client'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "./pagina_estoque.css";
+import host from "../lib/host";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrashAlt, faMagnifyingGlass, faRightLeft } from '@fortawesome/free-solid-svg-icons';
-import host from '../lib/host';
+export default function Home() {
 
-const Estoque = () => {
-  const [estoque, alteraEstoque] = useState(0);
-  const [A1, alteraA1] = useState(false);
-  const [nomeProduto, alteraNomeProduto] = useState('');
-  const [precoProduto, alteraPrecoProduto] = useState([]);
-  const [quantidadeProduto, alteraQuantidadeProduto] = useState([]);
-  const [produtos, setProdutos] = useState([]);
-  const [produtoSelecionado, setProdutoSelecionado] = useState(null);  // Produto para editar
-  const [novaQuantidade, setNovaQuantidade] = useState('');  // Nova quantidade no modal
-  const [pesquisa, setPesquisa] = useState('');
-  const [modalNomeAberto, setModalNomeAberto] = useState(false); // Controle do modal de nome
-  const [produtoParaAlterarNome, setProdutoParaAlterarNome] = useState(null); // Produto selecionado para alteração de nome
+    const [ produtos, alteraProdutos ] = useState([])
 
-  // Função para buscar todos os produtos
-  const buscaTodos = async () => {
-    try {
-      const response = await axios.get(host + "/estoque");
-      setProdutos(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
+    const [ nome, alteraNome ] = useState([])
+    const [ preco, alteraPreco ] = useState([])
+    const [ quantidade, alteraQuantidade ] = useState([])
+
+    const [ editando, alteraEditando ] = useState(0)
+    const [ pesquisa, alteraPesquisa ] = useState("")
+
+    async function buscaTodos(){
+        const response = await axios.get(host+"/estoque")
+        alteraProdutos( response.data )
     }
-  };
 
-  useEffect(() => {
-    buscaTodos();
-  }, []);
-
-  // Função para abrir o formulário de adição de produto
-  const handleClick = () => {
-    alteraA1(!A1);
-  };
-
-  // Função para salvar um novo produto no banco de dados
-  const handleSalvar = async () => {
-    if (nomeProduto && quantidadeProduto) {
-      const novoProduto = {
-        nome: nomeProduto,
-        preco: parseFloat(precoProduto),
-        quantidade: parseInt(quantidadeProduto)
-      };
-
-      try {
-        const response = await axios.post(host + "/estoque", novoProduto);
-
-        if (response.status === 200) {
-          // Produto salvo com sucesso
-          alteraPrecoProduto('');
-          alteraA1(false);
-          console.log("Produto salvo com sucesso");
-          buscaTodos(); // Atualiza a lista
-        } else {
-          console.error('Erro ao salvar o produto');
-        }
-      } catch (error) {
-        console.error('Erro na comunicação com a API:', error);
-      }
-    } else {
-      console.log('Nome e quantidade do produto são obrigatórios.');
+    async function buscaPorID( id ){
+        const response = await axios.get(host+"/estoque/"+id)
+        alteraProdutos( response.data )
     }
-  };
 
+    function buscaPorNome(){}
 
-  // Função para alterar a quantidade de um produto no estoque
-  const handleAlterarEstoque = async (produtoId, novaQuantidade) => {
-    try {
-      const response = await axios.put("host+" / estoque, {
-        id_produto: produtoId,
-        quantidade: novaQuantidade,
-      });
+    async function insereProduto(){
 
-      console.log(response.data.message);
-
-      const novosProdutos = produtos.map(produto =>
-        produto.id === produtoId ? { ...produto, quantidade: novaQuantidade } : produto
-      );
-      setProdutos(novosProdutos);
-    } catch (error) {
-      console.error('Erro ao alterar estoque:', error);
-    }
-  };
-
-
-  // Função chamada quando o modal de adicionar estoque é salvo
-  const handleSalvarModal = async () => {
-    if (produtoSelecionado && novaQuantidade) {
-      await handleAlterarEstoque(produtoSelecionado.id, novaQuantidade);
-      setNovaQuantidade('');
-      alteraA1(false); // Fechar modal
-    }
-  };
-
-  // Função para salvar a alteração do nome de um produto
-  const handleAlterarNome = async () => {
-    if (produtoParaAlterarNome && nomeProduto) {
-      const updatedProduto = { ...produtoParaAlterarNome, nome: nomeProduto };
-
-      try {
-        const response = await axios.post(host +"/estoque/"+ updatedProduto.id , updatedProduto);
-
-        if (response.data.success) {
-          const produtosAtualizados = produtos.map(produto =>
-            produto.id === updatedProduto.id ? updatedProduto : produto
-          );
-          setProdutos(produtosAtualizados);
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
         }
 
-        setModalNomeAberto(false);
-        setProdutoParaAlterarNome(null);
-        alteraNomeProduto('');
-      } catch (error) {
-        console.error('Erro ao alterar nome:', error);
-      }
+        const response = await axios.post(host+"/estoque", obj)
+        console.log(response)
+
+        buscaTodos()
+
     }
-  };
+
+    async function atualizaProduto(){
+
+        const obj = {
+            nome: nome,
+            preco: preco,
+            quantidade: quantidade
+        }
+
+        const response = await axios.put(host+"/estoque/"+editando, obj)
+
+        buscaTodos()
+
+        alteraEditando(0)
+        alteraNome("")
+        alteraPreco("")
+        alteraQuantidade("")
+
+    }
+
+    async function removeProduto( id ){
+        await axios.delete(host+"/estoque/"+id)
+        buscaTodos()
+    }
 
 
-  // Função para formatar a data no formato "dd/mm/yyyy hh:mm"
-  const formataData = (valor) => {
-    let data = valor.split("T")[0];
-    let hora = valor.split("T")[1] || "00:00";
 
-    data = data.split("-");
-    data = data.reverse();
-    data = data.join("/");
+    function montaEdicao( produto ){
+        alteraEditando( produto.id )
+        alteraNome( produto.nome )
+        alteraPreco( produto.preco )
+        alteraQuantidade( produto.quantidade )
+    }
 
-    hora = hora.split(".")[0];
-    hora = hora.split(":");
-    hora = hora[0] + ":" + hora[1];
+    function enviaFormulario(e){
+        e.preventDefault()
 
-    return data + " às " + hora;
-  };
+        if( editando == 0 ){
+            insereProduto()
+        }else{
+            atualizaProduto()
+        }
 
-  // Função para pesquisar produtos
-  const handlePesquisar = () => {
-    const produtosFiltrados = produtos.filter(produto =>
-      produto.nome.toLowerCase().includes(pesquisa.toLowerCase())
-    );
-    setProdutos(produtosFiltrados);
-  };
+    }
 
-  return (
-    <div>
-      {/* Modal de Alterar Nome */}
-      {modalNomeAberto && produtoParaAlterarNome && (
-        <>
-          <div className='fundo-modal'></div>
-          <div className='modal'>
-            <h2>Alterar Nome do Produto</h2>
-            <input
-              type="text"
-              placeholder="Novo nome"
-              value={nomeProduto}
-              onChange={(e) => alteraNomeProduto(e.target.value)}
-            />
-            <br />
-            <button className='button-modal' onClick={handleAlterarNome}>
-              Salvar
-            </button>
-            <button className='button-modal' onClick={() => setModalNomeAberto(false)}>
-              Voltar
-            </button>
-          </div>
-        </>
-      )}
+    useEffect( ()=> {
+        buscaTodos()
+    }, [] )
 
-
-      
-
-      <div className="menuSuperior">
-        <img className="logo" src="logo.png" />
+    return (
+        <div>
+            <div className="barrinhaverde">
+      <div className="Logo">
+        <img className="logo" src="logo.png" width={100} height={100} />
+        <h1>Planilhas</h1>
       </div>
-
-      <div className="paineis">
-        <div className="painelEsquerdo">
-          <div className="CardGeral">
-            <div className="atualizar">
-              <button className="button" onClick={handleClick}>
-                <i className="fa-solid fa-download"></i>
-                <p>Atualizar Cadastrados</p>
-              </button>
-            </div>
-          </div>
-
-          {A1 && (
-            <>
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Nome do produto"
-                    value={nomeProduto}
-                    onChange={(e) => alteraNomeProduto(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Preço"
-                    value={precoProduto}
-                    onChange={(e) => alteraPrecoProduto(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="Conteudo">
-                <div className="CardGeral">
-                  <input
-                    type="text"
-                    placeholder="Quantidade"
-                    value={quantidadeProduto}
-                    onChange={(e) => alteraQuantidadeProduto(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="CardGeral">
-                  <button className="button" onClick={handleSalvar}>
-                    Salvar
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-
-        <div className="produtosCadastradosContainer">
-          <div className="produtosCadastradosTitulo">
-            <i className="fa-solid fa-file"></i>
-            <p className="lupa"> Cadastrados:</p>
-            <p><FontAwesomeIcon icon={faMagnifyingGlass} /></p>
-            <input
-              value={pesquisa}
-              onChange={(e) => setPesquisa(e.target.value)}
-            />
-            <button className="pesquisa" onClick={handlePesquisar}>
-              Pesquisar
-            </button>
-          </div>
-
-          <div className="tabelas-lado-a-lado">
-            <div className="tabela-scroll">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Quantidade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {produtos.map((produto, index) => (
-                    <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{produto.nome}</td>
-                      <td>{produto.preco.toFixed()}</td>
-                      <td>{produto.quantidade}</td>
-                      <td>
-                        <button onClick={() => {
-                          
-                          setModalNomeAberto(true); // Abre o modal
-                        }} className="button-edit">
-                          <FontAwesomeIcon icon={faRightLeft} />
-                        </button>
-
-                        <button onClick={() => {
-                          setProdutoParaAlterarNome(produto);
-                          alteraNomeProduto(produto.nome);  // Preenche o campo com o nome atual
-                          setModalNomeAberto(true); // Abre o modal
-                        }} className="button-edit">
-                          <FontAwesomeIcon icon={faPencilAlt} />
-                        </button>
-
-                        <button className="button-edit">
-                          <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="tabela-scroll">
-            <p className='registro'> Registro: </p>
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Data</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {produtos.map((produto, index) => (
-                    <tr key={index}>
-                      <td>{produto.nome}</td>
-                      <td>{produto.quantidade}</td>
-                      <td>{formataData(produto.dataCadastro || '')}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="Voltar">
-        <a href="http://localhost:3000/">
-          <button className="voltar">
-            <p>Voltar</p>
-          </button>
+  
+      <div className="BotaoVoltar">
+        <a href=" http://localhost:3000/">
+          <button className="buttonVoltar">Voltar</button>
         </a>
       </div>
     </div>
-  );
-};
+           
 
-export default Estoque;
+            <h1>Gerenciamento de produtos</h1>
+
+            <button >Listagem</button>
+            <button className="Botoes">Cadastro</button>
+
+            <hr/>
+
+            <p>Busca de produtos. Digite o ID:</p>
+            <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
+            <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
+
+            
+                <style>
+                    {`
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                        font-family: 'Arial', sans-serif;
+                    }
+                    th, td {
+                        border: 1px solid #ddd;
+                        padding: 12px;
+                        text-align: left;
+                        font-size: 16px;
+                    }
+                    th {
+                        background-color: #4CAF50;
+                        color: white;
+                    }
+                    tr:nth-child(even) {
+                        background-color: #f2f2f2;
+                    }
+                    tr:hover {
+                        background-color: #ddd;
+                    }
+                    `}
+                </style>
+
+            <h2>Listagem</h2>
+
+            {
+                produtos.length > 0 ?
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>Nome</td>
+                            <td>Preço</td>
+                            <td>Quantidade</td>
+                            <td>Registro</td>
+                        </tr>
+                        {
+                            produtos.map( i =>
+                                <tr  >
+                                    <td>{i.id}</td>
+                                    <td>{i.nome}</td>
+                                    <td>R$ {i.preco.toFixed(2)}</td>
+                                    <td>{i.quantidade}</td>
+                                    
+                                    <td>
+                                        <button onClick={ ()=> montaEdicao(i) } >Editar</button>
+                                        <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
+                                    </td>
+
+                                </tr>
+                            )
+                        }
+                    </table>
+                :
+                    <p>Carregando...</p>
+            }
+
+            <hr/>
+
+            <h2>Cadastro</h2>
+
+            <form onSubmit={ (e)=> enviaFormulario(e) } >
+                <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraNome(e.target.value) } value={nome} /> </label>
+                <br/>
+                <label> Digite o preço: <br/> <input onChange={(e)=> alteraPreco(e.target.value) } value={preco} /> </label>
+                <br/>
+                <label> Digite a quantidade: <br/> <input onChange={(e)=> alteraQuantidade(e.target.value) } value={quantidade} /> </label>
+                <br/>
+                <button>Salvar</button>
+
+            </form>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+        </div>
+    );
+}
