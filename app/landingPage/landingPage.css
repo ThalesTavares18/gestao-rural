@@ -7,12 +7,25 @@
    
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 .menuPrincipal{
     background-color: white;
     display: flex;
     justify-content: space-around;
-    height: 120px;
+    height: 120px; 
    
+}
+
+.menuPrincipal button{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.menuPrincipal button:hover{
+    color: rgb(0, 128, 0);
 }
 
 button{
@@ -78,8 +91,22 @@ button{
     background-color: white;
 }
 
-.itens h3{
+.cardGeral {
+
+    display: flex;
+    justify-content: space-between;
+    margin: 40px;
+       
+}
+
+.cardGeral p{
+
     text-align: center;
+    box-shadow: 1px 10px 10px black;
+    border-radius: 30px;
+   
+    margin-top: 20px;
+    
     
 }
 
@@ -88,3 +115,35 @@ button{
     text-align: center;
 
 }
+
+h3{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    background-color: white;
+
+}
+
+.card {
+  box-shadow: 10 4px 40px 10 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 15%;
+  background-color: white;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+  background: white;
+ 
+}
+
+.container h4{
+    background: white;
+    text-align: center;
+}
+
+
