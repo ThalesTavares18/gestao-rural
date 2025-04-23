@@ -184,20 +184,23 @@ function Producao_e_vendas() {
 
     return ( 
 
-        <div>           
-                <div className="barrinhaverde">
-
-                    <img className="logo"src="logo.png" width={100} height={100}/>
-
-                    <a href="http://localhost:3000"> <p className="voltar"> Voltar </p> </a>
-
-                    <h1 style={{marginTop:50}}>Produção e Vendas</h1>
-
-                </div>
-            
+        <div>     
+          <div className="barrinhaverde">
+            <div className="Logo">
+              <img className="logo" src="logo.png" width={100} height={100} />
+              <h1>Produção e Vendas</h1>
+            </div>
+        
+            <div className="BotaoVoltar">
+              <a href=" http://localhost:3000/">
+                <button className="buttonVoltar">Voltar</button>
+              </a>
+            </div>
+          </div>      
+                           
              <div  className="espacamento">
 
-                 <p style={{marginRight:140}} className="pv">PRODUZIDOS</p>
+                 <p style={{marginRight:550}} className="pv">PRODUZIDOS</p>
 
 
                  <p className="pv">VENDAS</p>

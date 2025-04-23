@@ -52,26 +52,28 @@ export default function MeusClientes() {
     function enviaFormulario(e) {
         e.preventDefault()
 
+        let nomeLocal = nome
+        nomeLocal = nomeLocal.toLowerCase()
+        console.log(nomeLocal)
+
+        const obj = {
+            nome: nomeLocal,
+            contato: contato,
+        }
+        
+
         if (editando == 0) {
-            insereUsuario();
+            insereUsuario(obj);
         }
     else{
-        atualizaUsuario()
+        atualizaUsuario(obj)
     }
 } 
 
-    async function atualizaUsuario(){
-
-        if (!nome || !contato) return;
-        
-        const obj = {
-            nome: nome,
-            contato: contato,
-           
-        }
+    async function atualizaUsuario(obj){
 
         console.log(obj);
-        const response= await axios.put(host+"/meus_clientes/"+editando, obj)
+        const response = await axios.put(host+"/meus_clientes/"+editando, obj)
         console.log(response)
         buscaTodos()
 
@@ -86,7 +88,7 @@ export default function MeusClientes() {
         await axios.delete(host+"/meus_clientes/"+id)
         buscaTodos()
 
-}
+    }
 
     function montaEdicao( i ){
         alteraEditando(i.id)
@@ -206,7 +208,9 @@ export default function MeusClientes() {
 
             <div>
                 <form onSubmit={(e)=> enviaFormulario (e)}>
-                   
+
+                       
+ 
                     <label className="formulario">  Digite o nome: <br /> <input placeholder="Seu nome..." onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
                     <br />
                     <label className="formulario"> Digite o contato: <br /> <input placeholder="Email ou telefone..." onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
