@@ -71,7 +71,7 @@ export default function MeusClientes() {
         }
 
         console.log(obj);
-        const response= await axios.put(host+"/meus_clientes/"+editando, obj)
+        const response = await axios.put(host+"/meus_clientes/"+editando, obj)
         console.log(response)
         buscaTodos()
 
