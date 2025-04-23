@@ -3,6 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./meusclientes.css";
 import host from "../lib/host";
+import React from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';  // Importe o Toastify
+import 'react-toastify/dist/ReactToastify.css';  // Importe o CSS necessário
 
 
 
@@ -228,6 +231,9 @@ export default function MeusClientes() {
                     <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
 
             </div>
+
+
+            <ToastContainer />  {/* Coloque o ToastContainer no final para exibir os toasts */}
         </div>
     );
 }
