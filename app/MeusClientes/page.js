@@ -57,13 +57,41 @@ export default function MeusClientes() {
 
         let nomeLocal = nome
         nomeLocal = nomeLocal.toLowerCase()
-        console.log(nomeLocal)
+
+        
+        
+        if(nomeLocal.length <= 1){
+            toast.error("Nome muito curto")
+            return
+        }
+        
+        if(nomeLocal.length == 0){
+            toast.error("Por favor digite um nome valido")
+            return
+        }
+        
+        let contatoLocal = contato
+        contatoLocal = contatoLocal.toLowerCase()
+        
+
+        if(contatoLocal.length <= 10){
+            toast.error("contato invalido")
+            return
+        }
+
+
+    
 
         const obj = {
             nome: nomeLocal,
             contato: contato,
         }
         
+        if(length.nomeLocal <= 3){
+            console.log("Nome muito curto")
+            return
+            
+        }
 
         if (editando == 0) {
             insereUsuario(obj);
