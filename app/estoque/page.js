@@ -3,31 +3,35 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./pagina_estoque.css";
 import host from "../lib/host";
+import React from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';  // Importe o Toastify
+import 'react-toastify/dist/ReactToastify.css';  // Importe o CSS necessário
+
 
 export default function Home() {
 
-    const [ produtos, alteraProdutos ] = useState([])
+    const [produtos, alteraProdutos] = useState([])
 
-    const [ nome, alteraNome ] = useState([])
-    const [ preco, alteraPreco ] = useState([])
-    const [ quantidade, alteraQuantidade ] = useState([])
+    const [nome, alteraNome] = useState([])
+    const [preco, alteraPreco] = useState([])
+    const [quantidade, alteraQuantidade] = useState([])
 
-    const [ editando, alteraEditando ] = useState(0)
-    const [ pesquisa, alteraPesquisa ] = useState("")
+    const [editando, alteraEditando] = useState(0)
+    const [pesquisa, alteraPesquisa] = useState("")
 
-    async function buscaTodos(){
-        const response = await axios.get(host+"/estoque")
-        alteraProdutos( response.data )
+    async function buscaTodos() {
+        const response = await axios.get(host + "/estoque")
+        alteraProdutos(response.data)
     }
 
-    async function buscaPorID( id ){
-        const response = await axios.get(host+"/estoque/"+id)
-        alteraProdutos( response.data )
+    async function buscaPorID(id) {
+        const response = await axios.get(host + "/estoque/" + id)
+        alteraProdutos(response.data)
     }
 
-    
 
-    async function insereProduto(){
+
+    async function insereProduto() {
 
         const obj = {
             nome: nome,
@@ -35,14 +39,14 @@ export default function Home() {
             quantidade: quantidade
         }
 
-        const response = await axios.post(host+"/estoque", obj)
+        const response = await axios.post(host + "/estoque", obj)
         console.log(response)
 
         buscaTodos()
 
     }
 
-    async function atualizaProduto(){
+    async function atualizaProduto() {
 
         const obj = {
             nome: nome,
@@ -50,7 +54,7 @@ export default function Home() {
             quantidade: quantidade
         }
 
-        const response = await axios.put(host+"/estoque/"+editando, obj)
+        const response = await axios.put(host + "/estoque/" + editando, obj)
 
         buscaTodos()
 
@@ -61,70 +65,104 @@ export default function Home() {
 
     }
 
-    async function removeProduto( id ){
-        await axios.delete(host+"/estoque/"+id)
+    async function removeProduto(id) {
+        await axios.delete(host + "/estoque/" + id)
         buscaTodos()
     }
 
 
 
-    function montaEdicao( produto ){
-        alteraEditando( produto.id )
-        alteraNome( produto.nome )
-        alteraPreco( produto.preco )
-        alteraQuantidade( produto.quantidade )
+    function montaEdicao(produto) {
+        alteraEditando(produto.id)
+        alteraNome(produto.nome)
+        alteraPreco(produto.preco)
+        alteraQuantidade(produto.quantidade)
     }
 
-    function enviaFormulario(e){
+    function enviaFormulario(e) {
         e.preventDefault()
 
-        if( editando == 0 ){
+
+        let nomeLocal = nome
+        let precoLocal = preco
+        let quantidadeLocal = quantidade
+
+
+        if (!/^[0-9]+(\.[0-9]+)?$/.test(precoLocal)) {
+            toast.error(' Digite um número válido para o preço (apenas números e ponto decimal)!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce
+            });
+            return;
+        }
+        if (!/^[A-Za-z]+$/.test(nomeLocal)) {
+            alert("Digite um nome válido");
+            return;
+        }
+
+        if (!/^[0-9]+$/.test(quantidadeLocal)) {
+            alert("Digite apenas números");
+            return;
+        }
+
+
+        if (editando == 0) {
             insereProduto()
-        }else{
+        } else {
             atualizaProduto()
         }
 
     }
 
-    useEffect( ()=> {
+    useEffect(() => {
         buscaTodos()
-    }, [] )
+    }, [])
 
     return (
         <div>
             <div className="barrinhaverde">
-      <div className="Logo">
-        <img className="logo" src="logo.png" width={100} height={100} />
-        <h1>Planilhas</h1>
-      </div>
-  
-      <div className="BotaoVoltar">
-        <a href=" http://localhost:3000/">
-          <button className="buttonVoltar">Voltar</button>
-        </a>
-      </div>
-    </div>
-           
+                <div className="Logo">
+                    <img className="logo" src="logo.png" width={100} height={100} />
+                    <h1>Planilhas</h1>
+                </div>
+
+                <div className="BotaoVoltar">
+                    <a href=" http://localhost:3000/">
+                        <button className="buttonVoltar">Voltar</button>
+                    </a>
+                </div>
+            </div>
+
 
             <h1>Gerenciamento de produtos</h1>
 
             <button >Listagem</button>
             <button className="Botoes">Cadastro</button>
 
-            <hr/>
+            <hr />
 
             <p>Busca de produtos. Digite o ID:</p>
-            <input onChange={ (e)=> alteraPesquisa(e.target.value) } />
-            <button onClick={ ()=> buscaPorID(pesquisa) } >Pesquisar</button>
+            <input onChange={(e) => alteraPesquisa(e.target.value)} />
+            <button onClick={() => buscaPorID(pesquisa)} >Pesquisar</button>
 
-            
-                <style>
-                    {`
+
+            <style>
+                {`
                     table {
                         width: 100%;
                         border-collapse: collapse;
                         margin: 20px 0;
                         font-family: 'Arial', sans-serif;
+                        max-height: 400px; /* Define a altura máxima da tabela */
+                        overflow-y: auto; /* Adiciona rolagem vertical */
+                        display: block; /* Necessário para permitir a rolagem */
                     }
                     th, td {
                         border: 1px solid #ddd;
@@ -143,7 +181,7 @@ export default function Home() {
                         background-color: #ddd;
                     }
                     `}
-                </style>
+            </style>
 
             <h2>Listagem</h2>
 
@@ -158,42 +196,44 @@ export default function Home() {
                             <td>Registro</td>
                         </tr>
                         {
-                            produtos.map( i =>
+                            produtos.map(i =>
                                 <tr  >
                                     <td>{i.id}</td>
                                     <td>{i.nome}</td>
                                     <td>R$ {i.preco.toFixed(2)}</td>
                                     <td>{i.quantidade}</td>
-                                    
+
                                     <td>
-                                        <button onClick={ ()=> montaEdicao(i) } >Editar</button>
-                                        <button onClick={ ()=> removeProduto(i.id) } >Remover</button> 
+                                        <button onClick={() => montaEdicao(i)} >Editar</button>
+                                        <button onClick={() => removeProduto(i.id)} >Remover</button>
                                     </td>
 
                                 </tr>
                             )
                         }
                     </table>
-                :
+                    :
                     <p>Carregando...</p>
             }
 
-            <hr/>
+            <hr />
 
             <h2>Cadastro</h2>
 
-            <form onSubmit={ (e)=> enviaFormulario(e) } >
-                <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraNome(e.target.value.toLowerCase()) } value={nome} /> </label>
-                <br/>
-                <label> Digite o preço: <br/> <input onChange={(e)=> alteraPreco(e.target.value) } value={preco} /> </label>
-                <br/>
-                <label> Digite a quantidade: <br/> <input onChange={(e)=> alteraQuantidade(e.target.value) } value={quantidade} /> </label>
-                <br/>
+            <form onSubmit={(e) => enviaFormulario(e)} >
+                <label> Digite o nome do produto: <br /> <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} /> </label>
+                <br />
+                <label> Digite o preço: <br /> <input onChange={(e) => alteraPreco(e.target.value)} value={preco} /> </label>
+                <br />
+                <label> Digite a quantidade: <br /> <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} /> </label>
+                <br />
                 <button>Salvar</button>
 
             </form>
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+            <ToastContainer />  {/* Coloque o ToastContainer no final para exibir os toasts */}
 
         </div>
     );
