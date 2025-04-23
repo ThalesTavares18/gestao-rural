@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import * as pdfjsLib from 'pdfjs-dist/build/pdf'
-import "./meusclientes.css";
+import Swal from 'sweetalert2'
+import "./meusclientes.css"
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.worker.min.js'
@@ -31,6 +32,7 @@ export default function Testes() {
 
       const jsonFinal = transformarTextoEmJson(text)
       setJson(jsonFinal)
+      Swal.fire('PDF processado com sucesso!', '', 'success')
     }
 
     fileReader.readAsArrayBuffer(file)
@@ -38,6 +40,19 @@ export default function Testes() {
 
   const handleUpload = async () => {
     if (!file || !json) return
+
+    const confirmation = await Swal.fire({
+      title: 'Tem certeza?',
+      text: 'Tem certeza que quer adicionar isso ao sistema?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, adicionar!',
+      cancelButtonText: 'Cancelar'
+    })
+
+    if (!confirmation.isConfirmed) {
+      return
+    }
 
     try {
       const res = await fetch('/api/planilhas', {
@@ -52,9 +67,9 @@ export default function Testes() {
         throw new Error(data.error || 'Erro ao salvar no estoque')
       }
 
-      alert('Estoque atualizado com sucesso!')
+      Swal.fire('Estoque atualizado com sucesso!', '', 'success')
     } catch (err) {
-      alert('Erro ao salvar no estoque: ' + err.message)
+      Swal.fire('Erro ao salvar no estoque', err.message, 'error')
     }
   }
 
@@ -136,61 +151,55 @@ export default function Testes() {
 
   return (
     <div>
-    <div className="barrinhaverde">
-      <div className="Logo">
-        <img className="logo" src="logo.png" width={100} height={100} />
-        <h1>Planilhas</h1>
+      <div className="barrinhaverde">
+        <div className="Logo">
+          <img className="logo" src="logo.png" width={100} height={100} />
+          <h1>Planilhas</h1>
+        </div>
+        <div className="BotaoVoltar">
+          <a href="http://localhost:3000/">
+            <button className="buttonVoltar">Voltar</button>
+          </a>
+        </div>
       </div>
-  
-      <div className="BotaoVoltar">
-        <a href=" http://localhost:3000/">
-          <button className="buttonVoltar">Voltar</button>
-        </a>
+
+      <h1>clique no botão para adicionar sua planilha e depois inserir no sistema:</h1>
+
+      <div className="upload-container">
+        <label htmlFor="file-upload" className="buttonVoltar">Escolher Arquivo</label>
+        <input
+          id="file-upload"
+          type="file"
+          accept=".pdf"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
       </div>
-    </div>
-  
-    <h1>clique no botão para adicionar sua planilha e depois inserir no sistema:</h1>
-  
-    <div className="upload-container">
-      <label htmlFor="file-upload" className="buttonVoltar">Escolher Arquivo</label>
-      <input
-        id="file-upload"
-        type="file"
-        accept=".pdf"
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-      />
-    </div>
-  
-    <div style={{ marginTop: '10px' }}>
-  {json && (
-    <>
-      <button onClick={() => setMostrarJson(!mostrarJson)} className="buttonVoltar">
-        {mostrarJson ? 'Ocultar JSON' : 'Visualizar JSON'}
-      </button>
-      <button onClick={handleUpload} className="buttonVoltar">
-        Salvar no banco
-      </button>
-    </>
-  )}
-</div>
 
-  
-    {mostrarJson && json && (
-      <pre style={{
-        marginTop: '20px',
-        backgroundColor: '#f5f5f5',
-        padding: '15px',
-        borderRadius: '8px',
-        overflowX: 'auto'
-      }}>
-        {JSON.stringify(json, null, 2)}
-      </pre>
-    )}
-  </div>
-       
-    
+      <div style={{ marginTop: '10px' }}>
+        {json && (
+          <>
+            <button onClick={() => setMostrarJson(!mostrarJson)} className="buttonVoltar">
+              {mostrarJson ? 'Ocultar JSON' : 'Visualizar JSON'}
+            </button>
+            <button onClick={handleUpload} className="buttonVoltar">
+              Salvar no banco
+            </button>
+          </>
+        )}
+      </div>
 
- 
+      {mostrarJson && json && (
+        <pre style={{
+          marginTop: '20px',
+          backgroundColor: '#f5f5f5',
+          padding: '15px',
+          borderRadius: '8px',
+          overflowX: 'auto'
+        }}>
+          {JSON.stringify(json, null, 2)}
+        </pre>
+      )}
+    </div>
   )
 }
