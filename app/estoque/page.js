@@ -25,7 +25,7 @@ export default function Home() {
         alteraProdutos( response.data )
     }
 
-    function buscaPorNome(){}
+    
 
     async function insereProduto(){
 
@@ -183,7 +183,7 @@ export default function Home() {
             <h2>Cadastro</h2>
 
             <form onSubmit={ (e)=> enviaFormulario(e) } >
-                <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraNome(e.target.value) } value={nome} /> </label>
+                <label> Digite o nome do produto: <br/> <input onChange={(e)=> alteraNome(e.target.value.toLowerCase()) } value={nome} /> </label>
                 <br/>
                 <label> Digite o preço: <br/> <input onChange={(e)=> alteraPreco(e.target.value) } value={preco} /> </label>
                 <br/>
