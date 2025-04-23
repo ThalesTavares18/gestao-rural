@@ -66,7 +66,7 @@ export default function MeusClientes() {
         
         const obj = {
             nome: nome,
-            contato: contato,
+            contato: contato
            
         }
 
@@ -86,7 +86,7 @@ export default function MeusClientes() {
         await axios.delete(host+"/meus_clientes/"+id)
         buscaTodos()
 
-}
+    }
 
     function montaEdicao( i ){
         alteraEditando(i.id)
@@ -204,7 +204,9 @@ export default function MeusClientes() {
 
             <div>
                 <form onSubmit={(e)=> enviaFormulario (e)}>
-                   
+
+                       
+ 
                     <label className="formulario">  Digite o nome: <br /> <input placeholder="Seu nome..." onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
                     <br />
                     <label className="formulario"> Digite o contato: <br /> <input placeholder="Email ou telefone..." onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
