@@ -19,6 +19,9 @@ export default function Home() {
     const [editando, alteraEditando] = useState(0)
     const [pesquisa, alteraPesquisa] = useState("")
 
+    const [modalAberto, setModalAberto] = useState(false);
+
+
     async function buscaTodos() {
         const response = await axios.get(host + "/estoque")
         alteraProdutos(response.data)
@@ -144,9 +147,40 @@ export default function Home() {
             <h1>Gerenciamento de produtos</h1>
 
             <button >Listagem</button>
-            <button className="Botoes">Cadastro</button>
+
+            <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastro</button>
+
+
+            {modalAberto && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="fechar" onClick={() => setModalAberto(false)}>X</button>
+                        <h2>Cadastro</h2>
+                        <form onSubmit={(e) => {
+                            enviaFormulario(e);
+                            setModalAberto(false); // Fecha o modal após envio
+                        }}>
+                            <label>Digite o nome do produto: <br />
+                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} />
+                            </label>
+                            <br />
+                            <label>Digite o preço: <br />
+                                <input onChange={(e) => alteraPreco(e.target.value)} value={preco} />
+                            </label>
+                            <br />
+                            <label>Digite a quantidade: <br />
+                                <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} />
+                            </label>
+                            <br/>
+                            <button>Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
 
             <hr />
+            <br/><br/>
 
             <p>Busca de produtos. Digite o ID:</p>
             <input onChange={(e) => alteraPesquisa(e.target.value)} />
@@ -156,13 +190,14 @@ export default function Home() {
             <style>
                 {`
                     table {
+                    
                         width: 100%;
                         border-collapse: collapse;
                         margin: 20px 0;
                         font-family: 'Arial', sans-serif;
-                        max-height: 400px; /* Define a altura máxima da tabela */
-                        overflow-y: auto; /* Adiciona rolagem vertical */
-                        display: block; /* Necessário para permitir a rolagem */
+                        // max-height: 500px; /* Define a altura máxima da tabela */
+                        // overflow-y: auto; /* Adiciona rolagem vertical */
+                        // display: block; /* Necessário para permitir a rolagem */
                     }
                     th, td {
                         border: 1px solid #ddd;
@@ -180,8 +215,64 @@ export default function Home() {
                     tr:hover {
                         background-color: #ddd;
                     }
-                    `}
+
+
+                    .modal-overlay {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0, 0, 0, 0.5); 
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 999;
+                    }
+
+                    .modal-content {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 8px;
+                        width: 90%;
+                        max-width: 500px;
+                        position: relative;
+                    }
+
+                    .modal-content h2 {
+                        margin-top: 0;
+                    }
+
+                    .fechar {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        background: crimson;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        padding: 5px 10px;
+                        cursor: pointer;
+                    }
+
+
+                                        `}
             </style>
+
+            <h2>Cadastro</h2>
+
+            <form onSubmit={(e) => enviaFormulario(e)} >
+                <label> Digite o nome do produto: <br /> <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} /> </label>
+                <br />
+                <label> Digite o preço: <br /> <input onChange={(e) => alteraPreco(e.target.value)} value={preco} /> </label>
+                <br />
+                <label> Digite a quantidade: <br /> <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} /> </label>
+                <br />
+                <button>Salvar</button>
+
+            </form>
+
+            <br /><br /><br />
 
             <h2>Listagem</h2>
 
@@ -216,22 +307,11 @@ export default function Home() {
                     <p>Carregando...</p>
             }
 
-            <hr />
 
-            <h2>Cadastro</h2>
 
-            <form onSubmit={(e) => enviaFormulario(e)} >
-                <label> Digite o nome do produto: <br /> <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} /> </label>
-                <br />
-                <label> Digite o preço: <br /> <input onChange={(e) => alteraPreco(e.target.value)} value={preco} /> </label>
-                <br />
-                <label> Digite a quantidade: <br /> <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} /> </label>
-                <br />
-                <button>Salvar</button>
 
-            </form>
 
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
 
             <ToastContainer />  {/* Coloque o ToastContainer no final para exibir os toasts */}
 
