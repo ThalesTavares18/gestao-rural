@@ -3,9 +3,9 @@ import conexao from "@/app/lib/conexao";
 
 export async function GET(request, { params }) {
   
-    const nome = params.nome;
+    const nome = await (params).nome;
 
-    const query = `SELECT * FROM contatos WHERE nome LIKE "%?%";`;
+    const query = `SELECT * FROM contatos WHERE nome = ?;`;
     const [results] = await conexao.execute(query, [nome]);
 
 
