@@ -38,6 +38,8 @@ function Financeiro() {
 
     async function pesquisadata( data ){
         const response = await axios.get(host+"/financeiro/"+ data)
+
+        
         alteradata( response.data )
         alterames([])
         alterasemana([])
