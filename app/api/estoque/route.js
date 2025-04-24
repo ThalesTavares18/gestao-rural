@@ -20,14 +20,23 @@ export async function POST( request ){
     const body = await request.json()
 
     const query = `
-        INSERT INTO produtos
-        (nome, preco, quantidade)
-        VALUES
-        (?, ?, ?);
+        START TRANSACTION;
+
+            INSERT INTO produtos
+            (nome, preco, quantidade)
+            VALUES
+            (?, ?, ?);
+
+            INSERT INTO estoque 
+            (id_produto, quantidade, entrada)
+            VALUES 
+            (LAST_INSERT_ID(), ?, 1)
+
+        COMMIT;
     `
     const [results] = await conexao.execute(
         query,
-        [body.nome, body.preco, body.quantidade]
+        [body.nome, body.preco, body.quantidade, body.quantidade]
     )
 
     return new Response( JSON.stringify(results.insertId) )

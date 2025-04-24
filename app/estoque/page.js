@@ -106,12 +106,32 @@ export default function Home() {
             return;
         }
         if (!/^[A-Za-z]+$/.test(nomeLocal)) {
-            alert("Digite um nome válido");
+            toast.error("Digite um nome válido!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce
+            });
             return;
         }
 
         if (!/^[0-9]+$/.test(quantidadeLocal)) {
-            alert("Digite apenas números");
+            toast.error("Digite apenas números na quantidade", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce
+            });
             return;
         }
 
@@ -177,6 +197,8 @@ export default function Home() {
                     </div>
                 </div>
             )}
+
+            
 
 
             <hr />
@@ -259,7 +281,7 @@ export default function Home() {
                                         `}
             </style>
 
-            <h2>Cadastro</h2>
+            <h2>Editar</h2>
 
             <form onSubmit={(e) => enviaFormulario(e)} >
                 <label> Digite o nome do produto: <br /> <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} /> </label>
@@ -284,7 +306,7 @@ export default function Home() {
                             <td>Nome</td>
                             <td>Preço</td>
                             <td>Quantidade</td>
-                            <td>Registro</td>
+                           
                         </tr>
                         {
                             produtos.map(i =>
