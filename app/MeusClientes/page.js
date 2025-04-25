@@ -74,7 +74,7 @@ export default function MeusClientes() {
         contatoLocal = contatoLocal.toLowerCase()
         
 
-        if(contatoLocal.length <= 10){
+        if(contatoLocal.length <= 8){
             toast.error("contato invalido")
             return
         }
