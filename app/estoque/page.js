@@ -28,8 +28,8 @@ export default function Home() {
         alteraProdutos(response.data)
     }
 
-    async function buscaPorID(id) {
-        const response = await axios.get(host + "/estoque/" + id)
+    async function buscaPorNome(nome) {
+        const response = await axios.get(host + "/estoque/" + nome)
         alteraProdutos(response.data)
     }
 
@@ -184,15 +184,15 @@ export default function Home() {
                             setModalAberto(false); // Fecha o modal após envio
                         }}>
                             <label>Digite o nome do produto: <br />
-                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} />
+                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())}  />
                             </label>
                             <br />
                             <label>Digite o preço: <br />
-                                <input onChange={(e) => alteraPreco(e.target.value)} value={preco} />
+                                <input onChange={(e) => alteraPreco(e.target.value)} />
                             </label>
                             <br />
                             <label>Digite a quantidade: <br />
-                                <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} />
+                                <input onChange={(e) => alteraQuantidade(e.target.value)} />
                             </label>
                             <br/>
                             <button>Salvar</button>
@@ -234,9 +234,9 @@ export default function Home() {
             <hr />
             <br/><br/>
 
-            <p>Busca de produtos. Digite o ID:</p>
+            <p>Busca de produtos por nome:</p>
             <input onChange={(e) => alteraPesquisa(e.target.value)} />
-            <button onClick={() => buscaPorID(pesquisa)} >Pesquisar</button>
+            <button onClick={() => buscaPorNome(pesquisa)} >Pesquisar</button>
 <br/><br/>
             <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastrar</button>
 
