@@ -20,6 +20,7 @@ export default function Home() {
     const [pesquisa, alteraPesquisa] = useState("")
 
     const [modalAberto, setModalAberto] = useState(false);
+    const [modalEdicaoAberto, setModalEdicaoAberto] = useState(false);
 
 
     async function buscaTodos() {
@@ -80,6 +81,7 @@ export default function Home() {
         alteraNome(produto.nome)
         alteraPreco(produto.preco)
         alteraQuantidade(produto.quantidade)
+        setModalEdicaoAberto(true);
     }
 
     function enviaFormulario(e) {
@@ -105,7 +107,7 @@ export default function Home() {
             });
             return;
         }
-        if (!/^[A-Za-z]+$/.test(nomeLocal)) {
+        if (!/^[A-Za-zÀ-ÿ\s-]+$/.test(nomeLocal)) {
             toast.error("Digite um nome válido!", {
                 position: "top-center",
                 autoClose: 5000,
@@ -153,7 +155,7 @@ export default function Home() {
             <div className="barrinhaverde">
                 <div className="Logo">
                     <img className="logo" src="logo.png" width={100} height={100} />
-                    <h1>Planilhas</h1>
+                    <h1>Estoque</h1>
                 </div>
 
                 <div className="BotaoVoltar">
@@ -165,10 +167,10 @@ export default function Home() {
 
 
             <h1>Gerenciamento de produtos</h1>
+            <br/>
 
-            <button >Listagem</button>
+            
 
-            <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastro</button>
 
 
             {modalAberto && (
@@ -199,6 +201,33 @@ export default function Home() {
             )}
 
             
+{modalEdicaoAberto && (
+    <div className="modal-overlay">
+        <div className="modal-content">
+            <button className="fechar" onClick={() => setModalEdicaoAberto(false)}>X</button>
+            <h2>Editar Produto</h2>
+            <form onSubmit={(e) => {
+                enviaFormulario(e);
+                setModalEdicaoAberto(false); // Fecha o modal depois de salvar
+            }}>
+                <label>Digite o nome do produto: <br />
+                    <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} />
+                </label>
+                <br />
+                <label>Digite o preço: <br />
+                    <input onChange={(e) => alteraPreco(e.target.value)} value={preco} />
+                </label>
+                <br />
+                <label>Digite a quantidade: <br />
+                    <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} />
+                </label>
+                <br/>
+                <button>Salvar</button>
+            </form>
+        </div>
+    </div>
+)}
+
 
 
             <hr />
@@ -207,6 +236,9 @@ export default function Home() {
             <p>Busca de produtos. Digite o ID:</p>
             <input onChange={(e) => alteraPesquisa(e.target.value)} />
             <button onClick={() => buscaPorID(pesquisa)} >Pesquisar</button>
+<br/><br/>
+            <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastrar</button>
+
 
 
             <style>
@@ -217,9 +249,7 @@ export default function Home() {
                         border-collapse: collapse;
                         margin: 20px 0;
                         font-family: 'Arial', sans-serif;
-                        // max-height: 500px; /* Define a altura máxima da tabela */
-                        // overflow-y: auto; /* Adiciona rolagem vertical */
-                        // display: block; /* Necessário para permitir a rolagem */
+                        
                     }
                     th, td {
                         border: 1px solid #ddd;
@@ -281,18 +311,7 @@ export default function Home() {
                                         `}
             </style>
 
-            <h2>Editar</h2>
-
-            <form onSubmit={(e) => enviaFormulario(e)} >
-                <label> Digite o nome do produto: <br /> <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} /> </label>
-                <br />
-                <label> Digite o preço: <br /> <input onChange={(e) => alteraPreco(e.target.value)} value={preco} /> </label>
-                <br />
-                <label> Digite a quantidade: <br /> <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} /> </label>
-                <br />
-                <button>Salvar</button>
-
-            </form>
+           
 
             <br /><br /><br />
 
@@ -302,11 +321,10 @@ export default function Home() {
                 produtos.length > 0 ?
                     <table>
                         <tr>
-                            <td>ID</td>
-                            <td>Nome</td>
-                            <td>Preço</td>
-                            <td>Quantidade</td>
-                           
+                            <td><strong>ID</strong></td>
+                            <td><strong>Nome</strong></td>
+                            <td><strong>Preço</strong></td>
+                            <td><strong>Quantidade</strong></td>
                         </tr>
                         {
                             produtos.map(i =>
