@@ -15,25 +15,6 @@ export async function GET(){
 
 }
 
-export async function POSTasdasd( request ){
-
-    const body = await request.json()
-
-    const query = `
-            INSERT INTO estoque 
-            (id_produto, quantidade, entrada)
-            VALUES 
-            (77, ?, 1);
-    `
-    
-    const [results] = await conexao.execute(
-        query,
-        [body.quantidade]
-    )
-
-    return new Response( JSON.stringify(results.insertId) )
-
-}
 
 export async function POST( request ){
 
@@ -86,4 +67,50 @@ async function insereEstoque(id, quantidade){
 
     return results;
 
+}
+
+
+export async function PUT( request){
+
+    const body = await request.json()
+
+    await atualizaProduto(body);
+    await atualizaEstoque( body.id, body.quantidade)
+
+    return new Response( true )
+
+}
+
+export async function atualizaProduto(item){
+
+    const query = `
+        UPDATE produtos
+        SET nome = ?, preco = ?, quantidade = ?
+        WHERE id = ?;
+    `
+
+    const [results] = await conexao.execute(
+        query,
+        [item.nome, item.preco, item.quantidade, item.id]
+    )
+
+    return results;
+
+}
+
+export async function atualizaEstoque(id, quantidade) {
+
+    const query = `
+        UPDATE estoque 
+        SET quantidade = ?, entrada = 1
+        WHERE id = ? 
+        
+    `
+
+    const [results] = await conexao.execute(
+        query,
+        [quantidade, id ]
+    )
+    
+    return results;
 }

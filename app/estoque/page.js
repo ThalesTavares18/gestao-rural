@@ -53,12 +53,13 @@ export default function Home() {
     async function atualizaProduto() {
 
         const obj = {
+            id: editando,
             nome: nome,
             preco: preco,
             quantidade: quantidade
         }
 
-        const response = await axios.put(host + "/estoque/" + editando, obj)
+        const response = await axios.put(host + "/estoque", obj)
 
         buscaTodos()
 
