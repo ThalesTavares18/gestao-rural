@@ -16,27 +16,27 @@ export default function MeusClientes() {
 
     const [nome, alteraNome] = useState("");
     const [contato, alteraContato] = useState("");
-    
+
     const [pesquisa, alteraPesquisa] = useState("");
     const [editando, alteraEditando] = useState(0)
- 
+
 
     async function buscaTodos() {
-        const response = await axios.get(host+"/meus_clientes");
+        const response = await axios.get(host + "/meus_clientes");
         alteraUsuario(response.data);
         console.log(response.data);
     }
 
-    async function buscaPorNome( nome ){
+    async function buscaPorNome(nome) {
 
         nome = nome.trim(); // Remove espaços extras
         if (!nome) return;  // Não faz a pesquisa se nome estiver vazio
 
-        const response= await axios.get(host+"/meus_clientes/"+nome)
+        const response = await axios.get(host + "/meus_clientes/" + nome)
         alteraUsuario(response.data)
         console.log(response.data)
     }
-      
+
     async function insereUsuario() {
 
         if (!nome || !contato) return;
@@ -46,7 +46,7 @@ export default function MeusClientes() {
             contato: contato,
         }
 
-        const response = await axios.post(host+"/meus_clientes", obj);
+        const response = await axios.post(host + "/meus_clientes", obj);
         console.log(response);
 
         buscaTodos()
@@ -58,78 +58,78 @@ export default function MeusClientes() {
         let nomeLocal = nome
         nomeLocal = nomeLocal.toLowerCase()
 
-        
-        
-        if(nomeLocal.length <= 1){
+
+
+        if (nomeLocal.length <= 1) {
             toast.error("Nome muito curto")
             return
         }
-        
-        if(nomeLocal.length == 0){
+
+        if (nomeLocal.length == 0) {
             toast.error("Por favor digite um nome valido")
             return
         }
-        
+
         let contatoLocal = contato
         contatoLocal = contatoLocal.toLowerCase()
-        
 
-        if(contatoLocal.length <= 8){
+
+        if (contatoLocal.length <= 8) {
             toast.error("contato invalido")
             return
         }
 
 
-    
+
 
         const obj = {
             nome: nomeLocal,
             contato: contato,
         }
-        
-        if(length.nomeLocal <= 3){
+
+        if (length.nomeLocal <= 3) {
             console.log("Nome muito curto")
             return
-            
+
         }
 
         if (editando == 0) {
             insereUsuario(obj);
         }
-    else{
-        atualizaUsuario(obj)
+        else {
+            atualizaUsuario(obj)
+        }
     }
-} 
 
-    async function atualizaUsuario(obj){
+    async function atualizaUsuario(obj) {
 
         console.log(obj);
-        const response = await axios.put(host+"/meus_clientes/"+editando, obj)
+        const response = await axios.put(host + "/meus_clientes/" + editando, obj)
         console.log(response)
         buscaTodos()
 
         alteraEditando(0)
         alteraNome("")
         alteraContato("")
-        
 
-}
 
-    async function removeUsuarios(id){
-        await axios.delete(host+"/meus_clientes/"+id)
+    }
+
+    async function removeUsuarios(id) {
+        await axios.delete(host + "/meus_clientes/" + id)
         buscaTodos()
 
     }
 
-    function montaEdicao( i ){
+    function montaEdicao(i) {
         alteraEditando(i.id)
         alteraNome(i.nome)
         alteraContato(i.contato)
-       
+
     }
 
     function cancelarEdicao() {
-       
+
         alteraEditando(0);
         alteraNome("");
         alteraContato("");
@@ -141,26 +141,36 @@ export default function MeusClientes() {
 
     return (
         <div>
-            <a href="http://localhost:3000/">
-                <button className="buttonVoltar"> Voltar </button>
-            </a>
-            <br />
-            <br />
+            <div className="barrinhaverde">
 
-            <img className="logo" src="logo.png" width={100} height={100} />
+                <div className="Logo">
 
-            <div className="MenuClientes">
+                    <img className="logo" src="logo.png" width={100} height={100} />
 
-                <h1> Meus Clientes</h1>
-            
+                    <h1>Meus Clientes</h1>
+
+                </div>
+
+
+
+
+                <div className="BotaoVoltar">
+
+                    <a href="http://localhost:3000/">
+                        <button className="buttonVoltar"> Voltar </button>
+
+                    </a>
+
+                </div>
+
             </div>
-            <br/>
+            <br />
 
-           
-                <input placeholder="Pesquisa por Nome..." onChange={(e) => alteraPesquisa(e.target.value)} />
-                <button className="buttonSalvar" onClick={() => buscaPorNome(pesquisa)} > Pesquisar </button>
-                <hr />
-           
+
+            <input placeholder="Pesquisa por Nome..." onChange={(e) => alteraPesquisa(e.target.value)} />
+            <button className="buttonSalvar" onClick={() => buscaPorNome(pesquisa)} > Pesquisar </button>
+            <hr />
+
 
             <div>
                 <style>
@@ -194,69 +204,69 @@ export default function MeusClientes() {
 
                 <h2> Lista de Contatos </h2>
 
-            {   
-            
-                usuario.length > 0 ? 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Contato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {usuario.map((i, index) => (
-                                <tr key={index}>
-                                    <td>{i.id}</td>
-                                    <td>{i.nome}</td>
-                                    <td>{i.contato}</td>
+                {
 
-
-                                    <td> 
-                                        <button className="buttonVoltar" onClick={ ()=> montaEdicao(i)} >Editar</button>
-                                        <button className="buttonVoltar" onClick={ ()=> removeUsuarios(i.id)} >Remover</button>
-                                    </td>
-
+                    usuario.length > 0 ?
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Contato</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                {usuario.map((i, index) => (
+                                    <tr key={index}>
+                                        <td>{i.id}</td>
+                                        <td>{i.nome}</td>
+                                        <td>{i.contato}</td>
 
-                                
-                            )
-                            )   
-                            }
-                        </tbody>
-                    </table>
-                
-                
-                : 
-                <p>Carregando...</p>
-            }
-            
+
+                                        <td>
+                                            <button className="buttonVoltar" onClick={() => montaEdicao(i)} >Editar</button>
+                                            <button className="buttonVoltar" onClick={() => removeUsuarios(i.id)} >Remover</button>
+                                        </td>
+
+                                    </tr>
+
+
+                                )
+                                )
+                                }
+                            </tbody>
+                        </table>
+
+
+                        :
+                        <p>Carregando...</p>
+                }
+
             </div>
 
             <h2> Cadastrar Clientes </h2>
             <br />
 
             <div>
-                <form onSubmit={(e)=> enviaFormulario (e)}>
+                <form onSubmit={(e) => enviaFormulario(e)}>
 
-                       
- 
-                    <label className="formulario">  Digite o nome: <br /> <input placeholder="Seu nome..." onChange={(e) => alteraNome(e.target.value)}  value={nome}/> </label>
+
+
+                    <label className="formulario">  Digite o nome: <br /> <input placeholder="Seu nome..." onChange={(e) => alteraNome(e.target.value)} value={nome} /> </label>
                     <br />
-                    <label className="formulario"> Digite o contato: <br /> <input placeholder="Email ou telefone..." onChange={(e) => alteraContato(e.target.value)}  value={contato}/> </label>
+                    <label className="formulario"> Digite o contato: <br /> <input placeholder="Email ou telefone..." onChange={(e) => alteraContato(e.target.value)} value={contato} /> </label>
                     <br />
                     <br />
 
                     <button className="buttonSalvar" type="submit" >Salvar</button>
-                 
+
                     <button className="buttonSalvar" type="submit" onClick={cancelarEdicao}>Cancelar</button>
 
                 </form>
 
-                 
 
-                    <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+
+                <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 
             </div>
 
