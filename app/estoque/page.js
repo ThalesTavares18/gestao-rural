@@ -70,8 +70,8 @@ export default function Home() {
 
     }
 
-    async function removeProduto(id) {
-        await axios.delete(host + "/estoque/" + id)
+    async function removeProduto(nome) {
+        await axios.delete(host + "/estoque/" + nome)
         buscaTodos()
     }
 

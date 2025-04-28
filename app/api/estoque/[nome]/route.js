@@ -21,10 +21,10 @@ export async function GET( request, {params} ){
 
 export async function DELETE( request, {params} ){
 
-    const id = (await params).id
+    const nome = (await params).nome
 
     const query = `DELETE FROM produtos WHERE id = ?;`
-    const [results] = await conexao.execute(query, [id])
+    const [results] = await conexao.execute(query, [nome])
 
     return new Response(
         JSON.stringify(results),
