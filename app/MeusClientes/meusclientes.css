@@ -7,6 +7,24 @@ body{
     margin: 10px;
 }
 
+.barrinhaverde{
+    background-color: #529D13;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    gap: 600px;
+    align-items: center;
+    
+}
+
+.Logo{
+
+    display: flex;
+    gap:50px;
+    font-size: 20px;
+    align-items: center;
+}
+
 .MenuClientes{
     
     padding:20px;
