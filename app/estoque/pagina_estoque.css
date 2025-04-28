@@ -114,6 +114,9 @@ h2{
     color: #000;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-right: 40px;
   }
   
   button:hover {
@@ -123,6 +126,29 @@ h2{
 .menudepesquisa input{
     margin-right: 10px;
 }
+
+.busca-produtos{
+  background: #529d13;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 360px;
+  margin-bottom: 0px;
+}
+
+.button-delet:hover{
+  background-color: rgb(189, 42, 42);
+  color: white
+}
+  
+.cadastrar{
+  margin-bottom: 20px;
+  background: #529d13;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 200px;
+}
+
+
 
 
 
