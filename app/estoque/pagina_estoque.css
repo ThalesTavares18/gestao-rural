@@ -9,7 +9,7 @@ body{
 
 
 .buttonVoltar {
-    background-color: #f7c600;
+    background-color: #ffe100;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
@@ -50,7 +50,7 @@ body{
 .CaixaTexto p{
     
     
-    background-color: #73c82c;
+    background-color: #529d13;
     border: 2px solid rgb(255, 255, 255);
     border-radius: 20px;
     padding-left: 100px;
@@ -62,7 +62,7 @@ body{
 }
 
 .barrinhaverde {
-    background-color: #4CAF50;
+    background-color: #529d13;
     padding: 10px;
     color: white;
     display: flex;
@@ -105,8 +105,8 @@ h2{
   }
 
   button {
-    margin-right: 30px;
-    background-color: #f7c600;
+    margin-left: 20px;
+    background-color: #ffe100;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;

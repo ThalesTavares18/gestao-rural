@@ -149,7 +149,14 @@ export default function Home() {
 
     useEffect(() => {
         buscaTodos()
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (pesquisa.trim() == "") {
+            buscaTodos();
+        }
+    }, [pesquisa]);
+    
 
     return (
         <div>
@@ -236,7 +243,14 @@ export default function Home() {
 
             <p>Busca de produtos por nome:</p>
             <input onChange={(e) => alteraPesquisa(e.target.value)} />
-            <button onClick={() => buscaPorNome(pesquisa)} >Pesquisar</button>
+            <button onClick={() => {
+                if(pesquisa.trim() == ""){
+                    buscaTodos();
+                } else {
+
+                    buscaPorNome(pesquisa);
+                }
+            }} >Pesquisar</button>
 <br/><br/>
             <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastrar</button>
 
