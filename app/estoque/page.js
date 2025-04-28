@@ -156,7 +156,7 @@ export default function Home() {
             buscaTodos();
         }
     }, [pesquisa]);
-    
+
 
     return (
         <div>
@@ -175,9 +175,9 @@ export default function Home() {
 
 
             <h1>Gerenciamento de produtos</h1>
-            <br/>
+            <br />
 
-            
+
 
 
 
@@ -191,7 +191,7 @@ export default function Home() {
                             setModalAberto(false); // Fecha o modal após envio
                         }}>
                             <label>Digite o nome do produto: <br />
-                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())}  />
+                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} />
                             </label>
                             <br />
                             <label>Digite o preço: <br />
@@ -201,58 +201,67 @@ export default function Home() {
                             <label>Digite a quantidade: <br />
                                 <input onChange={(e) => alteraQuantidade(e.target.value)} />
                             </label>
-                            <br/>
+                            <br />
                             <button>Salvar</button>
                         </form>
                     </div>
                 </div>
             )}
 
-            
-{modalEdicaoAberto && (
-    <div className="modal-overlay">
-        <div className="modal-content">
-            <button className="fechar" onClick={() => setModalEdicaoAberto(false)}>X</button>
-            <h2>Editar Produto</h2>
-            <form onSubmit={(e) => {
-                enviaFormulario(e);
-                setModalEdicaoAberto(false); // Fecha o modal depois de salvar
-            }}>
-                <label>Digite o nome do produto: <br />
-                    <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} />
-                </label>
-                <br />
-                <label>Digite o preço: <br />
-                    <input onChange={(e) => alteraPreco(e.target.value)} value={preco} />
-                </label>
-                <br />
-                <label>Digite a quantidade: <br />
-                    <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} />
-                </label>
-                <br/>
-                <button>Salvar</button>
-            </form>
-        </div>
-    </div>
-)}
+
+            {modalEdicaoAberto && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="fechar" onClick={() => setModalEdicaoAberto(false)}>X</button>
+                        <h2>Editar Produto</h2>
+                        <form onSubmit={(e) => {
+                            enviaFormulario(e);
+                            setModalEdicaoAberto(false); // Fecha o modal depois de salvar
+                        }}>
+                            <label>Digite o nome do produto: <br />
+                                <input onChange={(e) => alteraNome(e.target.value.toLocaleLowerCase())} value={nome} />
+                            </label>
+                            <br />
+                            <label>Digite o preço: <br />
+                                <input onChange={(e) => alteraPreco(e.target.value)} value={preco} />
+                            </label>
+                            <br />
+                            <label>Digite a quantidade: <br />
+                                <input onChange={(e) => alteraQuantidade(e.target.value)} value={quantidade} />
+                            </label>
+                            <br />
+                            <button>Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            )}
 
 
 
             <hr />
+            <br /><br />
+            <div className="busca-produtos">
+
+                <p> <strong> Busca de produtos por nome: </strong></p>
+                <input onChange={(e) => alteraPesquisa(e.target.value)} />
+
+
+                <button onClick={() => {
+                    if (pesquisa.trim() == "") {
+                        buscaTodos();
+                    } else {
+
+                        buscaPorNome(pesquisa);
+                    }
+                }} >Pesquisar</button>
+            </div>
+
             <br/><br/>
 
-            <p>Busca de produtos por nome:</p>
-            <input onChange={(e) => alteraPesquisa(e.target.value)} />
-            <button onClick={() => {
-                if(pesquisa.trim() == ""){
-                    buscaTodos();
-                } else {
-
-                    buscaPorNome(pesquisa);
-                }
-            }} >Pesquisar</button>
-<br/><br/>
-            <button className="Botoes" onClick={() => setModalAberto(true)}>Cadastrar</button>
+            <div className="cadastrar" >
+                <p><strong>  Cadastrar novo produto:  </strong></p>
+                <button onClick={() => setModalAberto(true)}>Cadastrar</button>
+            </div>
 
 
 
@@ -262,8 +271,9 @@ export default function Home() {
                     
                         width: 100%;
                         border-collapse: collapse;
-                        margin: 20px 0;
+                        margin: 20px 50;
                         font-family: 'Arial', sans-serif;
+                        background-color: #a6cc89;
                         
                     }
                     th, td {
@@ -283,6 +293,7 @@ export default function Home() {
                         background-color: #ddd;
                     }
 
+                        
 
                     .modal-overlay {
                         position: fixed;
@@ -326,12 +337,15 @@ export default function Home() {
                                         `}
             </style>
 
-           
 
-            <br /><br /><br />
 
-            <h2>Listagem</h2>
+            <br /><br />
 
+
+            <h2>Listagem:</h2>
+
+            <br/>
+            
             {
                 produtos.length > 0 ?
                     <table>
@@ -351,7 +365,7 @@ export default function Home() {
 
                                     <td>
                                         <button onClick={() => montaEdicao(i)} >Editar</button>
-                                        <button onClick={() => removeProduto(i.id)} >Remover</button>
+                                        <button className="button-delet" onClick={() => removeProduto(i.id)} >Remover</button>
                                     </td>
 
                                 </tr>
