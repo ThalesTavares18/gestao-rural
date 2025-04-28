@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import "./financeiro.css"
 import host from "../lib/host";
+import { ToastContainer, toast, Bounce } from 'react-toastify';  // Importe o Toastify
+import 'react-toastify/dist/ReactToastify.css';  // Importe o CSS necessário
 
 
 function Financeiro() {
@@ -37,12 +39,18 @@ function Financeiro() {
     // }
 
     async function pesquisadata( data ){
+        
+        
         const response = await axios.get(host+"/financeiro/"+ data)
-
         
         alteradata( response.data )
         alterames([])
         alterasemana([])
+
+
+
+
+        
 
 
 
@@ -54,15 +62,57 @@ function Financeiro() {
         alterasemana( response.data)
         alterames([])
         alteradata([])
+
+
+
+        let semanalocal = response.data
+        if(semanalocal.length == 0){
+            toast.error('Não houve vendas esse semana', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce
+            });
+            return
+        }
+
         
         
     }
     
     async function pesquisames(){
+        
+        
         const response = await axios.get(host+"/financeiro/mes")
         alterames( response.data)
         alterasemana([])
         alteradata([])
+        
+
+
+        let meslocal = response.data
+
+        
+
+        if(meslocal.length == 0){
+            toast.error('Não houve vendas esse mes', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                            transition: Bounce
+                        });
+            return
+        }
         
     }
 
@@ -310,7 +360,7 @@ function Financeiro() {
 
 
 
-
+            <ToastContainer />  {/* Coloque o ToastContainer no final para exibir os toasts */}
         </div>
 
 

@@ -63,6 +63,7 @@ button{
     background-color: green;
     color: white;
 
+
 }
 
 
@@ -147,3 +148,15 @@ h3{
 }
 
 
+.navegacao{
+    display: flex;
+    align-items: center;
+    gap: 400px;
+    background-color: white;
+
+}
+
+.navegacao a{
+    background-color: white;
+    font-size: 20px;
+}

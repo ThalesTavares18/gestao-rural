@@ -11,7 +11,7 @@ function Inicio () {
                 <p>Página Inicial</p>
             </div>
 
-                 <div className="espacamento">
+                 <div className="espacamentoprincipal">
 
                     <img className="logo"src="logo.png" width={500} height={500}/>
 

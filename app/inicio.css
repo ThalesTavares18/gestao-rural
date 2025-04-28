@@ -9,6 +9,11 @@ body{
   display: flex;
 }
 
+.espacamentoprincipal{
+  display: flex;
+  margin-left: 100px;
+}
+
 .espacamento{
   display: flex;
   margin-left: 100px;
@@ -46,4 +51,22 @@ body{
   text-align: center;
   font-size: 25px;
   color: white;
+}
+
+@media screen and (max-width: 1500px) {
+  .espacamentoprincipal {
+    display: inline;
+  }
+  .espacamento{
+  
+    display: flex;
+    justify-content:center;
+  }
+  .espacamento_esquerda{
+    
+    display: flex;
+    justify-content: center;
+    margin-left: 0px;
+    margin-right: 35px ;
+  }
 }

@@ -23,10 +23,16 @@ function landingPage() {
                     <h1> Fazenda São Pedro  </h1>
 
                 </div>
-                <button> Produtos </button>
-                <button> Localização </button>
-                <a href="#contato">Contato</a>
-               
+                <div className="navegacao">
+
+
+                    <a href="#produtos">Produtos</a>
+                    <a href="#localizacao">Localização</a>
+                    <a href="#contato">Contato</a>
+                
+
+
+                </div>
 
             </div>
 
@@ -43,7 +49,7 @@ function landingPage() {
                 
                 <h3> PRODUTOS </h3> 
 
-            <div className="cardGeral">
+            <div className="cardGeral" id="produtos">
                 
                 <div className="card">
                     <img
@@ -164,7 +170,7 @@ function landingPage() {
 
             </div>
 
-            <div className="">
+            <div id="localizacao">
                 
                 <h3> Localização </h3> 
                 <div style={{ textAlign: 'center' }}>
