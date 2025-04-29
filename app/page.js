@@ -8,37 +8,22 @@ function Inicio () {
         
         <div>
             <div className="barrinhaverde">
-                <p>Página Inicial</p>
+                <img src="logo.png" width={25} height={25}/>
+                <p>Fazendo do Pedrim</p>
             </div>
 
-                 <div className="espacamento">
+                 <div className="espacamentoprincipal">
 
-                    <img className="logo"src="logo.png" width={500} height={500}/>
 
-                    <div className="espacamento_cima">
-
-                        <div className="espacamento">
-
-                            <a href="./producao_e_vendas"> <p className="botoes">Produção e Vendas </p> </a>
-                            <a href="./estoque"> <p className="botoes"> Estoque </p> </a>     
-
-                        </div>
-
-                        <div className="espacamento">
-
-                            <a href="./planilhas"> <p className="botoes"> Planilhas </p> </a>
-                            <a href="./Financeiro"> <p className="botoes"> Financeiro </p> </a>
-
-                        </div>
-
-                    <div className="espacamento_esquerda">
-
-                        <a href="./MeusClientes"> <p style={{marginLeft:30}} className="botoes"> Meus Clientes </p> </a>
-                        
+                    <div className="botoesInicial">
+                        <a href="./producao_e_vendas"> <p className="botoes"> <img src="/chart-line-solid.svg"/> <br/> Produção e Vendas </p> </a>
+                        <a href="./estoque"> <p className="botoes"> <img src="/boxes-stacked-solid.svg"/> <br/> Estoque </p> </a>     
+                        <a href="./planilhas"> <p className="botoes"> <img src="/table-solid.svg"/> <br/> Planilhas </p> </a>
+                        <a href="./Financeiro"> <p className="botoes"> <img src="/money-bill-wheat-solid.svg"/> <br/> Financeiro </p> </a>
+                        <a href="./MeusClientes"> <p style={{marginLeft:30}} className="botoes"> <img src="/users-solid.svg"/> <br/> Meus Clientes </p> </a>
                     </div>
 
-
-                    </div>
+                    <img className="logo"src="logo.png" width={250} height={250}/>
 
                 </div>
 

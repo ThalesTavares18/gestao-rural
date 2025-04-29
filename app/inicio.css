@@ -4,9 +4,12 @@ body{
 
 .logo{
   margin: 50px;
-  margin-left: 200px;
-  margin-top: 200px;
   display: flex;
+}
+
+.espacamentoprincipal{
+  display: flex;
+  margin-left: 100px;
 }
 
 .espacamento{
@@ -22,11 +25,6 @@ body{
   text-align: center;
   padding-top: 30px;
   background-color: whitesmoke;
-}
-
-.botoes:hover{
-  background-color: #529D13;
-  color: white;
 }
 
 .espacamento_cima{
@@ -46,4 +44,44 @@ body{
   text-align: center;
   font-size: 25px;
   color: white;
+}
+
+
+.espacamentoprincipal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+.botoesInicial{
+  display: flex;
+}
+.botoesInicial p{
+  border-bottom: 10px solid #1fae1f;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 125px;
+}
+.botoesInicial p:hover{
+  border-bottom: 20px solid #1fae1f;
+  color: #0f570f;
+  transform: scale(1.05);
+}
+.botoesInicial p img{
+  width: 25px;
+}
+.botoesInicial p:hover img{
+  filter: invert(26%) sepia(100%) saturate(1000%) hue-rotate(90deg);
+}
+
+.barrinhaverde{
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.barrinhaverde img{
+  filter: brightness(100);
 }
