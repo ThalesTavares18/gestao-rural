@@ -34,7 +34,6 @@ export default function MeusClientes() {
 
         const response = await axios.get(host + "/meus_clientes/" + nome)
         alteraUsuario(response.data)
-        console.log(response.data)
     }
 
     async function insereUsuario() {

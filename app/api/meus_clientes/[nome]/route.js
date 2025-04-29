@@ -5,7 +5,7 @@ export async function GET(request, { params }) {
   
     const nome = await (params).nome;
 
-    const query = `SELECT * FROM contatos WHERE nome = ?;`;
+    const query = `SELECT * FROM contatos WHERE nome LIKE '%${nome}%';`;
     const [results] = await conexao.execute(query, [nome]);
 
 
