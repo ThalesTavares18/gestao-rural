@@ -4,8 +4,6 @@ body{
 
 .logo{
   margin: 50px;
-  margin-left: 200px;
-  margin-top: 200px;
   display: flex;
 }
 
@@ -29,11 +27,6 @@ body{
   background-color: whitesmoke;
 }
 
-.botoes:hover{
-  background-color: #529D13;
-  color: white;
-}
-
 .espacamento_cima{
   margin-top: 200px;
 }
@@ -53,25 +46,42 @@ body{
   color: white;
 }
 
-@media screen and (max-width: 1500px) {
-  .espacamentoprincipal {
-    display: inline;
-  }
-  .espacamento{
-  
-    display: flex;
-    justify-content:center;
-    flex-direction: column;
-    margin-left: 0px;
-    align-items: center;
-  }
-  .espacamento_esquerda{
-    
-    display: flex;
-    justify-content: center;
-    margin-left: 0px;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+
+.espacamentoprincipal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+.botoesInicial{
+  display: flex;
+}
+.botoesInicial p{
+  border-bottom: 10px solid #1fae1f;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 125px;
+}
+.botoesInicial p:hover{
+  border-bottom: 20px solid #1fae1f;
+  color: #0f570f;
+  transform: scale(1.05);
+}
+.botoesInicial p img{
+  width: 25px;
+}
+.botoesInicial p:hover img{
+  filter: invert(26%) sepia(100%) saturate(1000%) hue-rotate(90deg);
+}
+
+.barrinhaverde{
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.barrinhaverde img{
+  filter: brightness(100);
 }
