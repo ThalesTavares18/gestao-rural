@@ -260,8 +260,8 @@ function Financeiro() {
                                 <tr  >
                         
                                     <td>{i.nome}</td>
-                                    <td>{i.quantidade}</td>
-                                    <td>R${i.total_venda.toFixed()}</td>
+                                    <td>{i.quantidade} Kg</td>
+                                    <td>R$ {i.total_venda.toFixed()}</td>
                                     <td>{formataData(i.data)}</td>
                                     
 
@@ -305,8 +305,8 @@ function Financeiro() {
                                 <tr>
                         
                                     <td>{i.nome}</td>
-                                    <td>{i.quantidade}</td>
-                                    <td>R${i.total_venda.toFixed()}</td>
+                                    <td>{i.quantidade} Kg</td>
+                                    <td>R$ {i.total_venda.toFixed()}</td>
                                     <td>{formataData(i.data)}</td>
                                     
 
@@ -342,8 +342,8 @@ function Financeiro() {
                                 <tr  >
                         
                                     <td>{i.nome}</td>
-                                    <td>{i.quantidade}</td>
-                                    <td>R${i.total_venda.toFixed()}</td>
+                                    <td>{i.quantidade} Kg</td>
+                                    <td>R$ {i.total_venda.toFixed()}</td>
                                     <td>{formataData(i.data)}</td>
                                     
 

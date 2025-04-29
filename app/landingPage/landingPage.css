@@ -4,7 +4,7 @@
     background: #e8fbd9;
     font-family: "Open Sans", serif;
     color: #111111;
-   
+    
 }
 
 html{
@@ -16,7 +16,7 @@ html{
     display: flex;
     justify-content: space-around;
     height: 120px; 
-   
+    
 }
 
 .menuPrincipal button{
@@ -32,7 +32,7 @@ button{
     border: none;
     background-color: white;
     font-weight: bold;
-
+    
 }
 
 .logo{
@@ -40,11 +40,12 @@ button{
 }
 
 .menuCentral {
-    background-image: url('https://static.vecteezy.com/ti/fotos-gratis/p2/7426181-vista-aerea-de-uma-grande-fazenda-brasileira-com-plantacao-de-cafe-no-brasil-foto.jpg'); /* sem ponto antes da barra */
+    background-image:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://static.vecteezy.com/ti/fotos-gratis/p2/7426181-vista-aerea-de-uma-grande-fazenda-brasileira-com-plantacao-de-cafe-no-brasil-foto.jpg')  ; /* sem ponto antes da barra */
     background-size: cover;
     background-position: center;
     height: 400px;
-  }
+}
+
 
 .menuCentral a{
     display: flex;
@@ -52,18 +53,27 @@ button{
     margin-top: 60px;
     background-color: transparent;
     
+    
+}
 
+.menuCentral p{
+    margin-top: 20px;
 }
 
 .botaoMenu{
-
-    width: 90px;
-    height: 40px;
+    
+    width: 110px;
+    height: 50px;
     border-radius: 8px;
     background-color: green;
     color: white;
+    margin-top: 10px;
+    
+    
+}
 
-
+.botaoMenu:hover{
+    background-color: #ffe100;
 }
 
 
@@ -83,8 +93,8 @@ button{
     background-color: white;
     background-color: transparent;
     gap: 20px;
-
-
+    
+    
 }
 
 
@@ -93,19 +103,19 @@ button{
 }
 
 .cardGeral {
-
+    
     display: flex;
     justify-content: space-between;
     margin: 40px;
-       
+    
 }
 
 .cardGeral p{
-
+    
     text-align: center;
     box-shadow: 1px 10px 10px black;
     border-radius: 30px;
-   
+    
     margin-top: 20px;
     
     
@@ -114,7 +124,8 @@ button{
 
 .informacoesContato{
     text-align: center;
-
+    background-color: blue;
+    
 }
 
 h3{
@@ -122,24 +133,26 @@ h3{
     font-size: 30px;
     margin-top: 20px;
     background-color: white;
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
 }
 
 .card {
-  box-shadow: 10 4px 40px 10 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 15%;
-  background-color: white;
+    box-shadow: 10 4px 40px 10 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 15%;
+    background-color: white;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .container {
-  padding: 2px 16px;
-  background: white;
- 
+    padding: 2px 16px;
+    background: white;
+    
 }
 
 .container h4{
@@ -153,10 +166,23 @@ h3{
     align-items: center;
     gap: 400px;
     background-color: white;
-
+    
 }
 
 .navegacao a{
     background-color: white;
     font-size: 20px;
+}
+
+
+.local{
+    margin-top:50px ;
+    margin-bottom:50px ;
+    
+}
+
+.contatos{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
