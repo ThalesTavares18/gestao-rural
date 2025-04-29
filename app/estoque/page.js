@@ -123,7 +123,7 @@ export default function Home() {
             return;
         }
 
-        if (!/^[0-9]+$/.test(quantidadeLocal)) {
+         if (!/^[0-9]+(\.[0-9]+)?$/.test(quantidadeLocal)) {
             toast.error("Digite apenas números na quantidade", {
                 position: "top-center",
                 autoClose: 5000,
@@ -256,7 +256,7 @@ export default function Home() {
                 }} >Pesquisar</button>
             </div>
 
-            <br/><br/>
+            <br /><br />
 
             <div className="cadastrar" >
                 <p><strong>  Cadastrar novo produto:  </strong></p>
@@ -267,13 +267,24 @@ export default function Home() {
 
             <style>
                 {`
+
+
+                    .table-container {
+                        max-height: 400px;       /* Limita a altura da tabela */
+                        overflow-y: auto;        /* Habilita rolagem vertical */
+                        overflow-x: hidden;      /* Evita rolagem horizontal */
+                        margin: 20px 50px;
+                        border: 1px solid #ccc;
+                    }
+
+                
                     table {
                     
                         width: 100%;
                         border-collapse: collapse;
                         margin: 20px 50;
                         font-family: 'Arial', sans-serif;
-                        background-color: #a6cc89;
+                        background-color: white;
                         
                     }
                     th, td {
@@ -344,37 +355,39 @@ export default function Home() {
 
             <h2>Listagem:</h2>
 
-            <br/>
-            
-            {
-                produtos.length > 0 ?
-                    <table>
-                        <tr>
-                            <td><strong>ID</strong></td>
-                            <td><strong>Nome</strong></td>
-                            <td><strong>Preço</strong></td>
-                            <td><strong>Quantidade</strong></td>
-                        </tr>
-                        {
-                            produtos.map(i =>
-                                <tr  >
-                                    <td>{i.id}</td>
-                                    <td>{i.nome}</td>
-                                    <td>R$ {i.preco.toFixed(2)}</td>
-                                    <td>{i.quantidade}</td>
+            <br />
 
-                                    <td>
-                                        <button onClick={() => montaEdicao(i)} >Editar</button>
-                                        <button className="button-delet" onClick={() => removeProduto(i.id)} >Remover</button>
-                                    </td>
+            <div className="table-container">
+                {
+                    produtos.length > 0 ?
+                        <table>
+                            <tr>
+                                <td><strong>ID</strong></td>
+                                <td><strong>Nome</strong></td>
+                                <td><strong>Preço</strong></td>
+                                <td><strong>Quantidade</strong></td>
+                            </tr>
+                            {
+                                produtos.map(i =>
+                                    <tr  >
+                                        <td>{i.id}</td>
+                                        <td>{i.nome}</td>
+                                        <td><strong>R$</strong> {i.preco.toFixed(2)}</td>
+                                        <td>{i.quantidade.toFixed(2)} <strong>Kg</strong></td>
 
-                                </tr>
-                            )
-                        }
-                    </table>
-                    :
-                    <p>Carregando...</p>
-            }
+                                        <td>
+                                            <button onClick={() => montaEdicao(i)} >Editar</button>
+                                            <button className="button-delet" onClick={() => removeProduto(i.id)} >Remover</button>
+                                        </td>
+
+                                    </tr>
+                                )
+                            }
+                        </table>
+                        :
+                        <p>Carregando...</p>
+                }
+            </div>
 
 
 
