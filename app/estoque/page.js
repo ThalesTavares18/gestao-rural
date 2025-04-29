@@ -123,7 +123,7 @@ export default function Home() {
             return;
         }
 
-         if (!/^[0-9]+(\.[0-9]+)?$/.test(quantidadeLocal)) {
+        if (!/^[0-9]+$/.test(quantidadeLocal)) {
             toast.error("Digite apenas números na quantidade", {
                 position: "top-center",
                 autoClose: 5000,
@@ -364,7 +364,7 @@ export default function Home() {
                             <tr>
                                 <td><strong>ID</strong></td>
                                 <td><strong>Nome</strong></td>
-                                <td><strong>Preço</strong></td>
+                                <td><strong>Preço / Kg</strong></td>
                                 <td><strong>Quantidade</strong></td>
                             </tr>
                             {
@@ -373,7 +373,7 @@ export default function Home() {
                                         <td>{i.id}</td>
                                         <td>{i.nome}</td>
                                         <td><strong>R$</strong> {i.preco.toFixed(2)}</td>
-                                        <td>{i.quantidade.toFixed(2)} <strong>Kg</strong></td>
+                                        <td>{i.quantidade} <strong>Kg</strong></td>
 
                                         <td>
                                             <button onClick={() => montaEdicao(i)} >Editar</button>
