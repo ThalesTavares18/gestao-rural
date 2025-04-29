@@ -170,10 +170,10 @@ function landingPage() {
 
             </div>
 
-            <div id="localizacao">
+            <div id="localizacao" className="localizacao">
                 
                 <h3> Localização </h3> 
-                <div style={{ textAlign: 'center' }}>
+                <div style={{ textAlign: 'center' }} className="local">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3698.6484370918515!2d-47.893978723801986!3d-22.024777606947236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b87722afe006bb%3A0x4a8b254e7543696!2sSenac%20S%C3%A3o%20Carlos!5e0!3m2!1spt-BR!2sbr!4v1744920602129!5m2!1spt-BR!2sbr"
                     width={500}
@@ -190,22 +190,15 @@ function landingPage() {
                  
             </div>
 
-            <div className="contato" id="contato">
-                
+            <h3>Contato</h3>
 
-                <div className="informacoesContato">
+            <div className="contatos" id="contato">
 
-                    <p>Telefone: 12 9999-99999 </p>
-                    <p>Email: fazendasaopedro@gmail.com </p>
-                    <a href="https://wa.me/5599999999999" target="_blank" rel="noopener noreferrer">
-                    Fale conosco no WhatsApp
-                    </a>
+                        <p>Telefone: 12 9999-99999 </p>
+                        <p>Email: fazendasaopedro@gmail.com </p>
+                        <a href="https://wa.me/5599999999999" target="_blank" rel="noopener noreferrer">
+                        Fale conosco no WhatsApp</a>
 
-
-                    
-                </div>
-
-                 
             </div>
 
 
