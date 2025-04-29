@@ -9,6 +9,7 @@
 
 html{
     scroll-behavior: smooth;
+    border: none;
 }
 
 .menuPrincipal{
@@ -22,6 +23,11 @@ html{
 .menuPrincipal button{
     font-size: 20px;
     cursor: pointer;
+}
+
+.navegacao a{
+    transform: translateY(-5px); /* sobe o link 5px */
+
 }
 
 .menuPrincipal button:hover{
@@ -68,6 +74,7 @@ button{
     background-color: green;
     color: white;
     margin-top: 10px;
+    transition: 0.5s;
     
     
 }
@@ -129,12 +136,13 @@ button{
 }
 
 h3{
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     text-align: center;
-    font-size: 30px;
-    margin-top: 20px;
-    background-color: white;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    border-bottom: 5px solid green;
+    margin-top: 30px;
+    margin-bottom: 30px;
     
 }
 
@@ -181,8 +189,77 @@ h3{
     
 }
 
-.contatos{
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+
+.footer {
+    background-color: #004d26; /* verde escuro */
+    color: white;
+    padding: 20px;
     text-align: center;
-}
+  }
+  
+  .footer i {
+    margin-right: 8px;
+    background-color: #004d26;
+  }
+  
+  .footer a {
+    color: white;
+    text-decoration: underline;
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #004d26;
+  }
+  
+  .footer a:hover {
+    text-decoration: none;
+  }
+
+  .footer p{
+    color: white;
+    background-color: #004d26;
+
+  }
+
+
+  .footer i.fa-phone-alt {
+    color: black;
+    background-color: white;       /* fundo da bolinha */            /* cor do ícone dentro */
+    border-radius: 50%;            /* forma circular */
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+
+
+  .footer i.fa-envelope {
+    color: blue;
+    background-color: white;       
+    border-radius: 50%;         
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+
+
+  .footer i.fa-whatsapp {
+    color: #25D366; /* cor oficial do WhatsApp */
+    background-color: white;       
+    border-radius: 50%;         
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+
+  }

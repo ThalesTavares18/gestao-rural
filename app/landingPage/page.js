@@ -2,7 +2,10 @@
 import "./landingPage.css";
 import React from 'react';
 
-{/* npm install react-scroll */}
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+
 
 function landingPage() {
     return ( 
@@ -47,7 +50,7 @@ function landingPage() {
                     </a>
             </div>
                 
-                <h3> PRODUTOS </h3> 
+                <h3> Produtos </h3> 
 
             <div className="cardGeral" id="produtos">
                 
@@ -192,14 +195,18 @@ function landingPage() {
 
             <h3>Contato</h3>
 
-            <div className="contatos" id="contato">
+            <footer className="footer" id="contato">
+            <p><i className="fas fa-phone-alt"></i> Telefone: 12 9999-99999</p>
+            <p><i className="fas fa-envelope"></i> Email: fazendasaopedro@gmail.com</p>
+            <a 
+                href="https://wa.me/5599999999999" 
+                target="_blank" 
+                rel="noopener noreferrer"
+            >
+                <i className="fab fa-whatsapp"></i> Fale conosco no WhatsApp
+            </a>
+            </footer>
 
-                        <p>Telefone: 12 9999-99999 </p>
-                        <p>Email: fazendasaopedro@gmail.com </p>
-                        <a href="https://wa.me/5599999999999" target="_blank" rel="noopener noreferrer">
-                        Fale conosco no WhatsApp</a>
-
-            </div>
 
 
 

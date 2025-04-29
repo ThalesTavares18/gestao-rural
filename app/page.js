@@ -9,7 +9,7 @@ function Inicio () {
         <div>
             <div className="barrinhaverde">
                 <img src="logo.png" width={25} height={25}/>
-                <p>Fazendo do Pedrim</p>
+                <p>Fazenda São Pedro</p>
             </div>
 
                  <div className="espacamentoprincipal">
