@@ -7,6 +7,7 @@
     
 }
 
+
 html{
     scroll-behavior: smooth;
     border: none;
@@ -42,11 +43,14 @@ button{
     background-color: white;
 }
 
+
 .menuCentral {
     background-image:  linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://static.vecteezy.com/ti/fotos-gratis/p2/7426181-vista-aerea-de-uma-grande-fazenda-brasileira-com-plantacao-de-cafe-no-brasil-foto.jpg')  ; /* sem ponto antes da barra */
     background-size: cover;
     background-position: center;
     height: 400px;
+    color:black;
+    
 }
 
 
@@ -57,10 +61,13 @@ button{
     background-color: transparent;
     
     
+    
 }
 
 .menuCentral p{
-    margin-top: 20px;
+    margin-top: 30px;
+    color:black;
+
 }
 
 .botaoMenu{

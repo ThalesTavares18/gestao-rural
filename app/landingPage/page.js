@@ -43,7 +43,7 @@ function landingPage() {
                 
               
                 <br/>
-                <p> Melhor Fazenda do mundo!!!</p>
+                <p className="teste"> Plantando o Futuro</p>
 
                     <a href="http://localhost:3000/">
                         <button className="botaoMenu"> Iniciar </button>
