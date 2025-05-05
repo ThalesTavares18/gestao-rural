@@ -16,14 +16,20 @@ html{
 .menuPrincipal{
     background-color: white;
     display: flex;
-    justify-content: space-around;
-    height: 120px; 
+    justify-content: center;
+    height: 100px; 
+    
     
 }
 
 .menuPrincipal button{
-    font-size: 20px;
+    font-size: 10px;
     cursor: pointer;
+}
+
+
+.logoNome h1{
+    font-size: 20px;
 }
 
 
@@ -177,9 +183,10 @@ h3{
 .navegacao{
     display: flex;
     align-items: center;
-    gap: 400px;
+    gap: 150px;
     background-color: white;
     cursor: pointer;
+    padding-left:25px;
     
 }
 
