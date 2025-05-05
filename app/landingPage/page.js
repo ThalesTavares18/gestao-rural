@@ -3,6 +3,8 @@ import "./landingPage.css";
 import React from 'react';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import host from "../lib/host";
+
 
 
 
@@ -45,7 +47,7 @@ function landingPage() {
                 <br/>
                 <p className="teste"> Plantando o Futuro</p>
 
-                    <a href="http://localhost:3000/">
+                    <a href="http://10.60.46.53:3000">
                         <button className="botaoMenu"> Iniciar </button>
                     </a>
             </div>

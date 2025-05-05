@@ -192,7 +192,7 @@ function Producao_e_vendas() {
             </div>
         
             <div className="BotaoVoltar">
-              <a href=" http://localhost:3000/">
+              <a href="http://10.60.46.53:3000">
                 <button className="buttonVoltar">Voltar</button>
               </a>
             </div>
