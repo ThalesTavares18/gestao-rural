@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🌾 Fazenda São Pedro - Sistema de Gestão
 
-First, run the development server:
+Este é um sistema de gestão para a **Fazenda São Pedro**, desenvolvido com **React**, **Next.js** e **MySQL**, que facilita o controle de **produção**, **vendas**, **estoque**, **planilhas**, **financeiro** e **clientes**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🖼️ Tela Inicial
+
+A interface inicial é um painel com acesso rápido às seguintes seções:
+
+- 📈 Produção e Vendas  
+- 📦 Estoque  
+- 📊 Planilhas  
+- 💰 Financeiro  
+- 🧑‍🤝‍🧑 Meus Clientes  
+
+Cada botão leva a uma página específica do sistema.
+
+**Componente:** `Inicio.jsx`  
+**Estilos:** `inicio.css`
+
+---
+
+## 💰 Módulo Financeiro
+
+Tela para consulta de vendas por **data**, **semana** ou **mês**.  
+Utiliza `axios` para buscar dados de vendas em endpoints da API e exibe os resultados em uma tabela.
+
+### Funcionalidades
+
+- 📅 Seleção de data específica
+- 📆 Consulta de vendas semanais e mensais
+- 📊 Tabelas dinâmicas
+- 🔔 Feedback com `react-toastify` para ausência de vendas
+
+**Componente:** `Financeiro.jsx`  
+**Estilos:** `financeiro.css`
+
+---
+
+## 📡 API de Produtos
+
+API RESTful para gerenciamento de **produtos** e **estoques**.
+
+### Endpoints
+
+#### `GET /api/produtos`
+
+Retorna todos os produtos cadastrados.
+
+```json
+[
+  {
+    "id": 1,
+    "nome": "Tomate",
+    "preco": 10.5,
+    "quantidade": 100
+  }
+]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### `POST /api/produtos`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Cadastra um novo produto e registra sua quantidade inicial no estoque.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Corpo:**
+```json
+{
+  "nome": "Cenoura",
+  "preco": 5.2,
+  "quantidade": 50
+}
+```
 
-## Learn More
+**Resposta:**
+```json
+2
+```
 
-To learn more about Next.js, take a look at the following resources:
+#### `PUT /api/produtos`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Atualiza um produto e sua quantidade no estoque.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Corpo:**
+```json
+{
+  "id": 1,
+  "nome": "Tomate Atualizado",
+  "preco": 11.0,
+  "quantidade": 80
+}
+```
 
-## Deploy on Vercel
+**Resposta:**
+```json
+true
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🗃️ Banco de Dados
+
+O sistema espera duas tabelas principais no banco MySQL:
+
+#### `produtos`
+| Campo      | Tipo     | Descrição             |
+|------------|----------|------------------------|
+| id         | INT      | Chave primária         |
+| nome       | VARCHAR  | Nome do produto        |
+| preco      | DECIMAL  | Preço unitário         |
+| quantidade | INT      | Quantidade atual       |
+
+#### `estoque`
+| Campo       | Tipo     | Descrição                            |
+|-------------|----------|---------------------------------------|
+| id_produto  | INT      | Relacionado ao produto                |
+| quantidade  | INT      | Quantidade inserida                  |
+| entrada     | BOOLEAN  | `1` para entrada, pode expandir uso  |
+
+---
+
+## 🚀 Tecnologias
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [MySQL](https://www.mysql.com/)
+- [Axios](https://axios-http.com/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+
+---
+
+## 📁 Estrutura
+
+```
+/
+├─ app/
+│  ├─ api/produtos/route.js
+│  ├─ lib/
+│  │  └─ conexao.js
+│  ├─ page.jsx
+│  ├─ financeiro/
+│  │  └─ Financeiro.jsx
+│  └─ inicio/
+│     └─ Inicio.jsx
+├─ public/
+│  └─ logo.png
+├─ styles/
+│  ├─ inicio.css
+│  └─ financeiro.css
+├─ README.md
+```
+
+---
+
+## 📌 Requisitos
+
+- Node.js
+- MySQL com banco configurado
+- `.env` com variáveis de conexão ao banco
